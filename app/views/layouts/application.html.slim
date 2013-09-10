@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title
+      = content_for?(:title) ? yield(:title) : "BitTorious"
+    meta name="description" content=""
+    meta name="author" content=""
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    / Add Google Maps APP support.
+    script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXBBZ0-jdT4ZL5V3cK3Cu2SRuwS4Je1lY&sensor=false"
+    = csrf_meta_tags
+    = yield(:head)
+    = yield(:javascripts)
+    /![if lt IE 10]
+      style
+        | #search_results:hover { color: #444 !important; }
+        | .content #dashboard h1 { color: #444 !important; }
+        | .content #dashboard h2 { color: #444 !important; }
+
+    /![endif]
+
+  body
+    header class="navbar navbar-fixed-top"
+      nav class="navbar-inner"
+        div class="container"
+          = render 'layouts/navigation'
+    div id="main" role="main"
+      div class="container"
+        div class="content"
+          div class="row"
+            div class="span12"
+              = render 'layouts/messages'
+              = yield
+      = render partial: 'layouts/footer'
+      / Add UserVoice support.
+    javascript:
+
+      // Add UserVoice support.
+      var uvOptions = {};
+      (function() {
+        var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/W1KxDyZpxuS5yp2DlQvCA.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+      })();
+
+      // Add Google Analytics support.
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-35664447-1']);
+      _gaq.push(['_trackPageview']);
+      
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class UsersController - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/users_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-approve">#approve</a>
+    
+    <li><a href="#method-i-deny">#deny</a>
+    
+    <li><a href="#method-i-manage">#manage</a>
+    
+    <li><a href="#method-i-transfer">#transfer</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Paperclip.html">Paperclip</a>
+  
+    <li><a href="./Paperclip/RewriteAnnounce.html">Paperclip::RewriteAnnounce</a>
+  
+    <li><a href="./Paperclip/RewriteAnnounce/InstanceNotGiven.html">Paperclip::RewriteAnnounce::InstanceNotGiven</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./AdminMailer.html">AdminMailer</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Feed.html">Feed</a>
+  
+    <li><a href="./FeedsController.html">FeedsController</a>
+  
+    <li><a href="./FeedsHelper.html">FeedsHelper</a>
+  
+    <li><a href="./Peer.html">Peer</a>
+  
+    <li><a href="./PeerReaper.html">PeerReaper</a>
+  
+    <li><a href="./Permission.html">Permission</a>
+  
+    <li><a href="./PermissionsController.html">PermissionsController</a>
+  
+    <li><a href="./PermissionsHelper.html">PermissionsHelper</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Torrent.html">Torrent</a>
+  
+    <li><a href="./TorrentsController.html">TorrentsController</a>
+  
+    <li><a href="./TorrentsHelper.html">TorrentsHelper</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="./WelcomeHelper.html">WelcomeHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class UsersController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-approve" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">approve</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="approve-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">approve</span>
+  <span class="ruby-identifier">authorize!</span> <span class="ruby-value">:approve</span>, <span class="ruby-ivar">@user</span>
+  <span class="ruby-identifier">approved</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">approve!</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:approved</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">approved</span>, <span class="ruby-value">:html</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">render_to_string</span>(<span class="ruby-string">&#39;_approved_user&#39;</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:locals</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:approved_user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>})}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- approve-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- approve-method -->
+
+    
+      <div id="method-i-deny" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deny</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deny-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deny</span>
+  <span class="ruby-identifier">authorize!</span> <span class="ruby-value">:approve</span>, <span class="ruby-ivar">@user</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">deny!</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- deny-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- deny-method -->
+
+    
+      <div id="method-i-manage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">manage</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="manage-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 6</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">manage</span>
+<span class="ruby-ivar">@approved</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">approved</span>
+<span class="ruby-ivar">@pending</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">pending</span>
+<span class="ruby-identifier">authorize_resource</span>(<span class="ruby-ivar">@approved</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@pending</span>)
+    <span class="ruby-keyword">end</span></pre>
+          </div><!-- manage-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- manage-method -->
+
+    
+      <div id="method-i-transfer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">transfer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="transfer-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">transfer</span>
+  <span class="ruby-identifier">authorize_resource</span>(<span class="ruby-ivar">@user</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">transfer_ownership</span>(<span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>][<span class="ruby-value">:new_owner_id</span>]))
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&#39;Ownership of torrents successfully transfered&#39;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_user_registration_path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- transfer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- transfer-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-identifier">authorize_resource</span>(<span class="ruby-ivar">@user</span>)
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>]))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

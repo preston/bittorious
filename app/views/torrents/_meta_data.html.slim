@@ -1,0 +1,6 @@
+tbody
+  -meta_data.each_pair do |k,v|
+    -next if k == 'info' #used for tracker
+    tr
+      td #{k}
+      td #{v}

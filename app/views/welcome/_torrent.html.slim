@@ -1,0 +1,16 @@
+tr class='torrent_link' id="torrent_#{torrent.id}" data-id="#{torrent.id}" data-href="#{url_for torrent}"
+  td #{torrent.name}
+  td #{torrent.user.to_s}
+  td
+  	p class="lead"
+	  	= torrent.seed_count
+  td
+  	p class="lead"
+	 	= torrent.peer_count
+  td
+	= torrent.size
+  td
+    = link_to "<i class='icon-download icon-white'/> Download".html_safe, torrent.torrent_file.url(:bt), :class => 'btn btn-success'
+    - if can? :manage, torrent
+      = link_to '<i class="icon-edit icon-white"></i> Edit'.html_safe, edit_torrent_path(torrent), 'class' => "btn btn-warning"
+      = link_to "<i class='icon-trash icon-white'/> Delete".html_safe, torrent, :class => 'btn btn-danger', :confirm => 'Are you sure you want to delete this torrent?', :method => :delete

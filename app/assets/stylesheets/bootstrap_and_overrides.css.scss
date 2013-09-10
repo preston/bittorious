@@ -1,0 +1,9 @@
+@import "bootstrap";
+body { padding-top: 60px; }
+@import "bootstrap-responsive";
+
+
+// Default is 400px for some reason.
+.modal-body {
+	max-height: inherit;
+}

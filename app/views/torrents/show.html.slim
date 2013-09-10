@@ -1,0 +1,55 @@
+/ p id="notice"
+/  = notice
+div class="row-fluid"
+  div class="span6"
+    h2 #{resource.name}
+    h6
+      | Tags: 
+      =resource.tags.collect(&:name).join(' | ')
+    div id="links"
+      =link_to "<i class='icon-download icon-white' ></i> Download".html_safe, resource.torrent_file.url(:bt), :class => 'btn btn-success'
+      - if resource.feed
+        =link_to "<i class='icon-th-list icon-white' ></i> RSS For '#{resource.feed.name}' Feed".html_safe, feed_path(resource.feed, :format => :xml), :class => 'btn btn-success'
+  div class="span6"
+    h3 Active Peers
+    table
+      thead
+        tr
+          th IPv4
+          th Port
+          th State
+          th Needs
+          th Uploaded
+          th Last Registered
+      tbody
+        - resource.peers.active.each do |peer|
+          tr class="peer" data-ipv4_address="#{peer.ip}" data-latitude="#{peer.latitude}" data-longitude="#{peer.longitude}"
+            tr
+              td
+                = peer.ip
+              td
+                = peer.port
+              td
+                = peer.left > 0 ? 'Peer' : 'Seeding'
+              td
+                = as_size peer.left
+              td
+                = as_size peer.uploaded
+              td
+                = time_ago_in_words peer.updated_at
+                |  ago
+
+- if resource.peers.active.count > 0
+  div id="torrent_map" class="row-fluid"
+    = render partial: 'layouts/google_map'
+    javascript:  
+      // Initialize the map.
+      var mapOptions = {
+        center: new google.maps.LatLng(40.397, -98.644),
+        zoom: 4,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+  
+      initMapData();
+= render partial: 'layouts/disqus'

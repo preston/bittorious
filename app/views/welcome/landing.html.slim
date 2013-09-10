@@ -1,0 +1,234 @@
+- devise_mapping = Devise.mappings[:user]
+- resource_name = :user
+- resource = User.new
+
+div id="landing"
+
+	section.row#splash
+	
+		div.span8#overview_carousel
+			h1 Big Data
+			h4 syndication, replication, and archiving  
+			= image_tag 'Architecture Diagram v3.png'
+
+		
+		div.span4#login_box
+			hr
+			- if user_signed_in?
+				/ h1 Welcome
+				/ p To get started using Bittorious simply use the navigation bar at the top of the page
+				/ p The dashboard is your gateway to all you torrents and feeds
+			-else
+				h1 Sign in!
+				= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+					div
+						= f.label :email
+						= f.email_field :email
+				
+						= f.label :password
+						= f.password_field :password
+				
+					- if devise_mapping.rememberable?
+						div
+							= f.check_box :remember_me
+							= f.label :remember_me
+				
+					div
+						= f.submit "Sign in"
+				- if devise_mapping.registerable? && controller_name != 'registrations'
+					/ link_to "Sign up", new_registration_path(resource_name)
+					/ Button to trigger modal
+					a href="#request_account" role="button" data-toggle="modal" Request an account.
+					br
+				
+				- if devise_mapping.recoverable? && controller_name != 'passwords'
+					= link_to "Forgot your password?", new_password_path(resource_name)
+					br
+				- if devise_mapping.confirmable? && controller_name != 'confirmations'
+					= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+					br
+				- if devise_mapping.lockable? && User.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+					= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
+					br
+				- if devise_mapping.omniauthable?
+					- resource_class.omniauth_providers.each do |provider|
+						= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+						br
+			hr
+			p.muted BitTorious manages replication of large data sets with SSL encryption, authentication, and role-based authorization, adding security to the standardized bittorrent while remaining true to the open standards on which it is built.
+			hr
+
+		/ Modal
+		div class="modal hide fade" id="request_account" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			div class="modal-header"
+				button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+				h3 id="myModalLabel" Want access?
+			div class="modal-body"
+				p Great! Fill out this super-duper form, and the folks in charge will be notified. You'll get an email once your account is approved.
+				= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+					div
+						= f.label :email
+						= f.email_field :email
+
+					div
+						= f.label :password
+						= f.password_field :password
+
+					div
+						= f.label :password_confirmation
+						= f.password_field :password_confirmation
+					div class="hidden"
+						= f.submit "Sign up"
+			div class="modal-footer"
+				button class="btn" data-dismiss="modal" aria-hidden="true" Nevermind
+				button class="btn btn-primary" Submit
+	
+	
+	section id="benefits" class="row-fluid"
+		div.span6
+			h4 Core Solution Benefits
+			p BitTorious is a custom data publication, subscription, indexing and search web application for collaborations centered around large data sets. Unlike direct point-to-point data transfer mechanisms provided by protocols such as HTTP, FTP and Rsync, BitTorious builds central data indexing, search and sharing tools on top of the free, established, distributed BitTorrent data transfer mechanism that performs best at large scales.
+			ul
+				li Supports 64-bit data payloads greater than 1TB in size.
+				li Performance improves with scale.
+				li Straightforward data publisher/subscriber role management.
+				li Custom per-payload metadata management and search.
+				li Automated transfers using standard RSS data feeds.
+				li Simple deployment: centralized web portal plus local clients.
+				li Free-use client licensing means costs scale slower than capacity.
+				li Builds atop the published, proven, budget-friendly BitTorrent protocol.
+				li IT-friendly bandwidth and QoS management.
+				li Automatic block-based checksum validation for high reliability.
+		div.span6
+			h4 Powered by BitTorrent
+			p In addition, the underlying BitTorrent protocol provides a multitude of desirable features that control complexity and cost:
+			ul
+				li Uses existing, standard Internet connections.
+				li Runs on all common server and desktop computing platforms.
+				li Many free client options from which to choose.
+				li Automatic block-based checksum validation. 
+				li Supports Intranet/Internet hybrid transfers for large institutions.
+				li Fault-tolerance and reliability improve dramatically at scale.
+				li No dedicated local servers required.
+				li Non-linear transfer swarms using standard BitTorrent protocol.
+				li For dedicated download-only clients, recommended minimum system specs are 4GB RAM, 2x 2GHz
+				li Concurrent P2P transfers for all clients.
+				li File integrity checking.
+				li Pause/Resume support.
+				li Free licensing.
+				li Cross-platform client software.
+	
+	/ section id="reference_architecture"
+		h2 Reference Architecture
+		= image_tag 'Architecture Diagram v3.png'
+
+	section id="architecture" class="row-fluid"
+		div class="span6"
+			h2 Architectural Breakdown
+			p BitTorious is extremely simple to deploy, and requires only two architectural components: a deployment of the BitTorious web application portal, and any number of standard BitTorrent clients.
+			
+			h3 Core Concepts
+			p BitTorious's core ideas are a combination of existing popular concepts, as explained below:
+			h4 Torrent
+			p A "torrent" refers to a set of files that is published as a cohesive bale of data ready for distribution. The "torrent" can be a single file, directory of files, or any combination thereof, and is initially defined using client software that produces a .torrent file.
+			h4 Publication
+			p A user ready to publish data does so by registering the torrent with a data "feed" via the BitTorious portal, and initiates the "seeding" process to other client subscribers via the local client software. It is expected, though not technically required, that the publisher set additional metadata on the torrent via BitTorious portal so future subscribers can find the content via the portal search feature in the future.
+			h4 Subscription
+			p An authorized user wanting all current and future data published to a given feed uses the BitTorious portal to find download links, and their locally installed Client to either automatically acquire all feed data as it is available, or selectively download individual torrents.
+			h4 Seeding
+			p A Client that has a full or partial copy of a torrent will, by default, be available to distribute the torrents to other subscribers. Limits can be set on throughput usage, time of use, quality of service, hard download/upload caps, or be turned off completely for each individual client.
+			p Accounts within the web application are managed in a role-based manner. Each role, below, is applied globally to appropriate users, though only administrative users may assign these roles.
+			table
+				thead
+					tr
+						th Role
+						th Description
+				tbody
+					tr
+						td Subscriber
+						td The default role. May log into the portal, search for content, and use download links.
+					tr
+						td Publisher
+						td All abilities as Subscribers, plus the ability to create, update and delete feeds.
+					tr
+						td Administrator
+						td All abilities as Publishers (and Subscribers), plus the ability to manage user accounts and grant/revoke roles.
+		div class="span6"
+			h2 Deployment Components
+			h3 Portal
+			p BitTorious is a cross-platform web application that supports the latest stable versions of mainstream web browsers. Specifically, support is included for:
+			ul
+				li Firefox (Windows, OSX, Linux)
+				li Chrome (Windows, OSX, Linux)
+				li Safari (Windows, OSX)
+				li Internet Explorer (Windows)
+			p Internally, the portal's web application stack utilizes multiple high-performance databases to store active peer connection data, system accounts, feeds, torrents and torrent metadata.
+			h3 Clients
+			p A client is simply a machine running a standard BitTorrent client to seed and/or download content to/from feeds, respectively. After a publication machine completing the initial seeding process to the cloud, it can optionally be taken offline. As long as data on the aggregate network of online Client machines contains all pieces of a given torrent, the data can be downloaded to completion by any current or new client. This characteristic of collective data replication provides an extremely resilient, high-ability architecture.
+			p Note that it is generally assumed that the throughput rates of your underlying file system greatly exceed the throughput available over your Internet connection. If this is the case -- which it almost certainly is -- higher capacity disks will likely prove a better investment than higher throughput disks.
+			h4 Dedicated Clients
+			p The optionally addition of "dedicated" clients adds another availability component to the high-availability nature of the client system. The notion of a "dedicated" client is purely semantic, and there is no technological difference versus a normal client, with the understanding that a dedicated client is expected to:
+			ul
+				li Seed all torrents for the feeds to which it is dedicated.
+				li Have enough bandwidth and underlying storage space to appropriately accommodate the needs of the publisher and subscriber base. This requires estimation on behalf of the deployment team to provide enough underlying storage.
+	
+	section id="deployment" class="row-fluid"
+		div id="security" class="span6"
+			h3 Security
+			p Unlike standard BitTorrent, we've added authentication and authorization checking at three stages:
+			ol
+				li Web portal login.
+				li Client data feed (RSS) update requests.
+				li Client registration and keep-alive with the web portal.
+			p This means that if Alice forwards your published data link to Bob, Bob will neither be able to log in to the portal to look up additional metadata nor register his client with the official tracker. (If Alice posts content to a system such as an FTP server outside the network, however, we of course can't control that.)
+			p BitTorious controls access to metadata and torrent links solely behind the authenticated and authorized portal via simple email/password accounts granted by the system administrator. New users may request access via the portal homepage.
+			p We also encourage the use of password protected compression such as Zip or Gzip prior to publication for sensitive data as an additional layer of security.
+			p Note that the compliance level of all systems in the network is given to individual client sites to enforce, as BitTorious doesn't know about the infrastructure at individual sites. BitTorious (and underlying BitTorrent protocols) are agnostic to computing environment and can be run in any cloud computing environment that provides IaaS, but cannot programmatically determine which data, if any, is subject to special compliance rules. For uses subject to environmental restrictions such as HIPAA, BitTorious can be hosted on appropriately protected IT infrastructure. Please consider the nature of data and metadata needing publication prior to deploying your own instance of the portal.
+		
+		div id="it_department" class="span6"
+			h3 IT Manageability
+			p Please let your IT department make adequate preparations to prepare for fluctuating use of the overall client network. Specifically, the following checklist can be used as a starting point of consideration when planning to deploy Clients internal to your organization:
+			table
+				thead
+					tr
+						th Consideration
+						th IT Infrastructure
+						th Client Configuration
+				tbody
+					tr
+						td Traffic blocking
+						td Yes
+						td 
+					tr
+						td Quality of Service
+						td Yes
+						td 
+					tr
+						td Port/Address Restrictions
+						td Yes
+						td
+					tr
+						td Bandwidth Shaping
+						td Yes
+						td Yes
+					tr
+						td Time of Use Restrictions
+						td Yes
+						td Yes
+					tr
+						td Hard Transfer Caps
+						td
+						td Yes
+					tr
+						td Upload/Download Ratio Limits
+						td
+						td Yes
+					tr
+						td Direct Internal Transfers
+						td
+						td Yes
+		
+	p.muted BitTorious is a holistic solution to collaborative data transfer. As demonstrated by deployed reference architecture environments, organizations needing to share data across the Internet in a cost-scalable, manageable manner now have a solid, easy-to-use platform deployable in almost any environment.
+	
+javascript:
+	$(function(){ $('#overview_carousel').carousel(); });

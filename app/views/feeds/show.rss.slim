@@ -1,0 +1,26 @@
+= '<?xml version="1.0" encoding="UTF-8" ?>'.html_safe
+rss version="2.0"
+  channel
+    title
+      = @feed.name
+    description RSS 2.0 for #{@feed.name} data.
+    link
+      = link_to @feed.slug
+    lastBuildDate
+      = @feed.updated_at
+    pubDate
+      = @feed.created_at
+    ttl 1800
+    - @feed.torrents.each do |t|
+      item
+        title
+          = t.name
+        description 
+          = t.name + " uploaded by " + t.user.to_s + " on " + t.created_at.strftime("%A, %B %d, %Y at %T:%M%p")  + ". Tags: " + t.tag_list.join(",")
+        link
+          = torrent_url(t, :format => :torrent, :host => request_host_or_default, :protocol => 'https')
+        enclosure url="#{torrent_url(t, :format => :torrent, :host => request_host_or_default, :protocol => 'https')}" type="application/x-bittorrent"
+        guid
+          = t.private_info_hash
+        pubDate
+          = t.created_at

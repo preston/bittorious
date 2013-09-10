@@ -1,0 +1,12 @@
+<p>Welcome <%= @resource.email %>!</p>
+
+<%- if @user.approved? %>
+  <p>Congratulations your account has been approved.</p>
+  <p>You can now confirm your account email through the link below:</p>
+
+  <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<% else %>
+  <p>You account has been created but must be first approved</p>
+  <p>Once approved you will be sent an email to confirm your account</p>
+<% end %>
+<p>Thank you from the Bittorious team</p>

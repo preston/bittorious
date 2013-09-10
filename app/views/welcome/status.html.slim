@@ -1,0 +1,42 @@
+- content_for :title do
+  | Network Status
+    
+div id="network_status"
+
+  = render partial: 'layouts/google_map'
+
+  javascript:  
+    // Initialize the map.
+    var mapOptions = {
+      center: new google.maps.LatLng(40.397, -98.644),
+      zoom: 4,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+    $(function() {
+    
+      initMapData();
+    });
+
+  h1 Network Status
+  p Locations are approximated based on registered client IP address.
+  table
+    thead
+      tr
+        th Peer
+        th Port
+        th Uploaded
+        th Downloaded
+        th Last Registered
+        th Peer ID
+    tbody
+      - Peer.active.each do |peer|
+        tr class="peer" data-ipv4_address="#{peer.ip}"
+          td #{peer.ip}
+          td #{peer.port}
+          td #{as_size peer.uploaded}
+          td #{as_size peer.downloaded}
+          td #{time_ago_in_words peer.updated_at} ago
+          td #{peer.peer_id}
+        

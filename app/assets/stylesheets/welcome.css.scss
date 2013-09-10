@@ -1,0 +1,171 @@
+
+
+html {
+	height: 100%;
+}
+body {
+	background-color: none;
+	background: url(/assets/textures/xv/xv.png) repeat;
+	height: 100%;
+	padding-top: 46px;
+}
+
+#main {
+	position: relative;
+	min-height: 100%;
+
+	.container {
+		padding-bottom: 20px;
+	}
+}
+
+header {
+	background: url(/assets/textures/purty_wood/purty_wood.png) repeat;
+/*	box-shadow: 0px -10px 20px #000 inset;*/
+	box-shadow: 0 2px 2px rgba(0,0,0,.5);
+	
+	.navbar-inner {
+		background: none;
+	}
+	
+	input {
+		border-radius: 20px;
+		border: 1px solid #aaa;
+		margin: 4px 0 0 10px;
+		padding: 0 10px;
+		font-size: 1.2em;
+	}
+	
+	#search_results {
+		width: 400px;
+		background: rgba(0,0,0,0.6);
+/*		border: 1px solid #555;*/
+		position: absolute;
+		z-index: 100;
+		padding: 20px 40px;
+		color: #bbb;
+		top: -50px;
+		right: -800px;
+
+		border-radius: 8px;
+		box-shadow:					0px 50px 50px #000, 0px -4px 2px #333 inset;
+		-moz-box-shadow:		0px 50px 50px #000, 0px -4px 2px #333 inset;
+		-webkit-box-shadow:	0px 50px 50px #000, 0px -4px 2px #333 inset;
+		
+		-webkit-transition:	all .1s linear;
+		-moz-transition:		all .1s linear;
+		-o-transition:			all .1s linear;
+		transition:					all .1s linear;
+
+    ul li a {
+      color: white;
+      font-size: 16px;
+      &:hover {
+        background: none;
+      }
+    }
+	}
+	
+	#search_results:hover {
+		color: rgba(240,240,240, 0.9);
+		text-shadow: 0 1px 1px #000;
+		box-shadow:					0px 50px 50px #000, 0px -4px 2px #000 inset;
+		-moz-box-shadow:		0px 50px 50px #000, 0px -4px 2px #000 inset;
+		-webkit-box-shadow:	0px 50px 50px #000, 0px -4px 2px #000 inset;
+		
+		-webkit-transition:	all .2s linear;
+		-moz-transition:		all .2s linear;
+		-o-transition:			all .2s linear;
+		transition:					all .2s linear;
+	}
+	
+}
+
+
+
+footer {	
+	background: url(/assets/textures/purty_wood/purty_wood.png) repeat;
+/*	background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;*/
+	margin: 0;
+	padding-bottom:	4px;
+	padding-top:		4px;
+	color: #ddd;
+	text-shadow: 0 1px 1px #444;
+	bottom: 0;
+	border-top: 1px solid #888;
+	box-shadow: 0px 2px 2px rgba(0,0,0,.8);
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	line-height: 1.2em;
+	
+	a {
+		color: #aaa;
+	}
+}
+
+.content {
+	background-color: #eee;
+  padding: 20px;
+  margin: 0 -20px 40px; /* negative indent the amount of the padding to maintain the grid system */
+  border-radius:					0 0 6px 6px;
+  -webkit-border-radius:	0 0 6px 6px;
+  -moz-border-radius:			0 0 6px 6px;
+
+	box-shadow:					0 40px 40px rgba(0,0,0,.90), 0 10px 20px rgba(255,255,255,.5) inset;	
+	-webkit-box-shadow:	0 40px 40px rgba(0,0,0,.90), 0 10px 20px rgba(255,255,255,.5) inset;
+  	-moz-box-shadow:		0 40px 40px rgba(0,0,0,.90), 0 10px 20px rgba(255,255,255,.5) inset;
+
+	background: url(/assets/textures/ricepaper2/ricepaper2.png) repeat;
+/*	background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;*/
+
+	table {
+		width: 100%;
+		margin-bottom: 20px;
+		background-color: pink;
+    	box-shadow: #aaa 0px 8px 8px;
+
+		thead th,
+		tfoot td{
+		  padding:10px 5px 10px 5px;
+		  color:#fff;
+		  font-weight:normal;
+			background-color: #999;
+		  border-right:1px dotted #666;
+		}
+		tbody {
+			tr {
+				border-left: 1px solid #f0f0f0;
+				border-right: 1px solid #f0f0f0;
+	      td.actions {
+	        height: 30px;
+	      }
+			}
+			tr:nth-child(odd) {
+	      background-color:#fff;
+			}
+			tr:nth-child(even) {
+	      background-color:#f8f8f8;
+			}	
+		}
+
+	  thead :nth-last-child(1){
+	    border-right:none;
+	  }
+	  tbody td{
+	    font-size:12px;
+	    padding:10px;
+	    border-right:1px dotted #999;
+	    text-shadow:-1px 1px 1px #fff;
+	    color:#333;
+	    overflow: hidden;
+	    max-width: 110px;
+	  }
+	}
+}
+
+
+	
+
+

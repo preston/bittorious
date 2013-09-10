@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Paperclip::RewriteAnnounce - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/paperclip_processors/rewrite_announce.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Processor
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-make">#make</a>
+    
+    <li><a href="#method-i-update_torrent">#update_torrent</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Paperclip.html">Paperclip</a>
+  
+    <li><a href="../Paperclip/RewriteAnnounce.html">Paperclip::RewriteAnnounce</a>
+  
+    <li><a href="../Paperclip/RewriteAnnounce/InstanceNotGiven.html">Paperclip::RewriteAnnounce::InstanceNotGiven</a>
+  
+    <li><a href="../Ability.html">Ability</a>
+  
+    <li><a href="../AdminMailer.html">AdminMailer</a>
+  
+    <li><a href="../ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="../ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="../Feed.html">Feed</a>
+  
+    <li><a href="../FeedsController.html">FeedsController</a>
+  
+    <li><a href="../FeedsHelper.html">FeedsHelper</a>
+  
+    <li><a href="../Peer.html">Peer</a>
+  
+    <li><a href="../PeerReaper.html">PeerReaper</a>
+  
+    <li><a href="../Permission.html">Permission</a>
+  
+    <li><a href="../PermissionsController.html">PermissionsController</a>
+  
+    <li><a href="../PermissionsHelper.html">PermissionsHelper</a>
+  
+    <li><a href="../RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="../Torrent.html">Torrent</a>
+  
+    <li><a href="../TorrentsController.html">TorrentsController</a>
+  
+    <li><a href="../TorrentsHelper.html">TorrentsHelper</a>
+  
+    <li><a href="../User.html">User</a>
+  
+    <li><a href="../UsersController.html">UsersController</a>
+  
+    <li><a href="../UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="../WelcomeController.html">WelcomeController</a>
+  
+    <li><a href="../WelcomeHelper.html">WelcomeHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Paperclip::RewriteAnnounce</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(file, options = {}, attachment = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/paperclip_processors/rewrite_announce.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">attachment</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-ivar">@file</span> = <span class="ruby-identifier">file</span>
+  <span class="ruby-ivar">@instance</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:instance</span>]
+  <span class="ruby-ivar">@current_format</span>   = <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">path</span>)
+  <span class="ruby-ivar">@basename</span>         = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-ivar">@current_format</span>)
+  <span class="ruby-ivar">@format</span>         = <span class="ruby-identifier">options</span>[<span class="ruby-value">:format</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-make" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="make-source">
+            <pre><span class="ruby-comment"># File lib/paperclip_processors/rewrite_announce.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">make</span>
+  <span class="ruby-identifier">dst</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>([<span class="ruby-ivar">@basename</span>, <span class="ruby-ivar">@format</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>))
+  <span class="ruby-identifier">dst</span>.<span class="ruby-identifier">open</span>
+  <span class="ruby-identifier">dst</span>.<span class="ruby-identifier">binmode</span>
+  <span class="ruby-identifier">dst</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">update_torrent</span>
+  <span class="ruby-identifier">dst</span>.<span class="ruby-identifier">open</span>
+  <span class="ruby-identifier">dst</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- make-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- make-method -->
+
+    
+      <div id="method-i-update_torrent" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_torrent</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_torrent-source">
+            <pre><span class="ruby-comment"># File lib/paperclip_processors/rewrite_announce.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_torrent</span>
+  <span class="ruby-identifier">b</span> = <span class="ruby-constant">BEncode</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">path</span>)
+  <span class="ruby-identifier">b</span>[<span class="ruby-string">&#39;announce&#39;</span>] = <span class="ruby-constant">Torrent</span>.<span class="ruby-identifier">announce_url</span>
+  <span class="ruby-identifier">b</span>[<span class="ruby-string">&quot;announce-list&quot;</span>] = [[<span class="ruby-constant">Torrent</span>.<span class="ruby-identifier">announce_url</span>]]
+  <span class="ruby-identifier">b</span>[<span class="ruby-string">&quot;info&quot;</span>][<span class="ruby-string">&quot;private&quot;</span>] = <span class="ruby-value">1</span>
+  <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_bencoding</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_torrent-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_torrent-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

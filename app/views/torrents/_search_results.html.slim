@@ -1,0 +1,4 @@
+ul
+  -@torrents.each do |t|
+    li
+      =link_to([t.name, t.tag_list.join(',')].reject(&:blank?).join(' - '), torrent_path(t), :data => {:feed_id => t.feed.id, :torrent_id => t.id})
