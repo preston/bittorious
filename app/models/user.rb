@@ -1,11 +1,12 @@
 class User < ActiveRecord::Base
 
-  ADMIN_ROLE = 'admin'
-  
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  ADMIN_ROLE = 'admin'
 
   has_many :torrents
   has_many :feeds, :dependent => :destroy
