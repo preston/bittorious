@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
 
   after_create :send_admin_mail
-  after_update :send_confirmation
+  # after_update :send_confirmation
 
   before_destroy :verify_no_torrents
 
@@ -62,11 +62,11 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def send_confirmation
-    if self.approved_changed?
-      ::Devise.mailer.confirmation_instructions(self).deliver
-    end
-  end
+  # def send_confirmation
+  #   if self.approved_changed?
+  #     ::Devise.mailer.confirmation_instructions(self).deliver
+  #   end
+  # end
 
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
@@ -87,10 +87,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def auth_token
-    self.reset_authentication_token! if self.authentication_token.nil?
-    self.authentication_token
-  end
 
   private
   def verify_no_torrents
@@ -98,4 +94,23 @@ class User < ActiveRecord::Base
       return false
     end
   end
+
+  # You likely have this before callback set up for the token.
+  before_save :ensure_authentication_token
+ 
+  def ensure_authentication_token
+    if authentication_token.blank?
+      self.authentication_token = generate_authentication_token
+    end
+  end
+ 
+  private
+  
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
+  end
+
 end

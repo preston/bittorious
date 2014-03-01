@@ -3,8 +3,8 @@ class AdminMailer < ActionMailer::Base
 
   def new_user_waiting_for_approval(user)
     @user = user
-
-    mail(:to => 'info@carify.com', :subject => "New user awaiting approval")
+    emails = User.where(admin: true, approved: true).collect{|u| u.email}
+    mail(:to => emails, :subject => "New user awaiting approval")
   end
 
   def deny_application(user)
