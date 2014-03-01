@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :email
 
-  after_create :reset_authentication_token
   after_create :send_admin_mail
   after_update :send_confirmation
 
