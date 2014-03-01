@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.1'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.3'
 
 gem 'devise'
 gem 'cancan'
@@ -33,9 +33,9 @@ gem 'geocoder'
 
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails' #,   '~> 3.2.3'
+  gem 'coffee-rails' #, '~> 3.2.1'
+  gem 'uglifier' #, '>= 1.0.3'
 end
 
 
@@ -49,14 +49,18 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
 	gem 'railroady'
-  gem 'capistrano'
-  gem 'rvm-capistrano'
+
+  gem 'capistrano', '>= 3.1.0'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+
+  gem 'binding_of_caller'
+  gem 'better_errors'
 end
 
 group :production do
-  gem 'mysql'
-  gem 'mysql2'
-  gem 'thin'
+  gem 'pg'
 end
 
 

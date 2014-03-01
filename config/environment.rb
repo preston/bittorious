@@ -1,6 +1,5 @@
-# Load the rails application
+# Load the Rails application.
 require File.expand_path('../application', __FILE__)
-Mime::Type.register "application/x-bittorrent", :torrent
-Mime::Type.register "application/rss+xml", :rss
-# Initialize the rails application
+
+# Initialize the Rails application.
 Tater::Application.initialize!
