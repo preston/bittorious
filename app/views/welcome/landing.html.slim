@@ -2,17 +2,17 @@
 - resource_name = :user
 - resource = User.new
 
-div id="landing"
+div#landing
 
 	section.row#splash
 	
-		div.span8#overview_carousel
+		div.col-md-8#overview_carousel
 			h1 Big Data
 			h4 syndication, replication, and archiving  
-			= image_tag 'Architecture Diagram v3.png'
+			/ = image_tag 'Architecture Diagram v3.png'
 
 		
-		div.span4#login_box
+		div.col-md-4#login_box
 			hr
 			- if user_signed_in?
 				/ h1 Welcome
@@ -38,7 +38,7 @@ div id="landing"
 				- if devise_mapping.registerable? && controller_name != 'registrations'
 					/ link_to "Sign up", new_registration_path(resource_name)
 					/ Button to trigger modal
-					a href="#request_account" role="button" data-toggle="modal" Request an account.
+					a href="#request_account_button" role="button" data-toggle="modal" data-target="request_account_dialog" Request an account.
 					br
 				
 				- if devise_mapping.recoverable? && controller_name != 'passwords'
@@ -59,33 +59,34 @@ div id="landing"
 			hr
 
 		/ Modal
-		div class="modal hide fade" id="request_account" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-			div class="modal-header"
-				button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
-				h3 id="myModalLabel" Want access?
-			div class="modal-body"
-				p Great! Fill out this super-duper form, and the folks in charge will be notified. You'll get an email once your account is approved.
-				= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-					div
-						= f.label :email
-						= f.email_field :email
-
-					div
-						= f.label :password
-						= f.password_field :password
-
-					div
-						= f.label :password_confirmation
-						= f.password_field :password_confirmation
-					div class="hidden"
-						= f.submit "Sign up"
-			div class="modal-footer"
-				button class="btn" data-dismiss="modal" aria-hidden="true" Nevermind
-				button class="btn btn-primary" Submit
+		div.modal.fade#request_account_dialog tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			div.modal-dialog
+				div.modal-header
+					button.close type="button" data-dismiss="modal" aria-hidden="true" 	×
+					h3 id="myModalLabel" Want access?
+				div.modal-body
+					p Great! Fill out this super-duper form, and the folks in charge will be 	notified. You'll get an email once your account is approved.
+					= form_for(resource, :as => resource_name, :url => registration_path(	resource_name)) do |f|
+						div
+							= f.label :email
+							= f.email_field :email
+	
+						div
+							= f.label :password
+							= f.password_field :password
+	
+						div
+							= f.label :password_confirmation
+							= f.password_field :password_confirmation
+						div.hidden
+							= f.submit "Sign up"
+			div.modal-footer
+				button.btn type="button" data-dismiss="modal" Nevermind
+				button.btn.btn-primary type="button" Submit
 	
 	
 	section id="benefits" class="row-fluid"
-		div.span6
+		div.col-md-6
 			h4 Core Solution Benefits
 			p BitTorious is a custom data publication, subscription, indexing and search web application for collaborations centered around large data sets. Unlike direct point-to-point data transfer mechanisms provided by protocols such as HTTP, FTP and Rsync, BitTorious builds central data indexing, search and sharing tools on top of the free, established, distributed BitTorrent data transfer mechanism that performs best at large scales.
 			ul
@@ -99,7 +100,7 @@ div id="landing"
 				li Builds atop the published, proven, budget-friendly BitTorrent protocol.
 				li IT-friendly bandwidth and QoS management.
 				li Automatic block-based checksum validation for high reliability.
-		div.span6
+		div.col-md-6
 			h4 Powered by BitTorrent
 			p In addition, the underlying BitTorrent protocol provides a multitude of desirable features that control complexity and cost:
 			ul
@@ -118,12 +119,11 @@ div id="landing"
 				li Free licensing.
 				li Cross-platform client software.
 	
-	/ section id="reference_architecture"
-		h2 Reference Architecture
-		= image_tag 'Architecture Diagram v3.png'
 
-	section id="architecture" class="row-fluid"
-		div class="span6"
+	div.clearfix
+
+	section.row#architecture
+		div.col-md-6
 			h2 Architectural Breakdown
 			p BitTorious is extremely simple to deploy, and requires only two architectural components: a deployment of the BitTorious web application portal, and any number of standard BitTorrent clients.
 			
@@ -153,7 +153,7 @@ div id="landing"
 					tr
 						td Administrator
 						td All abilities as Publishers (and Subscribers), plus the ability to manage user accounts and grant/revoke roles.
-		div class="span6"
+		div.col-md-6
 			h2 Deployment Components
 			h3 Portal
 			p BitTorious is a cross-platform web application that supports the latest stable versions of mainstream web browsers. Specifically, support is included for:
@@ -172,8 +172,8 @@ div id="landing"
 				li Seed all torrents for the feeds to which it is dedicated.
 				li Have enough bandwidth and underlying storage space to appropriately accommodate the needs of the publisher and subscriber base. This requires estimation on behalf of the deployment team to provide enough underlying storage.
 	
-	section id="deployment" class="row-fluid"
-		div id="security" class="span6"
+	section.row#deployment
+		div.col-md-6#security
 			h3 Security
 			p Unlike standard BitTorrent, we've added authentication and authorization checking at three stages:
 			ol
@@ -185,7 +185,7 @@ div id="landing"
 			p We also encourage the use of password protected compression such as Zip or Gzip prior to publication for sensitive data as an additional layer of security.
 			p Note that the compliance level of all systems in the network is given to individual client sites to enforce, as BitTorious doesn't know about the infrastructure at individual sites. BitTorious (and underlying BitTorrent protocols) are agnostic to computing environment and can be run in any cloud computing environment that provides IaaS, but cannot programmatically determine which data, if any, is subject to special compliance rules. For uses subject to environmental restrictions such as HIPAA, BitTorious can be hosted on appropriately protected IT infrastructure. Please consider the nature of data and metadata needing publication prior to deploying your own instance of the portal.
 		
-		div id="it_department" class="span6"
+		div.col-md-6#it_department
 			h3 IT Manageability
 			p Please let your IT department make adequate preparations to prepare for fluctuating use of the overall client network. Specifically, the following checklist can be used as a starting point of consideration when planning to deploy Clients internal to your organization:
 			table

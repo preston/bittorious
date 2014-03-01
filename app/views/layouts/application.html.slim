@@ -23,37 +23,17 @@ html
     /![endif]
 
   body
-    header class="navbar navbar-fixed-top"
-      nav class="navbar-inner"
-        div class="container"
+    header
+      nav.navbar.navbar-default
+        div.container-fluid
           = render 'layouts/navigation'
     div id="main" role="main"
       div class="container"
         div class="content"
           div class="row"
-            div class="span12"
+            div class="col-lg-12"
               = render 'layouts/messages'
               = yield
       = render partial: 'layouts/footer'
-      / Add UserVoice support.
-    javascript:
 
-      // Add UserVoice support.
-      var uvOptions = {};
-      (function() {
-        var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/W1KxDyZpxuS5yp2DlQvCA.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-      })();
-
-      // Add Google Analytics support.
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-35664447-1']);
-      _gaq.push(['_trackPageview']);
-      
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
     

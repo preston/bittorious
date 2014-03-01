@@ -1,5 +1,5 @@
 
-
+/*
 html {
 	height: 100%;
 }
@@ -21,7 +21,6 @@ body {
 
 header {
 	background: url(/assets/textures/purty_wood/purty_wood.png) repeat;
-/*	box-shadow: 0px -10px 20px #000 inset;*/
 	box-shadow: 0 2px 2px rgba(0,0,0,.5);
 	
 	.navbar-inner {
@@ -39,7 +38,6 @@ header {
 	#search_results {
 		width: 400px;
 		background: rgba(0,0,0,0.6);
-/*		border: 1px solid #555;*/
 		position: absolute;
 		z-index: 100;
 		padding: 20px 40px;
@@ -85,7 +83,6 @@ header {
 
 footer {	
 	background: url(/assets/textures/purty_wood/purty_wood.png) repeat;
-/*	background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;*/
 	margin: 0;
 	padding-bottom:	4px;
 	padding-top:		4px;
@@ -108,7 +105,7 @@ footer {
 .content {
 	background-color: #eee;
   padding: 20px;
-  margin: 0 -20px 40px; /* negative indent the amount of the padding to maintain the grid system */
+  margin: 0 -20px 40px;
   border-radius:					0 0 6px 6px;
   -webkit-border-radius:	0 0 6px 6px;
   -moz-border-radius:			0 0 6px 6px;
@@ -118,7 +115,6 @@ footer {
   	-moz-box-shadow:		0 40px 40px rgba(0,0,0,.90), 0 10px 20px rgba(255,255,255,.5) inset;
 
 	background: url(/assets/textures/ricepaper2/ricepaper2.png) repeat;
-/*	background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;*/
 
 	table {
 		width: 100%;
@@ -164,8 +160,4 @@ footer {
 	  }
 	}
 }
-
-
-	
-
-
+*/

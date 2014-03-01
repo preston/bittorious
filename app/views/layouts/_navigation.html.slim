@@ -1,54 +1,67 @@
-BitTorious= link_to "BitTorious", root_path, :class => 'brand'
-ul class="nav pull-right"
-  - if user_signed_in?
-    li
-      = link_to('Dashboard', dashboard_path)
-  - else
-    li
-      = link_to 'Login', new_user_session_path
+div class="navbar-header"
+  button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+    span class="sr-only" Toggle navigation
+    span class="icon-bar"
+    span class="icon-bar"
+    span class="icon-bar"
 
-  - if user_signed_in?
-    li
-      = link_to('My Account', edit_user_registration_path)
-    
-    - if current_user.admin
-      li class="dropdown"
-        a class="dropdown-toggle" data-toggle="dropdown" data-target="#"
-          | Admin
-          b class="caret"
-        ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
+    = link_to "BitTorious", root_path, :class => 'navbar-brand'
+
+
+div.collapse.navbar-collapse#bs-example-navbar-collapse-1
+
+
+  ul.nav.navbar-nav
+    - if user_signed_in?
+      li
+        = link_to('Dashboard', dashboard_path)
+    - else
+      li
+        = link_to 'Login', new_user_session_path
+  
+    - if user_signed_in?
+      li
+        = link_to('My Account', edit_user_registration_path)
+      
+      - if current_user.admin
+        li.dropdown
+          a.dropdown-toggle data-toggle="dropdown"
+            | Admin
+            b class="caret"
+          ul.dropdown-menu
+            li
+              = link_to 'View network status.', status_path
+            li
+              = link_to 'Manage users.', manage_path
+            li.divider
+            li
+              = link_to 'Bravely tweak database.', rails_admin_path
+  
+      li
+        = link_to('Logout', destroy_user_session_path, :method=>'delete')
+      -if params[:action] == 'dashboard'
+        li
+          form.navbar-form.navbar-left id="search_form" role="search"
+            div.form-group
+              input.form-control id="search_query" placeholder="search"
+    - else
+      li
+        = link_to('Request Account', new_user_registration_path)
+  
+    / We want this menu visible to both logged-in users and visitors
+    li.dropdown
+      a.dropdown-toggle data-toggle="dropdown"
+        | Help
+        b.caret
+      ul.dropdown-menu role="menu"
           li
-            = link_to 'View network status.', status_path
-          li
-            = link_to 'Manage users.', manage_path
+            = link_to 'FAQ', faq_path
           li class="divider"
           li
-            = link_to 'Bravely tweak database.', rails_admin_path
-
-    li
-      = link_to('Logout', destroy_user_session_path, :method=>'delete')
-    -if params[:action] == 'dashboard'
-      li
-        form id="search_form"
-          input id="search_query" placeholder="search"
-  - else
-    li
-      = link_to('Request Account', new_user_registration_path)
-
-  / We want this menu visible to both logged-in users and visitors
-  li class="dropdown"
-    a class="dropdown-toggle" data-toggle="dropdown" data-target="#"
-      | Help
-      b class="caret"
-    ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-        li
-          = link_to 'FAQ', '/faq'
-        li class="divider"
-        li
-          = link_to 'Legal', '/legal'
-        li class="divider"
-        li
-          = link_to 'Getting Started', '/getting_started'
+            = link_to 'Legal', legal_path
+          li class="divider"
+          li
+            = link_to 'Getting Started', getting_started_path
 
 
 div id="search_results"
