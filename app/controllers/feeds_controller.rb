@@ -67,4 +67,17 @@ class FeedsController < InheritedResources::Base
   def set_user_id
     params[:feed][:user_id] = current_user.id
   end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_feed
+    @feed = Feed.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def feed_params
+    params.require(:feed).permit(
+      :description, :name, :slug, :user, :user_id, :permissions, :enable_public_archiving)
+
+  end
+
 end

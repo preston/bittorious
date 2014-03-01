@@ -36,7 +36,6 @@ class Torrent < ActiveRecord::Base
   default_scope order('created_at')
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
   
-  attr_accessible :name, :slug, :torrent_file, :user, :user_id, :info_hash, :size, :tag_list, :feed, :feed_id, :private_info_hash
 
   def register_peer(peer_params)
     peer = Peer.find_or_create_by_info_hash_and_peer_id(peer_params[:info_hash], peer_params[:peer_id])

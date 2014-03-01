@@ -13,7 +13,6 @@ Tater::Application.routes.draw do
 		end
 	end
 
-	get 'announce' => 'torrents#announce'
 	get 'scrape' => 'torrents#scrape'
 	get "tags/torrents" => "torrents#tags", :as => :tags
 

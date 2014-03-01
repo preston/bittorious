@@ -156,4 +156,21 @@ end
     @torrent = Torrent.find_by_private_info_hash(params[:info_hash].unpack('H*').first) if params[:info_hash]
   end
 
+
+  private
+
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_torrent
+    @torrent = Torrent.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def torrent_params
+    params.require(:torrent).permit(
+      :name, :slug, :torrent_file, :user, :user_id,
+      :info_hash, :size, :tag_list, :feed, :feed_id, :private_info_hash)
+
+  end
+
 end

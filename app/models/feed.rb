@@ -12,8 +12,6 @@ class Feed < ActiveRecord::Base
   has_many :permissions, :dependent => :destroy
 
   before_destroy :verify_no_torrents
-  
-  attr_accessible :description, :name, :slug, :user, :user_id, :permissions, :enable_public_archiving
 
 
   private

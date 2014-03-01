@@ -12,7 +12,6 @@ gem 'rails3-jquery-autocomplete'
 gem 'jquery-tablesorter'
 
 # Twitter Bootstrap: https://github.com/seyhunak/twitter-bootstrap-rails
-
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'

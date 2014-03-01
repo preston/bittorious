@@ -4,9 +4,8 @@ class User < ActiveRecord::Base
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable, :confirmable, :lockable
+         :confirmable, :lockable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :role, :approved, :admin
 
   has_many :torrents
   has_many :feeds, :dependent => :destroy

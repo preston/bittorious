@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def update
     authorize_resource(@user)
-    render :json => !!(@user.update_attributes(params[:user]))
+    render :json => !!(@user.update_attributes(user_params))
   end
 
   def transfer
@@ -44,4 +44,13 @@ class UsersController < ApplicationController
   def load_user
     @user = User.find(params[:user_id])
   end
+
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(
+      :email, :password, :password_confirmation, :remember_me,
+      :name, :role, :approved, :admin)
+  end
+  
 end
