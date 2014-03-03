@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130502210253) do
+ActiveRecord::Schema.define(version: 20140301210457) do
 
   create_table "feeds", force: true do |t|
     t.string   "name"
@@ -56,29 +56,6 @@ ActiveRecord::Schema.define(version: 20130502210253) do
   add_index "permissions", ["feed_id"], name: "index_permissions_on_feed_id"
   add_index "permissions", ["user_id"], name: "index_permissions_on_user_id"
 
-  create_table "rails_admin_histories", force: true do |t|
-    t.text     "message"
-    t.string   "username"
-    t.integer  "item"
-    t.string   "table"
-    t.integer  "month",      limit: 2
-    t.integer  "year",       limit: 5
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
-
-  create_table "sessions", force: true do |t|
-    t.string   "session_id", null: false
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
-
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -119,8 +96,6 @@ ActiveRecord::Schema.define(version: 20130502210253) do
   add_index "torrents", ["user_id"], name: "index_torrents_on_user_id"
 
   create_table "users", force: true do |t|
-    t.string   "name",                                   null: false
-    t.string   "authentication_token"
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -140,8 +115,10 @@ ActiveRecord::Schema.define(version: 20130502210253) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved",               default: false
     t.boolean  "admin",                  default: false
+    t.string   "name",                   default: "",    null: false
+    t.string   "authentication_token"
+    t.boolean  "approved"
   end
 
   add_index "users", ["approved"], name: "index_users_on_approved"

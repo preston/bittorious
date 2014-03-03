@@ -19,6 +19,7 @@ class Torrent < ActiveRecord::Base
 
   has_many :permissions, :through => :feed
   has_many :managed_by_users, :through => :permissions, :source => :user, :conditions => {:permissions => {:role => [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]}}
+  # has_many :managed_by_users, :through => :permissions, :source => :user, -> {where :permissions => {:role => [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]}}
 
   has_attached_file :torrent_file,
     :processors => [:rewrite_announce],
@@ -33,7 +34,7 @@ class Torrent < ActiveRecord::Base
 
   after_save :rewrite_info_hash
 
-  default_scope order('created_at')
+  default_scope {order('created_at')}
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
   
 

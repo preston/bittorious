@@ -1,18 +1,17 @@
 = content_for :title do
   | Dashboard
   
-div id="dashboard"
+div#dashboard
 
   h1 Dashboard
   
+  div.row
   
-  div class="row"
-  
-    div id="feeds" class="span4"
+    div.col-md-4#feeds
       h2
         | Feeds
         =link_to '<i class="icon-tasks icon-white"></i> All Torrents RSS'.html_safe, '#rss_dialog', 'class' => "pull-right show_rss_dialog_button btn btn-success", 'data-url' => torrents_rss_url(), 'role' => 'button', 'data-toggle' => 'modal'
-      table class="table table-condensed"
+      table.table.table-condensed
         thead
           tr
             th Name
@@ -31,8 +30,8 @@ div id="dashboard"
                 / = link_to '<i class="icon-tasks icon-white"></i> RSS'.html_safe, url_for(feed) + '.rss', 'class' => "show_rss_dialog_button btn btn-info", 'data-url' => (url_for(feed) + '.rss')
                 - if can? :manage, feed
                   = link_to '<i class="icon-edit icon-white"></i> Edit'.html_safe, edit_feed_path(feed), 'class' => "btn btn-warning"
-                  = link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, feed, 'class' => "btn btn-danger", method: :delete, 'confirm' => 'This will permanently delete the feed from the system, and existing subscribers will no longer receive data.' if feed.torrents.count == 0
-      p class="muted"
+                  = link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, feed, 'class' => "btn btn-danger", method: :delete, data: {confirm: 'This will permanently delete the feed from the system, and existing subscribers will no longer receive data.'} if feed.torrents.count == 0
+      p.muted
         | Select a feed to show torrents published to it. The RSS link can be used by your BitTorrent client to
         | automatically download data published to the feed. For details, see the #{link_to "tutorial", 'getting_started'}.
 
@@ -61,7 +60,7 @@ div id="dashboard"
           a href="#" class="btn" data-dismiss="modal" Nevermind.
           a href="#" class="btn btn-primary" data-loading-text="Saving.." id="create_feed_btn" Create the feed!
   
-    div id="torrents" class="span8"
+    div.col-md-8#torrents
       h2 Torrents
       table class="table table-condensed" id='feed_torrents'
         thead
@@ -102,12 +101,12 @@ div id="dashboard"
             div class="modal-footer"
               a href="#" class="btn" data-dismiss="modal" Nevemind
               = f.submit "Publish", :class => 'btn btn-primary', :id => 'publish_btn', :data => {:'loading-text' => 'Saving..'}
-  div id="torrent_details_container"
-    div id="torrent_details"
-    div id="disqus" class="row"
-      div class="span1"
+  div#torrent_details_container
+    div#torrent_details
+    div.row#disqus
+      div.col-md-1
         | &nbsp;
-      div class="span10"
-        div id="disqus_thread"
-      div class="span1"
+      div.col-md-10
+        div#disqus_thread
+      div.col-md-1
         | &nbsp;
