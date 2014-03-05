@@ -1,4 +1,4 @@
-Tater::Application.routes.draw do
+BitTorious::Application.routes.draw do
 
 
 	devise_for :users, :controllers => { :registrations => 'registrations' } 

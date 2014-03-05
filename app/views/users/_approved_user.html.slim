@@ -21,4 +21,4 @@ tr
 		- elsif approved_user.torrents.count > 0 || approved_user.feeds.count > 0
 			p.muted You may only delete user accounts that do not have torrent or feed assets assigned to them.
 		- else
-			= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, user_registration_path(approved_user), 'class' => "btn btn-danger", method: :delete, 'confirm' => 'This will irrevokably delete the user from the system! Are you really, super extra sure that you want to do this?!?'
+			= link_to '<span class="icon icon-trash"></span> Delete'.html_safe, user_registration_path(approved_user), 'class' => "btn btn-danger", method: :delete, 'confirm' => 'This will irrevokably delete the user from the system! Are you really, super extra sure that you want to do this?!?'

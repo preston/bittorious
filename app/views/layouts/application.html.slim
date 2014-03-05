@@ -15,16 +15,13 @@ html
     = yield(:head)
     = yield(:javascripts)
 
-  body
+  body class="#{yield(:body_class)}"
     header
       = render 'layouts/navigation'
-    div.main#main
-      div.container
-        div.content
-          div.row
-            div.col-lmd-12
-              = render 'layouts/messages'
-            = yield
-      = render partial: 'layouts/footer'
+    .main#main
+      .container-fluid
+        = render 'layouts/messages'
+        = yield
+        = render partial: 'layouts/footer'
 
     

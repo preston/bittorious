@@ -17,10 +17,10 @@ set :rake, "#{rake} --trace"
 
 # set :bundle_flags, "--binstubs"
 
-# TGen Cloud
-role :web, "uat.bittorious.com"                          # Your HTTP server, Apache/etc
-role :app, "uat.bittorious.com"                          # This may be the same as your `Web` server
-role :db,  "uat.bittorious.com", :primary => true # This is where Rails migrations will run
+# ASU BMI site.
+role :web, "asu.bittorious.com"                          # Your HTTP server, Apache/etc
+role :app, "asu.bittorious.com"                          # This may be the same as your `Web` server
+role :db,  "asu.bittorious.com", :primary => true # This is where Rails migrations will run
 
 
 set :user, "torrent"
@@ -28,8 +28,7 @@ set :group, "torrent"
 
 set :scm, :git
 # Not working. 
-# set :repository, "ssh://git@10.55.3.107:7999/bit/tater.git"
-set :repository, "git@github.com:tgen/tater.git"
+set :repository, "git@github.com:preston/bittorious.git"
 set :deploy_to, "/var/www/#{application}"
 set :deploy_env, 'appliance'
 

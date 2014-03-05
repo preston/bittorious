@@ -2,62 +2,63 @@
 - resource_name = :user
 - resource = User.new
 
-div#landing
+.container#landing
 
-	section.row#splash
-	
-		div.col-md-8#overview_carousel
-			h1 Big Data Collaboration
-			p.lead Publish and backup massive data sets to a private group of collaborators over the Internet.
-			/ = image_tag 'Architecture Diagram v3.png'
-
+	.jumbotron
+		.row#splash
 		
-		div.col-md-4#login_box
-			hr
-			- if user_signed_in?
-				/ h1 Welcome
-				/ p To get started using Bittorious simply use the navigation bar at the top of the page
-				/ p The dashboard is your gateway to all you torrents and feeds
-			-else
-				h1 Sign in!
-				= form_for(resource, :as => resource_name, :url => session_path(resource_name, class: :form), role: :form) do |f|
-					.form-group
-						= f.label :email
-						= f.email_field :email, class: 'form-control'
-				
-						= f.label :password
-						= f.password_field :password, class: 'form-control'
-				
-					- if devise_mapping.rememberable?
-						.checkbox
-							= f.label :remember_me
-								= f.check_box :remember_me
-								| Remember me!
-					div
-						= f.submit "Sign in", class: 'btn btn-default'
-
-				- if devise_mapping.registerable? && controller_name != 'registrations'
-					/ link_to "Sign up", new_registration_path(resource_name)
-					/ Button to trigger modal
-					a href="#request_account_button" role="button" data-toggle="modal" data-target="request_account_dialog" Request an account.
-					br
-				
-				- if devise_mapping.recoverable? && controller_name != 'passwords'
-					= link_to "Forgot your password?", new_password_path(resource_name)
-					br
-				- if devise_mapping.confirmable? && controller_name != 'confirmations'
-					= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
-					br
-				- if devise_mapping.lockable? && User.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-					= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
-					br
-				- if devise_mapping.omniauthable?
-					- resource_class.omniauth_providers.each do |provider|
-						= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+			div.col-md-8#overview_carousel
+				h1 Big Data Collaboration
+				p.lead Exchange massive data sets amongst private group of collaborators over the Internet.
+				/ = image_tag 'Architecture Diagram v3.png'
+	
+			
+			div.col-md-4#login_box
+				hr
+				- if user_signed_in?
+					h3 Welcome
+					p To get started using BitTorious, use the navigation bar at the top of the page.
+					= link_to 'Go To Dashboard', dashboard_path, class: 'btn btn-primary'
+				-else
+					h3 Sign in!
+					= form_for(resource, :as => resource_name, :url => session_path(resource_name, class: :form), 	role: :form) do |f|
+						.form-group
+							= f.label :email
+							= f.email_field :email, class: 'form-control'
+					
+							= f.label :password
+							= f.password_field :password, class: 'form-control'
+					
+						- if devise_mapping.rememberable?
+							.checkbox
+								= f.label :remember_me
+									= f.check_box :remember_me
+									| Remember me!
+						div
+							= f.submit "Sign in", class: 'btn btn-default'
+	
+					- if devise_mapping.registerable? && controller_name != 'registrations'
+						/ link_to "Sign up", new_registration_path(resource_name)
+						/ Button to trigger modal
+						a href="#request_account_button" role="button" data-toggle="modal" data-target="	request_account_dialog" Request an account.
 						br
-			hr
-			p.muted BitTorious manages replication of large data sets with SSL encryption, authentication, and role-based authorization, adding security to the standardized bittorrent while remaining true to the open standards on which it is built.
-			hr
+					
+					- if devise_mapping.recoverable? && controller_name != 'passwords'
+						= link_to "Forgot your password?", new_password_path(resource_name)
+						br
+					- if devise_mapping.confirmable? && controller_name != 'confirmations'
+						= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+						br
+					- if devise_mapping.lockable? && User.unlock_strategy_enabled?(:email) && controller_name != '	unlocks'
+						= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
+						br
+					- if devise_mapping.omniauthable?
+						- resource_class.omniauth_providers.each do |provider|
+							= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(	resource_name, provider)
+							br
+				hr
+				/ p.muted BitTorious manages replication of large data sets with SSL encryption, authentication, and 	role-based authorization, adding security to the standardized bittorrent while remaining true to 	the open standards on which it is built.
+				
 
 		/ Modal
 		div.modal.fade#request_account_dialog tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -85,46 +86,56 @@ div#landing
 				button.btn type="button" data-dismiss="modal" Nevermind
 				button.btn.btn-primary type="button" Submit
 	
-	
-	section id="benefits" class="row-fluid"
-		div.col-md-6
-			h4 Core Solution Benefits
-			p BitTorious is a custom data publication, subscription, indexing and search web application for collaborations centered around large data sets. Unlike direct point-to-point data transfer mechanisms provided by protocols such as HTTP, FTP and Rsync, BitTorious builds central data indexing, search and sharing tools on top of the free, established, distributed BitTorrent data transfer mechanism that performs best at large scales.
+	section.row
+		/ hr
+		.col-md-4
+			h1.icon.icon-upload.icon-large
+				|  Publish
+			hr
+			p Sharing starts by creating a .torrent file right where your data is, using either a supported BitTorrent client or command-line script. If you're already familiar with BitTorrent, we add a few concepts to support:
 			ul
-				li Supports 64-bit data payloads greater than 1TB in size.
-				li Performance improves with scale.
-				li Straightforward data publisher/subscriber role management.
-				li Custom per-payload metadata management and search.
-				li Automated transfers using standard RSS data feeds.
-				li Simple deployment: centralized web portal plus local clients.
-				li Free-use client licensing means costs scale slower than capacity.
-				li Builds atop the published, proven, budget-friendly BitTorrent protocol.
-				li IT-friendly bandwidth and QoS management.
-				li Automatic block-based checksum validation for high reliability.
-		div.col-md-6
-			h4 Powered by BitTorrent
-			p In addition, the underlying BitTorrent protocol provides a multitude of desirable features that control complexity and cost:
+				li Payloads over 10TB.
+				li Data RSS feeds for automatic downloads.
+				li Feed-level publisher/subscriber permissions management.
+				li Web-based search.
+				li User management.
+				li Web-based collaboration network monitoring.
+
+		.col-md-4
+			h1.icon.icon-rss.icon-large
+				|  Subscribe
+			hr
+			p aoeu
+
+		.col-md-4
+			h1.icon.icon-download.icon-large
+				|  Download
+			hr
+			p Data is distributed via BitTorrent with several extensions, providing a number of great benefits:
 			ul
 				li Uses existing, standard Internet connections.
 				li Runs on all common server and desktop computing platforms.
-				li Many free client options from which to choose.
+				li Free client software.
 				li Automatic block-based checksum validation. 
 				li Supports Intranet/Internet hybrid transfers for large institutions.
-				li Fault-tolerance and reliability improve dramatically at scale.
-				li No dedicated local servers required.
+				li Highly scalable.
+				li No servers required.
 				li Non-linear transfer swarms using standard BitTorrent protocol.
-				li For dedicated download-only clients, recommended minimum system specs are 4GB RAM, 2x 2GHz
 				li Concurrent P2P transfers for all clients.
-				li File integrity checking.
-				li Pause/Resume support.
+				li Automatic pause/resume.
 				li Free licensing.
 				li Cross-platform client software.
-	
+	section.row#benefits
+		.col-md-6
+			h4 Core Solution Benefits
+			p BitTorious is a custom data publication, subscription, indexing and search web application for collaborations centered around large data sets. Unlike direct point-to-point data transfer mechanisms provided by protocols such as HTTP, FTP and Rsync, BitTorious builds central data indexing, search and sharing tools on top of the free, established, distributed BitTorrent data transfer mechanism that performs best at large scales.
+			ul
+
 
 	div.clearfix
 
 	section.row#architecture
-		div.col-md-6
+		.col-md-6
 			h2 Architectural Breakdown
 			p BitTorious is extremely simple to deploy, and requires only two architectural components: a deployment of the BitTorious web application portal, and any number of standard BitTorrent clients.
 			
@@ -139,7 +150,7 @@ div#landing
 			h4 Seeding
 			p A Client that has a full or partial copy of a torrent will, by default, be available to distribute the torrents to other subscribers. Limits can be set on throughput usage, time of use, quality of service, hard download/upload caps, or be turned off completely for each individual client.
 			p Accounts within the web application are managed in a role-based manner. Each role, below, is applied globally to appropriate users, though only administrative users may assign these roles.
-			table
+			table.table.table-condensed.table-striped
 				thead
 					tr
 						th Role
@@ -154,7 +165,7 @@ div#landing
 					tr
 						td Administrator
 						td All abilities as Publishers (and Subscribers), plus the ability to manage user accounts and grant/revoke roles.
-		div.col-md-6
+		.col-md-6
 			h2 Deployment Components
 			h3 Portal
 			p BitTorious is a cross-platform web application that supports the latest stable versions of mainstream web browsers. Specifically, support is included for:
@@ -174,7 +185,7 @@ div#landing
 				li Have enough bandwidth and underlying storage space to appropriately accommodate the needs of the publisher and subscriber base. This requires estimation on behalf of the deployment team to provide enough underlying storage.
 	
 	section.row#deployment
-		div.col-md-6#security
+		.col-md-6#security
 			h3 Security
 			p Unlike standard BitTorrent, we've added authentication and authorization checking at three stages:
 			ol
@@ -186,7 +197,7 @@ div#landing
 			p We also encourage the use of password protected compression such as Zip or Gzip prior to publication for sensitive data as an additional layer of security.
 			p Note that the compliance level of all systems in the network is given to individual client sites to enforce, as BitTorious doesn't know about the infrastructure at individual sites. BitTorious (and underlying BitTorrent protocols) are agnostic to computing environment and can be run in any cloud computing environment that provides IaaS, but cannot programmatically determine which data, if any, is subject to special compliance rules. For uses subject to environmental restrictions such as HIPAA, BitTorious can be hosted on appropriately protected IT infrastructure. Please consider the nature of data and metadata needing publication prior to deploying your own instance of the portal.
 		
-		div.col-md-6#it_department
+		.col-md-6#it_department
 			h3 IT Manageability
 			p Please let your IT department make adequate preparations to prepare for fluctuating use of the overall client network. Specifically, the following checklist can be used as a starting point of consideration when planning to deploy Clients internal to your organization:
 			table.table.table-condensed.table-striped

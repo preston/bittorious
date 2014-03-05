@@ -1,42 +1,23 @@
 nav.navbar.navbar-default
-  div.container-fluid
+  .container-fluid
 
     .navbar-header
-      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1"
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
         span.icon-bar
     
-        = link_to "BitTorious", root_path, :class => 'navbar-brand'
+      = link_to "BitTorious", root_url, class: 'navbar-brand'
     
     
-    .collapse.navbar-collapse#bs-example-navbar-collapse-1
+    .collapse.navbar-collapse#navbar-collapse-1
     
     
       ul.nav.navbar-nav
         - if user_signed_in?
           li
             = link_to('Dashboard', dashboard_path)
-      
-          
-          - if current_user.admin
-            li.dropdown
-              a.dropdown-toggle data-toggle="dropdown"
-                | Admin
-                b class="caret"
-              ul.dropdown-menu
-                li
-                  = link_to 'View network status.', status_path
-                li
-                  = link_to 'Manage users.', manage_path
-                / li.divider
-                / li
-                  = link_to 'Bravely tweak database.', rails_admin_path
-      
-        - else
-          li
-            = link_to('Request Account', new_user_registration_path)
       
         / We want this menu visible to both logged-in users and visitors
         li.dropdown
@@ -49,22 +30,34 @@ nav.navbar.navbar-default
               li class="divider"
               li = link_to 'Legal', legal_path
 
-
-      -if params[:action] == 'dashboard'            
-        form.navbar-form.navbar-left id="search_form" role="search"
-          div.form-group
-            input.form-control id="search_query" placeholder="search"
-
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
+
+          - if current_user.admin
+            li.dropdown
+              a.dropdown-toggle data-toggle="dropdown"
+                | Admin
+                b class="caret"
+              ul.dropdown-menu
+                li
+                  = link_to 'View network status.', status_path
+                li
+                  = link_to 'Manage users.', manage_path
+ 
           li = link_to('My Account', edit_user_registration_path)
           li = link_to('Logout', destroy_user_session_path, :method=>'delete')
         - else
           li
+            = link_to('Request Account', new_user_registration_path)
+          li
             = link_to 'Login', new_user_session_path
 
-    
-    
+      / -if params[:action] == 'dashboard'            
+        form.navbar-form.navbar-right#search_form role="search"
+          .form-group
+            input.form-control id="search_query" placeholder="search"
+
+
     div.hidden#search_results
       h1 Search Results
       ul

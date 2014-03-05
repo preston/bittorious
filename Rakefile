@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Tater::Application.load_tasks
+BitTorious::Application.load_tasks

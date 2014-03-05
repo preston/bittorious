@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Tater::Application.config.secret_key_base = 'a14bedeedb33e42e1d54740e4a166162c1114bc6c8b73dd956502df2c9ed443025a5adbff12c5426b2e81631ac427a7509b83d5a3074fb091d5bb1ec6badb2b3'
+BitTorious::Application.config.secret_key_base = '3a14bede61ac4274302df5aa5adbff12c74Vfb091a73d1621b14bc5b3e42e1d73dc156502d5b1654745426b2e8163ec6badbd49Vb35a302d2c9e1'
