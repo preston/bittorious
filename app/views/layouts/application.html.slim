@@ -14,26 +14,19 @@ html
     = csrf_meta_tags
     = yield(:head)
     = yield(:javascripts)
-    /![if lt IE 10]
-      style
-        | #search_results:hover { color: #444 !important; }
-        | .content #dashboard h1 { color: #444 !important; }
-        | .content #dashboard h2 { color: #444 !important; }
-
-    /![endif]
 
   body
     header
       nav.navbar.navbar-default
         div.container-fluid
           = render 'layouts/navigation'
-    div id="main" role="main"
-      div class="container"
-        div class="content"
-          div class="row"
-            div class="col-lg-12"
+    div.main#main
+      div.container
+        div.content
+          div.row
+            div.col-lmd-12
               = render 'layouts/messages'
-              = yield
+            = yield
       = render partial: 'layouts/footer'
 
     

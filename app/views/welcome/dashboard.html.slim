@@ -23,14 +23,16 @@ div#dashboard
               td data-id="#{feed.id}" data-href="#{url_for feed}"
                 = feed.name
                 p #{feed.torrents.count} #{'torrent'.pluralize(feed.torrents.count)}
-              td data-id="#{feed.id}" data-href="#{url_for feed}" #{time_ago_in_words feed.torrents.last.created_at rescue "Never"} ago
+              td data-id="#{feed.id}" data-href="#{url_for feed}" #{time_ago_in_words feed.torrents.last.created_at + 'ago' rescue "Never"}
               td
-                  
-                = link_to '<i class="icon-tasks icon-white"></i> RSS'.html_safe, '#rss_dialog', 'class' => "show_rss_dialog_button btn btn-success", 'data-url' => feed_rss_url(feed), 'role' => 'button', 'data-toggle' => 'modal'
+                .button-group
+                  button.btn.btn-default.show_rss_dialog_button#rss_dialog type="button" data-url="#{feed_rss_url(feed)}" data-toggle="modal"
+                    span class="glyphicon glyphicon-list"
+                    | RSS
                 / = link_to '<i class="icon-tasks icon-white"></i> RSS'.html_safe, url_for(feed) + '.rss', 'class' => "show_rss_dialog_button btn btn-info", 'data-url' => (url_for(feed) + '.rss')
-                - if can? :manage, feed
-                  = link_to '<i class="icon-edit icon-white"></i> Edit'.html_safe, edit_feed_path(feed), 'class' => "btn btn-warning"
-                  = link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, feed, 'class' => "btn btn-danger", method: :delete, data: {confirm: 'This will permanently delete the feed from the system, and existing subscribers will no longer receive data.'} if feed.torrents.count == 0
+                  - if can? :manage, feed
+                    = link_to '<span class="icon-edit icon-white"></span> Edit'.html_safe, edit_feed_path(feed), 'class' => "btn btn-warning"
+                    = link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, feed, 'class' => "btn btn-danger", method: :delete, data: {confirm: 'This will permanently delete the feed from the system, and existing subscribers will no longer receive data.'} if feed.torrents.count == 0
       p.muted
         | Select a feed to show torrents published to it. The RSS link can be used by your BitTorrent client to
         | automatically download data published to the feed. For details, see the #{link_to "tutorial", 'getting_started'}.
@@ -101,12 +103,12 @@ div#dashboard
             div class="modal-footer"
               a href="#" class="btn" data-dismiss="modal" Nevemind
               = f.submit "Publish", :class => 'btn btn-primary', :id => 'publish_btn', :data => {:'loading-text' => 'Saving..'}
-  div#torrent_details_container
-    div#torrent_details
-    div.row#disqus
-      div.col-md-1
+  #torrent_details_container
+    #torrent_details
+    .row#disqus
+      .col-md-1
         | &nbsp;
-      div.col-md-10
-        div#disqus_thread
-      div.col-md-1
+      .col-md-10
+        #disqus_thread
+      .col-md-1
         | &nbsp;
