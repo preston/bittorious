@@ -32,10 +32,10 @@ $(function() {
 			top: '-50px'
 		});
 	});
-	$('.torrent_tags').tagsInput({
-    autocomplete_url:'/tags/torrents.json',
-   'minChars' : 2
-  });
+	// $('.torrent_tags').tagsInput({
+ //    autocomplete_url:'/tags/torrents.json',
+ //   'minChars' : 2
+ //  });
 
   $('#search_results').on('click', 'a', function(e){
     e.preventDefault();

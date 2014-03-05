@@ -8,7 +8,8 @@ gem 'cancan'
 
 # General jQuery.
 gem 'jquery-rails'
-gem 'rails3-jquery-autocomplete'
+gem 'jquery-ui-rails'
+# gem 'rails3-jquery-autocomplete'
 gem 'jquery-tablesorter'
 
 # Twitter Bootstrap: https://github.com/seyhunak/twitter-bootstrap-rails
@@ -24,7 +25,6 @@ gem 'slim-rails'
 gem 'paperclip'
 gem 'friendly_id'
 gem 'inherited_resources'
-gem 'sunspot_rails'
 gem 'acts-as-taggable-on'
 gem 'bencode' # BitTorrent data serialation format support.
 gem 'formtastic'
@@ -32,9 +32,9 @@ gem 'geocoder'
 
 
 group :assets do
-  gem 'sass-rails' #,   '~> 3.2.3'
-  gem 'coffee-rails' #, '~> 3.2.1'
-  gem 'uglifier' #, '>= 1.0.3'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 
@@ -62,7 +62,6 @@ group :production do
   gem 'pg'
 end
 
-
-gem 'rails_admin'
+# gem 'rails_admin'
 
 
