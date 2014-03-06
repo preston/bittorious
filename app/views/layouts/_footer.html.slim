@@ -1,4 +1,22 @@
 footer.footer
 	hr
-	p
-		= link_to 'FAQ', faq_path
+	p.text-center
+		span
+			a href="#{faq_path}"
+				span.icon.icon-question
+				|  FAQ
+
+		span
+			a href="#{legal_path}"
+				span.icon.icon-legal
+				|  Legal
+
+		span
+			a href="https://github.com/preston/bittorious"
+				span.icon.icon-github
+				|  Source Code
+
+		span
+			a href="https://www.linkedin.com/in/prestonvictorlee"
+				span.icon.icon-linkedin
+				|  Author

@@ -1,5 +1,7 @@
 class FeedsController < InheritedResources::Base
 
+  defaults resource_class: Feed.friendly
+
   before_filter :authenticate_user!
   before_filter :set_user_id, :only => [:create]
   load_and_authorize_resource
@@ -57,7 +59,7 @@ class FeedsController < InheritedResources::Base
           :id => resource.id,
           :name => resource.name,
           :publisher => resource.user.name,
-          :torrent_html => render_to_string('welcome/_torrent_feed', :formats => :html, :layout => false, :locals => {:torrents => resource.torrents})
+          :torrent_html => render_to_string('welcome/_dashboard_feed_details', :formats => :html, :layout => false) #, :locals => {:torrents => resource.torrents})
         }
       }
       format.any { render }

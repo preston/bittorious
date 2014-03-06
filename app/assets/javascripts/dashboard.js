@@ -16,12 +16,13 @@ $(function() {
 		$(this).parent().addClass('success');
 		$.ajax({
 			url: $(this).data('href') + '.json',
-			success: function(data){
-				$('#torrents table#feed_torrents tbody').replaceWith(data['torrent_html']);
+			success: function(data) {
+				$('#feed_details').replaceWith(data['torrent_html']);
+				// $('#torrents table#feed_torrents tbody').replaceWith(data['torrent_html']);
 				$('#torrents .btn.disabled').removeClass('disabled');
 				$('form #torrent_feed_id').val(feed_id);
 				$('#torrents td').effect('highlight');
-				$('html, body').animate({scrollTop: $("#torrents").offset().top - 100}, 2000);
+				// $('html, body').animate({scrollTop: $("#torrents").offset().top - 100}, 2000);
 			}
 		});
 		return false;

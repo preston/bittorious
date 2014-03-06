@@ -1,6 +1,6 @@
 class Feed < ActiveRecord::Base
-  extend FriendlyId
 
+  extend FriendlyId
   friendly_id :name, use: :slugged
 
   validates_presence_of :name, :user_id

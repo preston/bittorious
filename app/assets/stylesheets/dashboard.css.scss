@@ -25,13 +25,13 @@
 
   	#torrents {
 
-		td:nth-child(1),
-		td:nth-child(2),
-		td:nth-child(3),
-		td:nth-child(4),
-		td:nth-child(5) {
-			cursor: pointer;
-		}
+  		td:nth-child(1),
+  		td:nth-child(2),
+  		td:nth-child(3),
+  		td:nth-child(4),
+  		td:nth-child(5) {
+  			cursor: pointer;
+  		}
   	}
   	#feeds,
   	#torrents {
@@ -55,35 +55,30 @@
   		} 
   	}
 
-      #torrent_details_container {
-          margin: 40px -20px -20px -20px;
-          padding: 20px;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-
-          #torrent_details {
-              background: url(/assets/textures/xv/xv.png) repeat;
-              box-shadow: 0 20px 20px #333 inset, 0 0px 2px #fff;
-              border-radius: 10px;
-              padding: 20px;
-          }
-
-          #map_canvas {
-              height: 400px;
-              margin: 20px;
-              padding: 20px;
-              box-shadow: 0 20px 20px #333, 0 0px 2px #fff inset;
-          }
-
-          #disqus {
-             display: none;
-             background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;
-             margin: 20px;
-             padding: 20px;
-             box-shadow: 0 20px 20px #333, 0 0px 2px #fff inset;
-             border-radius: 10px;
-          }
-      }
-
-
- 	}
+    #torrent_details_container {
+        margin: 40px -20px -20px -20px;
+        padding: 20px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        #torrent_details {
+            background: url(/assets/textures/xv/xv.png) repeat;
+            box-shadow: 0 20px 20px #333 inset, 0 0px 2px #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        #map_canvas {
+            height: 400px;
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 20px #333, 0 0px 2px #fff inset;
+        }
+        #disqus {
+           display: none;
+           background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;
+           margin: 20px;
+           padding: 20px;
+           box-shadow: 0 20px 20px #333, 0 0px 2px #fff inset;
+           border-radius: 10px;
+        }
+    }
+}

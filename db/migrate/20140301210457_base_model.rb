@@ -11,8 +11,8 @@ class BaseModel < ActiveRecord::Migration
 			t.boolean  "enable_public_archiving", default: false
 		end
 	
-		add_index "feeds", ["slug"], name: "index_feeds_on_slug", unique: true
-		add_index "feeds", ["user_id"], name: "index_feeds_on_user_id"
+		add_index "feeds", "slug", unique: true
+		add_index "feeds", "user_id"
 	
 		create_table "peers", force: true do |t|
 			t.string   "peer_id"
@@ -29,9 +29,9 @@ class BaseModel < ActiveRecord::Migration
 			t.float    "longitude"
 		end
 	
-		add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state"
-		add_index "peers", ["ip"], name: "index_peers_on_ip"
-		add_index "peers", ["peer_id"], name: "index_peers_on_peer_id"
+		add_index "peers", ["info_hash", "state"]
+		add_index "peers", "ip"
+		add_index "peers", "peer_id"
 	
 		create_table "permissions", force: true do |t|
 			t.integer  "user_id"
@@ -41,8 +41,8 @@ class BaseModel < ActiveRecord::Migration
 			t.datetime "updated_at"
 		end
 	
-		add_index "permissions", ["feed_id"], name: "index_permissions_on_feed_id"
-		add_index "permissions", ["user_id"], name: "index_permissions_on_user_id"
+		add_index "permissions", "feed_id"
+		add_index "permissions", "user_id"
 	
 
 		create_table "torrents", force: true do |t|
@@ -61,11 +61,11 @@ class BaseModel < ActiveRecord::Migration
 			t.string   "private_info_hash"
 		end
 	
-		add_index "torrents", ["feed_id"], name: "index_torrents_on_feed_id"
-		add_index "torrents", ["info_hash"], name: "index_torrents_on_info_hash", unique: true
-		add_index "torrents", ["private_info_hash"], name: "index_torrents_on_private_info_hash"
-		add_index "torrents", ["slug"], name: "index_torrents_on_slug", unique: true
-		add_index "torrents", ["user_id"], name: "index_torrents_on_user_id"	
+		add_index "torrents", "feed_id"
+		add_index "torrents", "info_hash", unique: true
+		add_index "torrents", "private_info_hash"
+		add_index "torrents", "slug", unique: true
+		add_index "torrents", "user_id"
 	end
 
 end

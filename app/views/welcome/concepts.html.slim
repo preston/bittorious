@@ -1,0 +1,134 @@
+- content_for :body_class do 'concepts' end
+
+.container#concepts
+
+
+	section.row#architecture
+		.col-md-6
+			h2
+				span.icon.icon-lightbulb
+				|  Core Concepts
+			hr
+			p BitTorious's core ideas are a combination of existing popular concepts, as explained below:
+			dl.dl-horizontal
+				dt Torrent
+				dd A "torrent" refers to a set of files that is published as a cohesive bale of data ready for distribution. The "torrent" can be a single file, directory of files, or any combination thereof, and is initially defined using client software that produces a .torrent file.
+				dt Publication
+				dd A user ready to publish data does so by registering the torrent with a data "feed" via the BitTorious portal, and initiates the "seeding" process to other client subscribers via the local client software. It is expected, though not technically required, that the publisher set additional metadata on the torrent via BitTorious portal so future subscribers can find the content via the portal search feature in the future.
+				dt Subscription
+				dd An authorized user wanting all current and future data published to a given feed uses the BitTorious portal to find download links, and their locally installed Client to either automatically acquire all feed data as it is available, or selectively download individual torrents.
+				dt Seeding
+				dd A Client that has a full or partial copy of a torrent will, by default, be available to distribute the torrents to other subscribers. Limits can be set on throughput usage, time of use, quality of service, hard download/upload caps, or be turned off completely for each individual client.
+			p Accounts within the web application are managed in a role-based manner. Each role, below, is applied globally to appropriate users, though only administrative users may assign these roles.
+			dl.dl-horizontal
+				dt Subscriber
+				dd The default role. May log into the portal, search for content, and use download links.
+				dt Publisher
+				dd All abilities as Subscribers, plus the ability to create, update and delete feeds.
+				dt Administrator
+				dd All abilities as Publishers (and Subscribers), plus the ability to manage user accounts and grant/revoke roles.
+
+		.col-md-6
+			h2
+				span.icon.icon-building
+				|  Architectural Components
+			hr
+			h3
+				span.icon.icon-picture
+				|  Portal
+			p If you'd like to run your own private BitTorrent network, you'll need an instance of the BitTorious portal: the cross-platform web application you're looking at right now. The portal supports the latest stable versions of mainstream, HTML5-friendly web browsers. Specifically, support is included for:
+			ul
+				li Firefox
+				li Chrome
+				li Safari
+				li Internet Explorer
+			p Internally, the portal's web application stack utilizes multiple high-performance databases to store active peer connection data, system accounts, feeds, torrents and torrent metadata.
+			h3
+				span.icon.icon-desktop
+				|  Clients
+			p A client is simply a machine running a standard BitTorrent client to seed and/or download content to/from feeds, respectively. After the original publishing machine completes the initial seeding process to the cloud, it can optionally be taken offline. As long as data on the aggregate network of online Client machines contains all pieces of a given torrent, the data can be downloaded to completion by any current or new client. This characteristic of collective data replication provides an extremely resilient, high-ability architecture.
+			p Note that it is generally assumed that the throughput rates of your underlying file system greatly exceed the throughput available over your Internet connection. If this is the case -- which it almost certainly is -- higher capacity disks will likely prove a better investment than higher throughput disks.
+			h4 Dedicated Clients
+			p The optionally addition of "dedicated" clients adds another availability component to the high-availability nature of the client system. The notion of a "dedicated" client is purely semantic, and there is no technological difference versus a normal client, with the understanding that a dedicated client is expected to:
+			ul
+				li Seed all torrents for the feeds to which it is dedicated.
+				li Have enough bandwidth and underlying storage space to appropriately accommodate the needs of the publisher and subscriber base. This requires estimation on behalf of the deployment team to provide enough underlying storage.
+	
+	section.row#deployment
+		.col-md-6#security
+			h3
+				span.icon.icon-lock
+				|  Security
+			hr
+			p Unlike standard BitTorrent, we've added authentication and authorization checking at three stages:
+			ol
+				li Web portal login.
+				li Client data feed (RSS) update requests.
+				li Client registration and keep-alive with the web portal.
+			p This means that if Alice forwards your published data link to Bob, Bob will neither be able to log in to the portal to look up additional metadata nor register his client with the official tracker. (If Alice posts content to a system such as an FTP server outside the network, however, we of course can't control that.)
+			p BitTorious controls access to metadata and torrent links solely behind the authenticated and authorized portal via simple email/password accounts granted by the system administrator. New users may request access via the portal homepage.
+			p We also encourage the use of password protected compression such as Zip or Gzip prior to publication for sensitive data as an additional layer of security.
+			p Note that the compliance level of all systems in the network is given to individual client sites to enforce, as BitTorious doesn't know about the infrastructure at individual sites. BitTorious (and underlying BitTorrent protocols) are agnostic to computing environment and can be run in any cloud computing environment that provides IaaS, but cannot programmatically determine which data, if any, is subject to special compliance rules. For uses subject to environmental restrictions such as HIPAA, BitTorious can be hosted on appropriately protected IT infrastructure. Please consider the nature of data and metadata needing publication prior to deploying your own instance of the portal.
+		
+		.col-md-6#it_department
+			h3
+				span.icon.icon-home
+				|  Household Friendly
+			hr
+			p Accessing your data feeds at home is trivial with routers supporting UPnP. If you have a older router or don't want to enable UPnP, a few simple port forwarding rules for your BitTorrent client will work just as well!
+
+			h3
+				span.icon.icon-tasks
+				|  Enterprise Manageability
+			hr
+			p Please let your IT department make adequate preparations to prepare for fluctuating use of the overall client network. Specifically, the following checklist can be used as a starting point of consideration when planning to deploy Clients internal to your organization:
+			table.table.table-condensed.table-striped
+				thead
+					tr
+						th Consideration
+						th IT Infrastructure
+						th Client Configuration
+				tbody
+					tr
+						td Traffic blocking
+						td
+							span.icon.icon-check
+						td 
+					tr
+						td Quality of Service
+						td
+							span.icon.icon-check
+						td 
+					tr
+						td Port/Address Restrictions
+						td
+							span.icon.icon-check
+						td
+					tr
+						td Bandwidth Shaping
+						td
+							span.icon.icon-check
+						td
+							span.icon.icon-check
+					tr
+						td Time of Use Restrictions
+						td
+							span.icon.icon-check
+						td
+							span.icon.icon-check
+					tr
+						td Hard Transfer Caps
+						td
+						td
+							span.icon.icon-check
+					tr
+						td Upload/Download Ratio Limits
+						td
+						td
+							span.icon.icon-check
+					tr
+						td Direct Internal Transfers
+						td
+						td
+							span.icon.icon-check
+		

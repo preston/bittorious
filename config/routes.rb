@@ -26,6 +26,9 @@ BitTorious::Application.routes.draw do
 
 	get 'landing' => "welcome#landing",		as: :landing
 	get 'dashboard' => "welcome#dashboard",	as: :dashboard
+	get 'concepts' => "welcome#concepts",	as: :concepts
+	get 'history' => "welcome#history",	as: :history
+	get 'deployment' => "welcome#deployment",	as: :deployment
 	get 'status' => "welcome#status",		as: :status
 	get 'legal' => "welcome#legal",			as: :legal
 	get 'faq' => "welcome#faq",				as: :faq

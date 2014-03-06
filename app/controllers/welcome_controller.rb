@@ -11,6 +11,9 @@ class WelcomeController < ApplicationController
     @feeds = Feed.order(:name).load
   end
 
+  def concepts
+  end
+
 	def status
 	end
 

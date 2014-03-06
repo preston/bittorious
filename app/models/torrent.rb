@@ -3,9 +3,10 @@ require 'bencode'
 # info_hash attribute is solely for the purpose of checking if we already have the file now.
 # we use private_info_hash everywhere instead.
 class Torrent < ActiveRecord::Base
-  extend FriendlyId
 
+  extend FriendlyId
   friendly_id :name, use: :slugged
+
   acts_as_taggable
 
   # Disabling Solr for now.

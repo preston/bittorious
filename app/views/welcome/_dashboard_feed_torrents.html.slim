@@ -1,3 +1,4 @@
+
 p Torrents for the selected feed are shown, below.
 .btn-group
   -if can? :create, Torrent
@@ -6,15 +7,17 @@ p Torrents for the selected feed are shown, below.
 table.table.table-condensed.table-striped#feed_torrents
   thead
     tr
-      th class="sorting" Name
-      th class="sorting" Published By
-      th class="sorting" Seeds
-      th class="sorting" Peers
-      th class="sorting" Size
+      th.sorting Name
+      th.sorting Published By
+      th.sorting Seeds
+      th.sorting Peers
+      th.sorting Size
       th Actions
-  = render :partial => 'torrent_feed', :locals => {:torrents => (@selected_feed.torrents rescue [])}
+  tbody
+    / = render :partial => 'torrent_feed', :locals => {:torrents => (@selected_feed.torrents rescue [])}
+    =render :partial => 'welcome/torrent', :collection => @feed.torrents
 
-div id="upload_torrent_dialog" class="modal hide fade"
+.modal.fade#upload_torrent_dialog
     .modal-header
       button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
       h3 Publish a torrent.
@@ -37,6 +40,6 @@ div id="upload_torrent_dialog" class="modal hide fade"
           = f.text_field :tag_list, :class => "torrent_tags", required: true
         div class="field"
           = f.file_field :torrent_file, required: true
-      div class="modal-footer"
+      .modal-footer
         a href="#" class="btn" data-dismiss="modal" Nevemind
         = f.submit "Publish", :class => 'btn btn-primary', :id => 'publish_btn', :data => {:'loading-text' => 'Saving..'}

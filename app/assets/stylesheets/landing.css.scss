@@ -13,44 +13,44 @@
 			-o-transition:			all .3s ease-out;
 			transition:					all .3s ease-out;
 		}
-		
-
-/*		
-		> div:hover {
-			-webkit-transform:
-				perspective(0)
-				rotate3d(0, 0, 0, 0deg);
-						
-			-webkit-transition:	all .3s ease-out;
-			-moz-transition:		all .3s ease-out;
-			-o-transition:			all .3s ease-out;
-			transition:					all .3s ease-out;
-		}*/
-
 	}
+
 	
-	// #splash,
-	// #reference_architecture
-	.jumbotron:hover	 {
-		// box-shadow: 0 20px 20px rgba(0,0,0,.6), 0 0px 80px #ccc inset;
+	.jumbotron:hover {
 		box-shadow: 0 60px 40px rgba(0,0,0,1), 0 0px 40px #eee inset;
-
-		// -webkit-transition:		all .5s linear;
-		// -moz-transition:		all .5s linear;
-		// -o-transition:			all .5s linear;
-		// transition:				all .5s linear;
 	}
-	
-	// #splash:hover,
-	// #reference_architecture:hover,
+
 	.jumbotron {
 		background: url(/assets/textures/ricepaper/ricepaper.png) repeat;
 		box-shadow: 0 20px 20px rgba(0,0,0,.6), 0 0px 80px #ccc inset;
-
+		border: 1px solid #ccc;
 		-webkit-transition:	all .5s linear;
 		-moz-transition:		all .5s linear;
 		-o-transition:			all .5s linear;
 		transition:					all .5s linear;
+	}
+
+	section {
+
+		.col-md-4 {
+			border: 1px solid rgba(0,0,0,0);
+			padding: 40px;
+			-webkit-transition:	all .5s linear;
+			-moz-transition:		all .5s linear;
+			-o-transition:			all .5s linear;
+			transition:					all .5s linear;
+		}
+		.col-md-4:hover {
+			box-shadow: 0 60px 40px rgba(0,0,0,1), 0 0px 40px #eee inset;
+			background: #eee;
+			color: #555;
+			border: 1px solid #ccc;
+			-webkit-transition:	all .5s linear;
+			-moz-transition:		all .5s linear;
+			-o-transition:			all .5s linear;
+			transition:					all .5s linear;
+		}
+
 	}
 }
 

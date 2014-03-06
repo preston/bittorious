@@ -1,0 +1,27 @@
+.col-md-8
+  ul.nav.nav-tabs
+    li.active
+      a href="#torrents" data-toggle="tab"
+        span.icon.icon-copy
+        |  Torrents
+    li
+      a href="#map" data-toggle="tab"
+        span.icon.icon-globe
+        |  Activity Map
+    li
+      a href="#permissions" data-toggle="tab" 
+        span.icon.icon-group
+        |  Permissions
+    li
+      a href="#settings" data-toggle="tab"
+        span.icon.icon-gear
+        |  Settings
+  
+  
+  .tab-content
+    .tab-pane.active#torrents = render partial: 'welcome/dashboard_feed_torrents'
+    .tab-pane#map
+    .tab-pane#permissions
+    .tab-pane#settings
+  
+  

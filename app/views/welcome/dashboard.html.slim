@@ -60,23 +60,7 @@
             button.btn.btn-primary#create_feed_btn type="button" data-loading-text="Saving.." Create the feed!
   
     .col-md-8#feed_details
-
-      ul.nav.nav-tabs
-        li.active
-          a href="#torrents" data-toggle="tab" Torrents
-        li
-          a href="#profile" data-toggle="tab" Profile
-        li
-          a href="#messages" data-toggle="tab" Messages
-        li
-          a href="#settings" data-toggle="tab" Settings
-      
-      
-      .tab-content
-        .tab-pane.active#torrents = render partial: 'welcome/dashboard_torrents'
-        .tab-pane#profile
-        .tab-pane#messages
-        .tab-pane#settings
+      / Replaced via AJAX on feed selection.
 
 
 

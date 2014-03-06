@@ -43,3 +43,5 @@
 								td
 									= button_to 'Approve', approve_user_path(user), :remote => true, :class => 'btn 	btn-primary', form_class: 'approve button_to'
 									= button_to 'Deny', deny_user_path(user), :remote => true, :class => 'btn btn-	primary deny', form_class: 'deny button_to', confirm: 'Are you sure you 	want to deny access to this user?'
+			- else
+				h1 Nada!

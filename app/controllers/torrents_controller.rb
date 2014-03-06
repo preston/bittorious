@@ -1,5 +1,6 @@
 class TorrentsController < InheritedResources::Base
    
+  defaults resource_class: Torrent.friendly
 
   respond_to :json, :html, :xml, :rss
   prepend_before_filter :set_params_from_torrent, :only => [:create]
