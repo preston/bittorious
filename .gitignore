@@ -13,6 +13,7 @@
 
 # Instance-specific configuration.
 config/database.yml
+config/initializers/devise.rb
 
 # Ignore all logfiles and tempfiles.
 /log
