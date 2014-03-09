@@ -7,6 +7,9 @@ en:
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
+      # not_approved is custom!
+      user:
+        not_approved: 'You have signed up successfully, but your account has not yet been approved by an administrator yet.'
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
       invalid: "Invalid email or password."
@@ -33,9 +36,6 @@ en:
       updated: "Your password was changed successfully. You are now signed in."
       updated_not_active: "Your password was changed successfully."
     registrations:
-      # not_approved is custom!
-      user:
-        not_approved: 'You have signed up successfully, but your account has not yet been approved by an administrator yet.'
       destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
