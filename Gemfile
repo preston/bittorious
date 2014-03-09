@@ -29,7 +29,7 @@ gem 'acts-as-taggable-on'
 gem 'bencode' # BitTorrent data serialation format support.
 gem 'formtastic'
 gem 'geocoder'
-
+gem 'gravatar_image_tag'
 
 group :assets do
   gem 'sass-rails'

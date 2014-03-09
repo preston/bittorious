@@ -27,9 +27,7 @@
                   a.btn.btn-sm.show_rss_dialog_button#rss_dialog type="button" href="#{feed_rss_url(feed)}" data-toggle="modal"
                     i.icon.icon-rss
                     |  RSS
-                  - if can? :manage, feed
-                    = link_to '<span class="icon-edit icon-white"></span> Edit'.html_safe, edit_feed_path(feed), 'class' => "btn btn-sm"
-                    = link_to '<i class="icon-trash icon-white"></i> Delete'.html_safe, feed, 'class' => "btn btn-sm", method: :delete, data: {confirm: 'This will permanently delete the feed from the system, and existing subscribers will no longer receive data.'} if feed.torrents.count == 0
+
       p.muted
         | Select a feed to show torrents published to it. The RSS link can be used by your BitTorrent client to
         | automatically download data published to the feed. For details, see the #{link_to "tutorial", 'getting_started'}.

@@ -1,7 +1,9 @@
 tr
-	td #{approved_user.name}
+	td = approved_user.name
 	td
 		= link_to approved_user.email, "mailto:#{approved_user.email}"
+		br
+		img src="#{gravatar_image_url(current_user.email, filetype: :png, rating: 'pg', size: 50, secure: true)}"
 	td
 		- if approved_user == current_user
 			p class="muted" You may not remove administrative rights from your own account, but can have another admin do it. This is a safety precaution to prevent complete system lock-outs.

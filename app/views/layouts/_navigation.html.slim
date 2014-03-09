@@ -46,7 +46,10 @@ nav.navbar.navbar-default
                 li
                   = link_to 'Manage users.', manage_path
  
-          li = link_to('My Account', edit_user_registration_path)
+          li
+            a href="#{edit_user_registration_path}"
+              img src="#{gravatar_image_url(current_user.email, filetype: :png, rating: 'pg', size: 20, secure: true)}"
+              |  My Account
           li = link_to('Logout', destroy_user_session_path, :method=>'delete')
         - else
           li

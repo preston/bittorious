@@ -36,7 +36,10 @@
 					tbody
 						- @pending.each do |user|
 							tr id="user_#{user.id}"
-								td #{user.email}
+								td
+									= user.email
+									br
+									img src="#{gravatar_image_url(current_user.email, filetype: :png, rating: 'pg', size: 20, secure: true)}"
 								td
 									= time_ago_in_words user.created_at
 									|  ago.

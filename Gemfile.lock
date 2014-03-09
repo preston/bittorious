@@ -114,6 +114,7 @@ GEM
     geocoder (1.1.9)
     gherkin (2.12.2)
       multi_json (~> 1.3)
+    gravatar_image_tag (1.2.0)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -274,6 +275,7 @@ DEPENDENCIES
   formtastic
   friendly_id
   geocoder
+  gravatar_image_tag
   inherited_resources
   jquery-rails
   jquery-tablesorter

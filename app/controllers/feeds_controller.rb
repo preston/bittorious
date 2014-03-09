@@ -59,7 +59,7 @@ class FeedsController < InheritedResources::Base
           :id => resource.id,
           :name => resource.name,
           :publisher => resource.user.name,
-          :torrent_html => render_to_string('welcome/_dashboard_feed_details', :formats => :html, :layout => false) #, :locals => {:torrents => resource.torrents})
+          :torrent_html => render_to_string('feeds/show', :formats => :html, :layout => false) #, :locals => {:torrents => resource.torrents})
         }
       }
       format.any { render }

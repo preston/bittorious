@@ -1,24 +1,21 @@
 = form_for(@feed) do |f|
-  - if @feed.errors.any?
-    div id="error_explanation"
-      h2
-        = pluralize(@feed.errors.count, "error")
-        | prohibited this feed from being saved:
-      ul
-        - @feed.errors.full_messages.each do |msg|
-          li = msg
+	- if @feed.errors.any?
+		div id="error_explanation"
+			h2
+				= pluralize(@feed.errors.count, "error")
+				| prohibited this feed from being saved:
+			ul
+				- @feed.errors.full_messages.each do |msg|
+					li = msg
 
-  div
-    = f.label :name
-    = f.text_field :name, placeholder: 'My Awesome Data Feed'
+	.form-group
+		= f.label :name
+		= f.text_field :name, placeholder: 'My Awesome Data Feed', class: 'form-control'
 
-  div
-    label.checkbox
-      = f.check_box :enable_public_archiving
-      | Enable Public Archiving
+	.checkbox
+		label
+			= f.check_box :enable_public_archiving
+			| Enable future archiving on volunteer network. (Not yet implemented!)
 
-
-  div id="feed_buttons"
-    a href="<%= url_for :back %>" class="btn" data-dismiss="modal"
-      | Nevemind
-    = f.submit "Save", :class => 'btn btn-primary', :id => 'publish_btn', :data => {:'loading-text' => 'Saving..'}
+	.form-group#feed_buttons
+		= f.submit "Save", :class => 'btn btn-primary btn-lg', type: 'button', :id => 'publish_btn', :data => {:'loading-text' => 'Saving..'}
