@@ -135,7 +135,8 @@
 			span.icon.icon-apple style="font-size: 48pt;"
 				|  
 			span.icon.icon-linux style="font-size: 48pt;"
-	p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary btn-lg')
+	- if !user_signed_in?
+		p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary btn-lg')
 	p.lead BitTorious is a holistic solution to collaborative, private data transfer for organizations needing to share epic payloads across the Internet in a cost-scalable, manageable, automated, and easy-to-use platform.
 	
 javascript:
