@@ -21,7 +21,7 @@
 	}
 
 	.jumbotron {
-		background: url(/assets/textures/ricepaper/ricepaper.png) repeat;
+		background: image-url('textures/ricepaper/ricepaper.png') repeat;
 		box-shadow: 0 20px 20px rgba(0,0,0,.6), 0 0px 80px #ccc inset;
 		border: 1px solid #ccc;
 		-webkit-transition:	all .5s linear;

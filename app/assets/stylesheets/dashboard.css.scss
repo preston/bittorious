@@ -61,7 +61,7 @@
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         #torrent_details {
-            background: url(/assets/textures/xv/xv.png) repeat;
+            background: image-url('textures/xv/xv.png') repeat;
             box-shadow: 0 20px 20px #333 inset, 0 0px 2px #fff;
             border-radius: 10px;
             padding: 20px;
@@ -74,7 +74,7 @@
         }
         #disqus {
            display: none;
-           background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat;
+           background: image-url('textures/tileable_wood_texture/tileable_wood_texture.png') repeat;
            margin: 20px;
            padding: 20px;
            box-shadow: 0 20px 20px #333, 0 0px 2px #fff inset;

@@ -15,8 +15,9 @@
  */
 
 body {
-  /* background: url(/assets/textures/tileable_wood_texture/tileable_wood_texture.png) repeat; */
-  background: url(/assets/textures/xv/xv.png) repeat;
+  /* background: image-url('textures/tileable_wood_texture/tileable_wood_texture.png') repeat; */
+  background-color: none;
+  background: image-url('textures/xv/xv.png') repeat;
 
 }
 
