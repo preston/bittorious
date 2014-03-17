@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.1'
 
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.4'
 
 gem 'devise'
 gem 'cancan'
@@ -10,7 +10,7 @@ gem 'cancan'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 # gem 'rails3-jquery-autocomplete'
-gem 'jquery-tablesorter'
+# gem 'jquery-tablesorter'
 
 # Twitter Bootstrap: https://github.com/seyhunak/twitter-bootstrap-rails
 gem 'therubyracer'
