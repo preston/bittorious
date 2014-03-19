@@ -1,68 +1,62 @@
-nav.navbar.navbar-default
-  .container-fluid
+header.navbar.navbar-default role="banner"
 
-    .navbar-header
-      button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1"
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
+  .navbar-header
+    button.navbar-toggle type="button" data-toggle="collapse" data-target="#navbar-collapse-1"
+      span.sr-only Toggle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+  
+    = link_to "BitTorious", root_url, class: 'navbar-brand'
+  
+  
+  nav.collapse.navbar-collapse#navbar-collapse-1
+  
+  
+    ul.nav.navbar-nav
+      - if user_signed_in?
+        li
+          = link_to('Dashboard', dashboard_path)
     
-      = link_to "BitTorious", root_url, class: 'navbar-brand'
-    
-    
-    .collapse.navbar-collapse#navbar-collapse-1
-    
-    
-      ul.nav.navbar-nav
-        - if user_signed_in?
-          li
-            = link_to('Dashboard', dashboard_path)
-      
-        / We want this menu visible to both logged-in users and visitors
-        li.dropdown
-          a.dropdown-toggle data-toggle="dropdown"
-            | Learn
-            b.caret
-          ul.dropdown-menu role="menu"
-              li = link_to 'System Concepts', concepts_path
-              li = link_to 'Deployment Options', deployment_path
-              li = link_to 'Publishing Tutorial', getting_started_path
-              li = link_to 'FAQ', faq_path
-              li class="divider"
-              li = link_to 'Legal', legal_path
+      / We want this menu visible to both logged-in users and visitors
+      li.dropdown
+        a.dropdown-toggle data-toggle="dropdown"
+          | Learn
+          b.caret
+        ul.dropdown-menu role="menu"
+            li = link_to 'System Concepts', concepts_path
+            li = link_to 'Deployment Options', deployment_path
+            li = link_to 'Publishing Tutorial', getting_started_path
+            li = link_to 'FAQ', faq_path
+            li class="divider"
+            li = link_to 'Legal', legal_path
 
-      ul.nav.navbar-nav.navbar-right
-        - if user_signed_in?
+    ul.nav.navbar-nav.navbar-right
+      - if user_signed_in?
 
-          - if current_user.admin
-            li.dropdown
-              a.dropdown-toggle data-toggle="dropdown"
-                | Admin
-                b class="caret"
-              ul.dropdown-menu
-                li
-                  = link_to 'View network status.', status_path
-                li
-                  = link_to 'Manage users.', manage_path
- 
-          li
-            a href="#{edit_user_registration_path}"
-              img src="#{gravatar_image_url(current_user.email, filetype: :png, rating: 'pg', size: 20, secure: true)}"
-              |  My Account
-          li = link_to('Logout', destroy_user_session_path, :method=>'delete')
-        - else
-          li
-            = link_to('Request Account', new_user_registration_path)
-          li
-            = link_to 'Login', new_user_session_path
+        - if current_user.admin
+          li.dropdown
+            a.dropdown-toggle data-toggle="dropdown"
+              | Admin
+              b class="caret"
+            ul.dropdown-menu
+              li
+                = link_to 'View network status.', status_path
+              li
+                = link_to 'Manage users.', manage_path
 
-      / -if params[:action] == 'dashboard'            
-        form.navbar-form.navbar-right#search_form role="search"
-          .form-group
-            input.form-control id="search_query" placeholder="search"
+        li
+          a href="#{edit_user_registration_path}"
+            img src="#{gravatar_image_url(current_user.email, filetype: :png, rating: 'pg', size: 20, secure: true)}"
+            |  My Account
+        li = link_to('Logout', destroy_user_session_path, :method=>'delete')
+      - else
+        li
+          = link_to('Request Account', new_user_registration_path)
+        li
+          = link_to 'Login', new_user_session_path
 
-
-    div.hidden#search_results
-      h1 Search Results
-      ul
+    / -if params[:action] == 'dashboard'            
+    form.navbar-form.navbar-right#search_form role="search"
+      .form-group
+        input.form-control id="search_query" placeholder="search"

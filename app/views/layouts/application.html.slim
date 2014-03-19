@@ -16,8 +16,8 @@ html
     = yield(:javascripts)
 
   body class="#{yield(:body_class)}"
-    header
-      = render 'layouts/navigation'
+    / header
+    = render 'layouts/navigation'
     .main#main
       .container-fluid
         = render 'layouts/messages'

@@ -13,8 +13,8 @@ gem 'jquery-ui-rails'
 # gem 'jquery-tablesorter'
 
 # Twitter Bootstrap: https://github.com/seyhunak/twitter-bootstrap-rails
-gem 'therubyracer'
-gem 'less-rails'
+# gem 'therubyracer'
+# gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 
 
