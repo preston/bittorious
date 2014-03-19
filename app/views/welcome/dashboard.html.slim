@@ -53,26 +53,28 @@
 
 
 .modal.fade#rss_dialog tabindex="-1" role="dialog" aria-labelledby="rss_dialog_label" aria-hidden="true"
-  .modal-header
-    button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-    h4.modal-title#rss_dialog_label Handy RSS URL.
-  .modal-body
-    p.lead
-      | Paste this URL into your BitTorrent client for nifty automatic downloading of all torrents published to the feed! (Don't forget to set an email/password for our required proxy server.)
-    .well.well-large
-      a id="rss_link" href="#" url_for('/')
-  .modal-footer
-      button.btn.button-default type="button" data-dismiss="modal" Close
+  .modal-content
+    .modal-header
+      button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+      h4.modal-title#rss_dialog_label Handy RSS URL.
+    .modal-body
+      p.lead
+        | Paste this URL into your BitTorrent client for nifty automatic downloading of all   torrents published to the feed! (Don't forget to set an email/password for our  required proxy server.)
+      .well.well-large
+        a id="rss_link" href="#" url_for('/')
+    .modal-footer
+        button.btn.button-default type="button" data-dismiss="modal" Close
 
 - if can? :create, Feed
   .modal.fade#create_feed_dialog tabindex="-1" role="dialog" aria-labelledby="create_dialog_label" aria-hidden="true"
-    .modal-header
-      button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-      h4.modal-title#create_feed_label Modal title
-    .modal-body
-      - @feed = Feed.new
-      = render partial: 'feeds/form'
-    .modal-footer
-      button.btn.button-default type="button" data-dismiss="modal" Nevermind.
-      button.btn.btn-primary#create_feed_btn type="button" data-loading-text="Saving.." Create the feed!
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#create_feed_label Modal title
+      .modal-body
+        - @feed = Feed.new
+        = render partial: 'feeds/form'
+      .modal-footer
+        button.btn.button-default type="button" data-dismiss="modal" Nevermind.
+        button.btn.btn-primary#create_feed_btn type="button" data-loading-text="Saving.." Create the feed!
 
