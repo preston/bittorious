@@ -46,26 +46,25 @@ class BaseModel < ActiveRecord::Migration
 	
 
 		create_table "torrents", force: true do |t|
-			t.string   "name"
-			t.string   "slug"
-			t.datetime "created_at"
-			t.datetime "updated_at"
-			t.integer  "user_id"
-			t.string   "torrent_file_file_name"
-			t.string   "torrent_file_content_type"
-			t.integer  "torrent_file_file_size"
-			t.datetime "torrent_file_updated_at"
-			t.integer  "size",                      limit: 8
-			t.string   "info_hash"
-			t.integer  "feed_id"
-			t.string   "private_info_hash"
+			t.string	:name
+			t.string	:slug
+			t.datetime	:created_at
+			t.datetime	:updated_at
+			t.integer	:user_id
+			# t.string	:torrent_file_file_name
+			# t.string	:torrent_file_content_type
+			# t.integer	:torrent_file_file_size
+			# t.datetime	:torrent_file_updated_at
+			t.integer	:size,                      limit: 8
+			t.string	:info_hash,	null: false
+			t.text		:data,	null: false
+			t.integer	:feed_id
 		end
 	
-		add_index "torrents", "feed_id"
-		add_index "torrents", "info_hash", unique: true
-		add_index "torrents", "private_info_hash"
-		add_index "torrents", "slug", unique: true
-		add_index "torrents", "user_id"
+		add_index	:torrents,	:feed_id
+		add_index	:torrents,	:info_hash, unique: true
+		add_index	:torrents,	:slug, unique: true
+		add_index	:torrents,	:user_id
 	end
 
 end

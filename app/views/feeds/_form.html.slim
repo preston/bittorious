@@ -1,4 +1,4 @@
-= form_for(@feed) do |f|
+= form_for(@feed, html: {role: 'form'}) do |f|
 	- if @feed.errors.any?
 		div id="error_explanation"
 			h2
@@ -10,12 +10,16 @@
 
 	.form-group
 		= f.label :name
-		= f.text_field :name, placeholder: 'My Awesome Data Feed', class: 'form-control'
+		= f.text_field :name, placeholder: 'My Awesome Data Feed', class: 'form-control', required: true
+				
+	.form-group
+		= f.label :description
+		= f.text_area :description, placeholder: 'Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta acconsectetur ac, vestibulum at eros.', class: 'form-control', rows: 4, required: true
 
 	.checkbox
 		label
 			= f.check_box :enable_public_archiving
-			| Enable future archiving on volunteer network. (Not yet implemented!)
-
+			| Enable future archiving of torrents published to this feed on volunteer networks. (Not yet implemented!)
+		
 	.form-group#feed_buttons
-		= f.submit "Save", :class => 'btn btn-primary btn-lg', type: 'button', :id => 'publish_btn', :data => {:'loading-text' => 'Saving..'}
+		= f.submit "Save", :class => 'btn btn-primary btn-lg'

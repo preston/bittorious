@@ -1,39 +1,56 @@
-h1 Getting Started
-p BitTorious may eventually accept any BitTorrent client that supports HTTP proxies but currently uTorrent is the only officially supported client. For this reason we will use uTorrent for the examples in this tutorial. A free version of uTorrent is available at <a href=http://www.utorrent.com>utorrent.com</a>. Please note that the sample screenshots were made using the uTorrent client for Mac and consequently may look a little different for Windows users.
-ul
-	li: a href="#publishing" Publishing 
-	li: a href="#downloading" Downloading 
-	li: a href="#subscribing" Subscribing 
+.container
 
-h4 Configuring your torrent client
-ol
-	li Start the torrent client 
-	li From the "uTorrent" drop-down menu select "Preferences"
-	= image_tag 'TorrentPreferences.png'
-	li In the "Preferences" window select "Network". Next to "Proxy server" select "HTTP", then enter "uat.bittorious.com" for the address and "6969" for the port. Make sure the "Authentication" box is checked, then enter your BitTorious username and password in the appropriate boxes. Close the "Preferences" window.
-	= image_tag 'TorrentPreferencesNetwork.png'
+	.row
+		.col-md-12
+			h1 Getting Started
+			p BitTorious may eventually accept any BitTorrent client that supports HTTP proxies but currently uTorrent is the only officially supported client. For this reason we will use uTorrent for the examples in this tutorial. A free version of uTorrent is available at <a href=http://www.utorrent.com>utorrent.com</a>. Please note that the sample screenshots were made using the uTorrent client for Mac and consequently may look a little different for Windows users.
 
-#publishing
-h4 Publishing a torrent
-ol
-	li Start the torrent client
-	li We need to create a ".torrent" file to publish to BitTorious: we will use the BitTorrent client to do this. From the "File" drop-down menu select "New Torrent".
-	= image_tag 'NewTorrent.png'
-	li In the "Create New Torrent" form, click "Add File" and select the data file you wish to publish. Enter the tracker information as shown in the "Trackers" field in the screenshot below. Make sure no other boxes are checked, then click the "Create and save as..." button.
-	= image_tag 'CreateNewTorrent.png'
-	li In the "Save As" dialog enter a name for the ".torrent" file (it's probably good practice to use the same name as the data file), select where you want to save it, then click "Save".
-	= image_tag 'NewTorrentSaveAs.png'
-	li The torrent file you just created must now be published to BitTorious. In a browser, navigate to https://uat.bittorious.com and login with your BitTorrious credentials, then click on "Dashboard" in the BitTorious menu bar. You may choose to create a feed or publish your torrent to an existing feed. 
-	= image_tag 'Bittorious_Feeds.png'
-	li Once you have created a new feed or identified an existing feed to which to publish your torrent, select the feed in the "Feeds" list then click the "Publish a torrent" button. Fill out a name and meaningful information for the tags (the metainformation in the tags is used to search for torrents), then select "Choose File" and navigate to the torrent file on your computer. Finally, click on "Publish".
-	= image_tag 'Publish_A_Torrent.png'
-	li BitTorrious edits some of the information in the torrent file, so you must download the torrent you just published and use this downloaded version in your torrent client. Click the green "Download" button for the torrent you just published and note where it is downloaded on your system. Back in your torrent client click the "Add" button in the upper left-hand corner, then navigate to the torrent file you just downloaded (IMPORTANT: do NOT use the torrent file you originally created). Your new torrent should now be listed in the main window pane of uTorrent with a status of "Seeding".
+
+			ul
+				li: a href="#publishing" Publishing 
+				li: a href="#downloading" Downloading 
+				li: a href="#subscribing" Subscribing 
+
+
+	.row
+		#publishing
+
+		section.col-md-6
+
+			h2 Creating A Torrent
+			p To publish data to a feed, you first need to create a .torrent metafile that describes the data. For smaller file uTorrent works fine, but for larger torrents -- generally over 1GB -- it's faster to use ctorrent at the command line.
+
+			h3 cTorrent (Command Line, Recommended)
+			p Use "4194304" (4KB) as the piece size. Substitute your deployments domain name, file list, and torrent name, below.
+			pre preston$ ctorrent -t -l 4194304 -u https://try.bittorious.com/announce -p -s 1MiB.torrent 1MiB
+			p
+				| The 
+				a href="http://manpages.ubuntu.com/manpages/trusty/en/man1/ctorrent.1.html" man page 
+				| is pretty helpful.
+			h3 uTorrent (GUI)
+			li From the "File" drop-down menu, select "New Torrent".
+			= image_tag 'utorrent-new.png', class: 'img-responsive img-thumbnail'
+			li In the dialog, choose your files to publish. They will all be added to the same torrent. Enter the tracker URL plus "/announce" under the "Trackers". Use 4096KB as the piece size, which is needed for larger torrents. Also make sure the "Private torrent" box is checked, then click the "Create and save as...".
+			= image_tag 'utorrent-create.png', class: 'img-responsive img-thumbnail'
+			p Unless you're 100% super sure that you got all the settings correct, you should NOT use this .torrent to seed the network! Instead, you'll let the BitTorious portal rewrite it to double-check the important settings, and then download and launch the fresh sanity-checked .torrent.
+
+		section.col-md-6
+
+			h2 Uploading And Seeding A Torrent
+			p The torrent file you just created must now be published to your BitTorious instance. From the BitTorious dashboard, choose to which the torrent will be added, and click "Publish a torrent". 
+			= image_tag 'add.png', class: 'img-responsive img-thumbnail'
+			p Provide a name (recommended: the same as the name of the torrent), select the .torrent file and click "Publish".
+			= image_tag 'publish.png', class: 'img-responsive img-thumbnail'
+			p BitTorrious edits some of the information in the torrent file, so you should now trash your original .torrent file and download it fresh from the portal.
+			= image_tag 'download.png', class: 'img-responsive img-thumbnail'
+
+			p You may now open the new .torrent file in uTorrent, which will then register with your BitTorious portal and start seeding to the network. SWEET!!!
 
 #downloading
 h4 Downloading
 ol
 	li In a browser, navigate to https://uat.bittorious.com and login with your BitTorrious credentials, then click on "Dashboard" in the BitTorious menu bar and click on the feed that contains the data you wish to download. 
-	= image_tag 'Bittorious_Feeds.png'
+	= image_tag 'download.png', class: 'img-responsive img-thumbnail'
 	li Find the torrent you wish to download in the "Torrents" list and click the green "Download" button. Make sure to note where it is downloaded on your system. Back in your torrent client click the "Add" button in the upper left-hand corner, then navigate to the torrent file you just downloaded. You should now see the torrent listed in the main window pane of uTorrent with a status of "Downloading".
 
 #subscribing

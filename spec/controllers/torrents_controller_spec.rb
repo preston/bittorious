@@ -84,17 +84,6 @@ describe TorrentsController do
     end
   end
 
-  describe "GET tags" do
-    login_admin
-    it "returns a list of tags" do
-      torrent = FactoryGirl.create(:torrent, user: @admin)
-      torrent.index!
-      peer_params = peer_params_for_torrent(torrent)
-      get :tags, {:q => 't'}
-      assigns(:tags).collect(&:name).should eq torrent.tag_list
-    end
-  end
-
   describe "GET show.torrent" do
     login_admin
     it "should return a torrent file" do

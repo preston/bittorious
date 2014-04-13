@@ -3,7 +3,6 @@ class FeedsController < InheritedResources::Base
   defaults resource_class: Feed.friendly
 
   before_filter :authenticate_user!
-  before_filter :set_user_id, :only => [:create]
   load_and_authorize_resource
   respond_to :html, :json, :rss, :xml
   actions :update, :create, :destroy, :index
@@ -29,10 +28,10 @@ class FeedsController < InheritedResources::Base
 
 
 	def create
-		create! do |format|
-      format.html { redirect_to dashboard_path}
-      format.json { render :json => @feed.to_json }
-      format.xml { render :xml => @feed.to_xml }
+    @feed = Feed.new(feed_params)
+    @feed.user = current_user
+		create! do |success, failure|
+      success.html { redirect_to dashboard_path }
     end
 	end
 	
@@ -67,9 +66,6 @@ class FeedsController < InheritedResources::Base
   end
 
   private
-  def set_user_id
-    params[:feed][:user_id] = current_user.id
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_feed
@@ -78,9 +74,7 @@ class FeedsController < InheritedResources::Base
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def feed_params
-    params.require(:feed).permit(
-      :description, :name, :slug, :user, :user_id, :permissions, :enable_public_archiving)
-
+    params.require(:feed).permit(:name, :description, :slug, :permissions, :enable_public_archiving)
   end
 
 end

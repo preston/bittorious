@@ -44,6 +44,10 @@ class TorrentsController < InheritedResources::Base
   end
 
   def create
+    @torrent = Torrent.new(torrent_params)
+    @torrent.user = current_user
+    @torrent.data = request[:torrent][:torrent_file].read
+    @torrent.reprocess_meta announce_url
     create! { dashboard_path }
   end
 
@@ -71,7 +75,7 @@ class TorrentsController < InheritedResources::Base
 			requested = Torrent.all
 		end
 		requested.each do |t|
-			torrents[t.private_info_hash] = {
+			torrents[t.info_hash] = {
 				complete: t.seed_count,
 				#downloaded: t.downloaded,
 				incomplete: t.peer_count,
@@ -94,19 +98,20 @@ class TorrentsController < InheritedResources::Base
   def show
     respond_to do |format|
       format.html { render layout: false}
-      format.torrent { send_file(resource.torrent_file.path(:bt))}
+      format.torrent { send_data(resource.data)}
       # format.json { render :json => {:id => resource.id, :name => resource.name, :meta_html => render_to_string('_meta_data', :formats => :html, :layout => false, :locals => {:meta_data => resource.tracker.meta_data})}}
     end
   end
 
-  def tags 
-    @tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{params[:q]}%")
-    respond_to do |format|
-      format.json { render :json => @tags.map{|t| {:id => t.name, :label => t.name, :value => t.name }}}
-    end
-  end
+  # def tags 
+  #   @tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{params[:q]}%")
+  #   respond_to do |format|
+  #     format.json { render :json => @tags.map{|t| {:id => t.name, :label => t.name, :value => t.name }}}
+  #   end
+  # end
 
   private
+
   def peer_params
     @peer_params ||= {
       info_hash:   params[:info_hash].unpack('H*').first,
@@ -154,7 +159,7 @@ end
 
 
   def load_from_info_hash
-    @torrent = Torrent.find_by_private_info_hash(params[:info_hash].unpack('H*').first) if params[:info_hash]
+    @torrent = Torrent.find_by_info_hash(params[:info_hash].unpack('H*').first) if params[:info_hash]
   end
 
 
@@ -169,8 +174,7 @@ end
   # Never trust parameters from the scary internet, only allow the white list through.
   def torrent_params
     params.require(:torrent).permit(
-      :name, :slug, :torrent_file, :user, :user_id,
-      :info_hash, :size, :tag_list, :feed, :feed_id, :private_info_hash)
+      :feed_id, :name) #:user_id, :info_hash, :size, :feed_id, :private_info_hash)
 
   end
 

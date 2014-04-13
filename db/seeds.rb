@@ -43,10 +43,8 @@ User.find_by_email('publisher@example.com') || User.create({
 	})
 
 begin
-  torrent = admin.torrents.find_or_create_by_name('Torrent Foo')
+  # torrent = admin.torrents.find_or_create_by_name('Torrent Foo')
   # torrent.create_tracker
 end
 
-begin
-  feed = admin.feeds.find_or_create_by_name('Feed Foo')
-end
+feed = Feed.create!(name: 'Sample Feed', user: admin)

@@ -55,23 +55,6 @@ $(function() {
 														torrent_handler);
 
 
-	// Show RSS link(s) dialog:
-	$('.show_rss_dialog_button').on('click', function(e) {
-		console.log('Showing feed RSS URL.');
-		url = $(this).data('url');
-		$('#rss_link').attr('href', url);
-		$('#rss_link').html(url);
-		// return false;
-		// $('#create_feed_dialog form').submit();
-	});
-
-	// Create feed dialog:
-	$('#create_feed_dialog .btn-primary').on('click', function(e) {
-		console.log('Saving new feed.');
-		$('#create_feed_btn').button('loading');
-		$('#create_feed_dialog form').submit();
-	});
-
 	$('#upload_torrent_dialog #publish_btn').on('click', function(e) {
 		$(this).button('loading');
 	});

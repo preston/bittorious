@@ -3,7 +3,9 @@ class Feed < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  validates_presence_of :name, :user_id
+  validates_presence_of :name
+  validates_presence_of :user_id
+  validates_uniqueness_of :name
   validates_uniqueness_of :slug
 
   belongs_to :user
@@ -15,9 +17,11 @@ class Feed < ActiveRecord::Base
 
 
   private
+
   def verify_no_torrents
     if self.torrents.count != 0
       return false
     end
   end
+
 end

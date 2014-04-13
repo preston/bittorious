@@ -56,42 +56,20 @@ ActiveRecord::Schema.define(version: 20140301210457) do
   add_index "permissions", ["feed_id"], name: "index_permissions_on_feed_id"
   add_index "permissions", ["user_id"], name: "index_permissions_on_user_id"
 
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", force: true do |t|
-    t.string "name"
-  end
-
   create_table "torrents", force: true do |t|
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "torrent_file_file_name"
-    t.string   "torrent_file_content_type"
-    t.integer  "torrent_file_file_size"
-    t.datetime "torrent_file_updated_at"
-    t.integer  "size",                      limit: 8
-    t.string   "info_hash"
+    t.integer  "size",       limit: 8
+    t.string   "info_hash",            null: false
+    t.text     "data",                 null: false
     t.integer  "feed_id"
-    t.string   "private_info_hash"
   end
 
   add_index "torrents", ["feed_id"], name: "index_torrents_on_feed_id"
   add_index "torrents", ["info_hash"], name: "index_torrents_on_info_hash", unique: true
-  add_index "torrents", ["private_info_hash"], name: "index_torrents_on_private_info_hash"
   add_index "torrents", ["slug"], name: "index_torrents_on_slug", unique: true
   add_index "torrents", ["user_id"], name: "index_torrents_on_user_id"
 

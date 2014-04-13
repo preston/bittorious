@@ -1,14 +1,27 @@
 - content_for :title do 'Dashboard' end
 - content_for :body_class do 'dashboard' end
-  
+
+.modal.fade#rss_dialog
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#rss_dialog_label Handy RSS URL.
+      .modal-body
+        p.lead
+          | Paste this URL into your BitTorrent client for nifty automatic downloading of all torrents published to the feed!
+        .well.well-large
+          a id="rss_link" href="#{torrents_rss_url}"
+            = torrents_rss_url
+      .modal-footer
+        button.btn.button-default type="button" data-dismiss="modal" Close
+
 #dashboard
   
   .row
   
     .col-md-4#feeds
-      h2
-        | Dashboard
-        =link_to '<i class="icon-tasks icon-white"></i> All Torrents RSS'.html_safe, '#rss_dialog', 'class' => "pull-right show_rss_dialog_button btn btn-success", 'data-url' => torrents_rss_url(), 'role' => 'button', 'data-toggle' => 'modal'
+      h2 Data Feeds
       table.table.table-condensed
         thead
           tr
@@ -33,8 +46,10 @@
         | automatically download data published to the feed. For details, see the #{link_to "tutorial", 'getting_started'}.
 
 
-      - if can? :create, Feed
-        button.btn href="#create_feed_dialog" data-toggle="modal" Create a feed.
+      .btn-group
+        = link_to text_with_icon('All Torrents RSS', 'rss'), '#rss_dialog', class: 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#rss_dialog'
+        - if can? :create, Feed
+          = link_to text_with_icon('Create a feed.', 'plus'), new_feed_path, class: 'btn btn-default'
 
     .col-md-8#feed_details
       / Replaced via AJAX on feed selection.
@@ -50,31 +65,3 @@
         #disqus_thread
       .col-md-1
         | &nbsp;
-
-
-.modal.fade#rss_dialog tabindex="-1" role="dialog" aria-labelledby="rss_dialog_label" aria-hidden="true"
-  .modal-content
-    .modal-header
-      button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-      h4.modal-title#rss_dialog_label Handy RSS URL.
-    .modal-body
-      p.lead
-        | Paste this URL into your BitTorrent client for nifty automatic downloading of all   torrents published to the feed! (Don't forget to set an email/password for our  required proxy server.)
-      .well.well-large
-        a id="rss_link" href="#" url_for('/')
-    .modal-footer
-        button.btn.button-default type="button" data-dismiss="modal" Close
-
-- if can? :create, Feed
-  .modal.fade#create_feed_dialog tabindex="-1" role="dialog" aria-labelledby="create_dialog_label" aria-hidden="true"
-    .modal-content
-      .modal-header
-        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-        h4.modal-title#create_feed_label Modal title
-      .modal-body
-        - @feed = Feed.new
-        = render partial: 'feeds/form'
-      .modal-footer
-        button.btn.button-default type="button" data-dismiss="modal" Nevermind.
-        button.btn.btn-primary#create_feed_btn type="button" data-loading-text="Saving.." Create the feed!
-

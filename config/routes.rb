@@ -4,6 +4,7 @@ BitTorious::Application.routes.draw do
 	devise_for :users, :controllers => { :registrations => 'registrations' } 
 
 	resources :torrents
+
 	resources :feeds do
 		resources :permissions
 		member do

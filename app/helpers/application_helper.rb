@@ -1,4 +1,5 @@
 module ApplicationHelper
+
 	def as_size( s )
 		prefix = %W(TiB GiB MiB KiB B)
 		s = s.to_f
@@ -20,10 +21,12 @@ module ApplicationHelper
 
   def feed_rss_url(feed)
     rss_url(url_for(feed) + '.rss')
+    # url_for(feed) + '.rss'
   end
 
   def torrents_rss_url
     rss_url(torrents_path(:format => :rss))
+    # url_for(torrents_path(:format => :rss))
   end
 
   def rss_url(path)
@@ -32,4 +35,13 @@ module ApplicationHelper
     rss_uri.query = "user_token=#{current_user.authentication_token}"
     rss_uri.to_s
   end
+
+  def yes_or_no(b)
+    b ? 'Yes' : 'No'
+  end
+
+  def text_with_icon(text, icon)
+    "<i class=\"icon-white icon-#{icon}\"></i> #{text}".html_safe
+  end
+
 end
