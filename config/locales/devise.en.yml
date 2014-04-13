@@ -37,7 +37,7 @@ en:
       updated_not_active: "Your password was changed successfully."
     registrations:
       user:
-        not_approved: 'Your account has not yet been approved by an administrator.'
+        signed_up_but_not_approved: 'Your account has not yet been approved by an administrator.'
       destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
