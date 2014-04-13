@@ -51,13 +51,9 @@ class BaseModel < ActiveRecord::Migration
 			t.datetime	:created_at
 			t.datetime	:updated_at
 			t.integer	:user_id
-			# t.string	:torrent_file_file_name
-			# t.string	:torrent_file_content_type
-			# t.integer	:torrent_file_file_size
-			# t.datetime	:torrent_file_updated_at
 			t.integer	:size,                      limit: 8
 			t.string	:info_hash,	null: false
-			t.text		:data,	null: false
+			t.binary		:data,	null: false
 			t.integer	:feed_id
 		end
 	

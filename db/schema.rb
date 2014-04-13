@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140301210457) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "feeds", force: true do |t|
     t.string   "name"
     t.string   "slug"
@@ -23,8 +26,8 @@ ActiveRecord::Schema.define(version: 20140301210457) do
     t.boolean  "enable_public_archiving", default: false
   end
 
-  add_index "feeds", ["slug"], name: "index_feeds_on_slug", unique: true
-  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id"
+  add_index "feeds", ["slug"], name: "index_feeds_on_slug", unique: true, using: :btree
+  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id", using: :btree
 
   create_table "peers", force: true do |t|
     t.string   "peer_id"
@@ -41,9 +44,9 @@ ActiveRecord::Schema.define(version: 20140301210457) do
     t.float    "longitude"
   end
 
-  add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state"
-  add_index "peers", ["ip"], name: "index_peers_on_ip"
-  add_index "peers", ["peer_id"], name: "index_peers_on_peer_id"
+  add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state", using: :btree
+  add_index "peers", ["ip"], name: "index_peers_on_ip", using: :btree
+  add_index "peers", ["peer_id"], name: "index_peers_on_peer_id", using: :btree
 
   create_table "permissions", force: true do |t|
     t.integer  "user_id"
@@ -53,8 +56,8 @@ ActiveRecord::Schema.define(version: 20140301210457) do
     t.datetime "updated_at"
   end
 
-  add_index "permissions", ["feed_id"], name: "index_permissions_on_feed_id"
-  add_index "permissions", ["user_id"], name: "index_permissions_on_user_id"
+  add_index "permissions", ["feed_id"], name: "index_permissions_on_feed_id", using: :btree
+  add_index "permissions", ["user_id"], name: "index_permissions_on_user_id", using: :btree
 
   create_table "torrents", force: true do |t|
     t.string   "name"
@@ -64,14 +67,14 @@ ActiveRecord::Schema.define(version: 20140301210457) do
     t.integer  "user_id"
     t.integer  "size",       limit: 8
     t.string   "info_hash",            null: false
-    t.text     "data",                 null: false
+    t.binary   "data",                 null: false
     t.integer  "feed_id"
   end
 
-  add_index "torrents", ["feed_id"], name: "index_torrents_on_feed_id"
-  add_index "torrents", ["info_hash"], name: "index_torrents_on_info_hash", unique: true
-  add_index "torrents", ["slug"], name: "index_torrents_on_slug", unique: true
-  add_index "torrents", ["user_id"], name: "index_torrents_on_user_id"
+  add_index "torrents", ["feed_id"], name: "index_torrents_on_feed_id", using: :btree
+  add_index "torrents", ["info_hash"], name: "index_torrents_on_info_hash", unique: true, using: :btree
+  add_index "torrents", ["slug"], name: "index_torrents_on_slug", unique: true, using: :btree
+  add_index "torrents", ["user_id"], name: "index_torrents_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -99,10 +102,10 @@ ActiveRecord::Schema.define(version: 20140301210457) do
     t.boolean  "approved"
   end
 
-  add_index "users", ["approved"], name: "index_users_on_approved"
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
 end
