@@ -1,5 +1,4 @@
 $(function() {
-  $('.btn').button();
 	
 	// Search feature.
   var delayed; 
@@ -32,10 +31,7 @@ $(function() {
 			top: '-50px'
 		});
 	});
-	// $('.torrent_tags').tagsInput({
- //    autocomplete_url:'/tags/torrents.json',
- //   'minChars' : 2
- //  });
+
 
   $('#search_results').on('click', 'a', function(e){
     e.preventDefault();
@@ -62,10 +58,5 @@ $(function() {
     return false;
   });
 
-	// Request account dialog.
-	$('#request_account .btn-primary').click(function() {
-		$('#request_account form').submit();
-		// $('#request_account').modal('hide');
-	});
 	
 });

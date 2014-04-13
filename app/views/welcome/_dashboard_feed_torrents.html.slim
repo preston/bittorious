@@ -2,19 +2,18 @@
 p Torrents for the selected feed are shown, below.
 .btn-group
 	-if can? :create, Torrent
-		button.btn.btn-primary.disabled href="#upload_torrent_dialog" role="button" data-toggle="modal" Publish a torrent.
+		button.btn.btn-primary href="#upload_torrent_dialog" role="button" data-toggle="modal" Publish a torrent.
 
 table.table.table-condensed.table-striped#feed_torrents
 	thead
 		tr
-			th.sorting Name
-			th.sorting Published By
-			th.sorting Seeds
-			th.sorting Peers
-			th.sorting Size
+			th Name
+			th Published By
+			th Seeds
+			th Peers
+			th Size
 			th Actions
 	tbody
-		/ = render :partial => 'torrent_feed', :locals => {:torrents => (@selected_feed.torrents rescue [])}
 		=render :partial => 'welcome/torrent', :collection => @feed.torrents
 
 =form_for Torrent.new do |f|

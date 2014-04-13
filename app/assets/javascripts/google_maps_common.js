@@ -40,19 +40,3 @@ function initMapData() {
 	});
 }
 
-
-
-
-// $(function() {
-
-// 	// Bind UI controls:
-// 	$('#peer_visibility_button').live('click', function() {
-// 		console.log("Toggling map peer markers.");
-// 		on = $(this).hasClass('active');
-// 		if(on) {
-// 			removeMarkers();			
-// 		} else {
-// 			addMarkers();
-// 		}
-// 	});
-// });

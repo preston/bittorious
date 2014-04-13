@@ -32,7 +32,7 @@ module ApplicationHelper
   def rss_url(path)
     rss_uri = URI.parse(request.url)
     rss_uri.path = path
-    rss_uri.query = "user_token=#{current_user.authentication_token}"
+    rss_uri.query = "authentication_token=#{current_user.authentication_token}"
     rss_uri.to_s
   end
 

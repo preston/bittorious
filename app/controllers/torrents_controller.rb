@@ -6,8 +6,8 @@ class TorrentsController < InheritedResources::Base
   prepend_before_filter :set_params_from_torrent, :only => [:create]
   prepend_before_filter :load_from_info_hash
 
-  skip_before_filter :authenticate_user!, only: [:announce, :scrape]
-  before_filter :http_basic_authenticate, only: [:announce, :scrape]
+  # skip_before_filter :authenticate_user!, only: [:announce, :scrape]
+  # before_filter :http_basic_authenticate, only: [:announce, :scrape]
 
   # load_and_authorize_resource
 
@@ -47,7 +47,7 @@ class TorrentsController < InheritedResources::Base
     @torrent = Torrent.new(torrent_params)
     @torrent.user = current_user
     @torrent.data = request[:torrent][:torrent_file].read
-    @torrent.reprocess_meta announce_url
+    @torrent.reprocess_meta
     create! { dashboard_path }
   end
 
@@ -98,7 +98,7 @@ class TorrentsController < InheritedResources::Base
   def show
     respond_to do |format|
       format.html { render layout: false}
-      format.torrent { send_data(resource.data)}
+      format.torrent { send_data(resource.data_for_user(current_user, announce_url))}
       # format.json { render :json => {:id => resource.id, :name => resource.name, :meta_html => render_to_string('_meta_data', :formats => :html, :layout => false, :locals => {:meta_data => resource.tracker.meta_data})}}
     end
   end

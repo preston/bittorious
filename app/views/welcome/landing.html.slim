@@ -40,7 +40,7 @@
 					- if devise_mapping.registerable? && controller_name != 'registrations'
 						/ link_to "Sign up", new_registration_path(resource_name)
 						/ Button to trigger modal
-						a href="#request_account_button" role="button" data-toggle="modal" data-target="	request_account_dialog" Request an account.
+						= link_to('Request an account.', new_user_registration_path)
 						br
 					
 					- if devise_mapping.recoverable? && controller_name != 'passwords'
@@ -59,32 +59,6 @@
 				hr
 				
 
-		/ Modal
-		.modal.fade#request_account_dialog tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-			.modal-dialog
-				.modal-header
-					button.close type="button" data-dismiss="modal" aria-hidden="true" 	×
-					h3 id="myModalLabel" Want access?
-				.modal-body
-					p Great! Fill out this super-duper form, and the folks in charge will be 	notified. You'll get an email once your account is approved.
-					= form_for(resource, :as => resource_name, :url => registration_path(	resource_name)) do |f|
-						div
-							= f.label :email
-							= f.email_field :email
-	
-						div
-							= f.label :password
-							= f.password_field :password
-	
-						div
-							= f.label :password_confirmation
-							= f.password_field :password_confirmation
-						div.hidden
-							= f.submit "Sign up"
-			.modal-footer
-				button.btn type="button" data-dismiss="modal" Nevermind
-				button.btn.btn-primary type="button" Submit
-	
 	section.row
 		/ hr
 		.col-md-4

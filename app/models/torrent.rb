@@ -9,7 +9,7 @@ class Torrent < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :feed
-  has_many :peers, :foreign_key => 'info_hash', :primary_key => 'private_info_hash', :dependent => :destroy
+  has_many :peers, :foreign_key => 'info_hash', :primary_key => 'info_hash', :dependent => :destroy
 
   has_many :permissions, :through => :feed
   # has_many :managed_by_users, :through => :permissions, :source => :user, :conditions => {:permissions => {:role => [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]}}
@@ -27,7 +27,8 @@ class Torrent < ActiveRecord::Base
   
 
   def register_peer(peer_params)
-    peer = Peer.find_or_create_by_info_hash_and_peer_id(peer_params[:info_hash], peer_params[:peer_id])
+    # peer = Peer.find_or_create_by_info_hash_and_peer_id(peer_params[:info_hash], peer_params[:peer_id])
+    peer = Peer.find_or_create_by!(info_hash: peer_params[:info_hash], peer_id: peer_params[:peer_id])
     peer.update_attributes(
       downloaded:   peer_params['downloaded'],
       uploaded:     peer_params[:uploaded],
@@ -64,20 +65,36 @@ class Torrent < ActiveRecord::Base
     super options.merge({:methods => [:torrent_url]})
   end
 
+  def data_for_user(user, announce_url)
+    b = BEncode.load(self.data)
+    params = "?authentication_token=#{user.authentication_token}"
+    url = announce_url + params
+    b['announce'] = url
+    b["announce-list"] = [[url]]
+    b.to_bencoding
+  end
+
   # private
 
-  def reprocess_meta(announce_url)
+  def reprocess_meta
     b = BEncode.load(self.data)
-    b['announce'] = announce_url
-    b["announce-list"] = [[announce_url]]
-    b["comment"] = "Powered by BitTorious!"
+
+    # The announce fields will be customized per user, so we can trash the originals.
+    b['announce'] = ''
+    b["announce-list"] = [[]]
+
+    # Force private! :)
     b["info"]["private"] = 1
+
+    # Shameless plug. :)
+    b["comment"] = "Powered by BitTorious!"
+
     self.data = b.to_bencoding
     self.size = b['info']['length']
 
     b = BEncode.load(self.data)
     self.info_hash = Digest::SHA1.hexdigest(b["info"].bencode)
-    puts "HASHY!!! #{info_hash}"
+    # puts "HASHY!!! #{info_hash}"
     true
   end
 end

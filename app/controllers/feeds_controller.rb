@@ -53,6 +53,7 @@ class FeedsController < InheritedResources::Base
 
   def show
     # @feed = Feed.friendly.find(params[:id])
+    # raise :hell
     respond_to do |format|
       format.json { render :json => {
           :id => resource.id,

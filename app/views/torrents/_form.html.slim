@@ -1,0 +1,21 @@
+= form_for(@torrent, html: {role: 'form'}) do |f|
+	- if @torrent.errors.any?
+		div id="error_explanation"
+			h2
+				= pluralize(@torrent.errors.count, "error")
+				| prohibited this feed from being saved:
+			ul
+				- @torrent.errors.full_messages.each do |msg|
+					li = msg
+
+	.form-group
+		= f.label :feed_id
+		= f.select :feed_id, Feed.all.collect{|f|[f.name, f.id]}, {}, {class: 'form-control'}
+	.form-group
+		= f.label :name
+		= f.text_field :name, placeholder: 'Demo Package X', required: true, class: 'form-control'
+		p.help-block Human-readable name for the torrent. You probably want to use the same name used when creating the .torrent to avoid confusion. This only affects the name displayed in the portal, and shouldn't affect peers already part of the swarm.
+
+	.form-group#feed_buttons
+		= f.submit "Save", :class => 'btn btn-primary btn-lg'
+

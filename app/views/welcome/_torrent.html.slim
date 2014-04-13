@@ -10,7 +10,7 @@ tr class='torrent_link' id="torrent_#{torrent.id}" data-id="#{torrent.id}" data-
   td = number_to_human_size(torrent.size, precision: 3)
   td
     .btn-group
-      = link_to text_with_icon('Download', 'download'), torrent_path(torrent, format: :torrent), :class => 'btn btn-success'
+      = link_to text_with_icon('Download', 'download'), torrent_path(torrent, format: :torrent), :class => 'btn btn-default'
       - if can? :manage, torrent
-        = link_to text_with_icon('Edit', 'edit'), edit_torrent_path(torrent), 'class' => "btn btn-warning"
-        = link_to text_with_icon('Delete', 'trash'), torrent, :class => 'btn btn-danger', :confirm => 'Are you sure you want to delete this torrent?', :method => :delete
+        = link_to text_with_icon('Edit', 'edit'), edit_torrent_path(torrent), 'class' => "btn btn-default"
+        = link_to text_with_icon('Delete', 'trash'), torrent, :class => 'btn btn-default', :confirm => 'Are you sure you want to delete this torrent?', :method => :delete
