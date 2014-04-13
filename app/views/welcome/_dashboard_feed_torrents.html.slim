@@ -26,7 +26,7 @@ table.table.table-condensed.table-striped#feed_torrents
 					h3 Publish a torrent.
 				.modal-body
 					.form-group
-						= f.hidden_field :feed_id
+						= f.hidden_field :feed_id, value: resource.id
 						= f.label :name
 						= f.text_field :name, placeholder: 'Demo Package X', required: true, class: 'form-control'
 						p.help-block Human-readable name for the torrent. You probably want to use the same name used when creating the .torrent to avoid confusion.
