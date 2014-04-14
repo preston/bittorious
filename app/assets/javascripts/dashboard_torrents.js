@@ -3,7 +3,7 @@ $(function() {
 	// Hide the torrent details section by default.
 	$('#torrent_details').hide();
 
-	$('#feeds').on('click', ' tr.feed_link td:nth-child(1), tr.feed_link td:nth-child(2)', feed_handler);
+	$('.dashboard').on('click', ' tr.feed_link td:nth-child(1), tr.feed_link td:nth-child(2)', feed_handler);
 
 
 
@@ -46,7 +46,7 @@ function feed_handler(e) {
 	$.ajax({
 		url: $(this).data('href') + '.json',
 		success: function(data) {
-			$('#feed_details').replaceWith(data['torrent_html']);
+			$('#feed_details').html(data['torrent_html']);
 			// $('#torrents table#feed_torrents tbody').replaceWith(data['torrent_html']);
 			// $('#torrents .btn.disabled').removeClass('disabled');
 			// $('form #torrent_feed_id').val(feed_id);

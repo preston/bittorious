@@ -1,25 +1,24 @@
-.col-md-8
-  ul.nav.nav-tabs
-    li.active
-      a href="#torrents" data-toggle="tab"
-        span.icon.icon-copy
-        |  Torrents
+ul.nav.nav-tabs
+  li.active
+    a href="#torrents" data-toggle="tab"
+      span.icon.icon-copy
+      |  Torrents
 
-    - if can? :grant, @feed
-      li
-        a href="#permissions" data-toggle="tab" 
-          span.icon.icon-group
-          |  Permissions
+  - if can? :grant, @feed
     li
-      a href="#settings" data-toggle="tab"
-        span.icon.icon-gear
-        |  Settings
-  
-  
-  .tab-content
-    .tab-pane.active#torrents = render partial: 'welcome/dashboard_feed_torrents'
-    - if can? :grant, @feed
-      .tab-pane#permissions = render partial: 'welcome/dashboard_feed_permissions'
-    .tab-pane#settings = render partial: 'welcome/dashboard_feed_settings'
-  
+      a href="#permissions" data-toggle="tab" 
+        span.icon.icon-group
+        |  Permissions
+  li
+    a href="#settings" data-toggle="tab"
+      span.icon.icon-gear
+      |  Settings
+
+
+.tab-content
+  .tab-pane.active#torrents = render partial: 'welcome/dashboard_feed_torrents'
+  - if can? :grant, @feed
+    .tab-pane#permissions = render partial: 'welcome/dashboard_feed_permissions'
+  .tab-pane#settings = render partial: 'welcome/dashboard_feed_settings'
+
   

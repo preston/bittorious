@@ -27,7 +27,6 @@
           tr
             th Name
             th Last Publication
-            th Actions
         tbody
           - @feeds.each do |feed|
             tr class="feed_link" id="feed_#{feed.id}"
@@ -35,11 +34,7 @@
                 = feed.name
                 p #{feed.torrents.count} #{'torrent'.pluralize(feed.torrents.count)}
               td data-id="#{feed.id}" data-href="#{url_for feed}" #{time_ago_in_words feed.torrents.last.created_at + 'ago' rescue "Never"}
-              td
-                .button-group
-                  a.btn.btn-sm.show_rss_dialog_button#rss_dialog type="button" href="#{feed_rss_url(feed)}" data-toggle="modal"
-                    i.icon.icon-rss
-                    |  RSS
+
 
       p.muted
         | Select a feed to show torrents published to it. The RSS link can be used by your BitTorrent client to

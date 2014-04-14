@@ -1,9 +1,22 @@
+.row
 
-p Torrents for the selected feed are shown, below.
-.btn-group
-	-if can? :create, Torrent
-		button.btn.btn-primary href="#upload_torrent_dialog" role="button" data-toggle="modal" Publish a torrent.
 
+	.col-md-8
+		h2
+			i.icon.icon-rss
+			|  RSS
+		p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
+		pre = link_to feed_rss_url(@feed), feed_rss_url(@feed)
+		p = @feed.description
+
+	.col-md-4
+		-if can? :create, Torrent
+			h2  Publish Data
+			p.help-block To publish a new data .torrent to this feed, create the .torrent metadata file on your local machine, and then upload it via this dialog.
+			.btn-group
+				button.btn.btn-primary href="#upload_torrent_dialog" role="button" data-toggle="modal" Publish a torrent.
+
+h1 Torrents
 table.table.table-condensed.table-striped#feed_torrents
 	thead
 		tr
