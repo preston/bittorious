@@ -10,8 +10,8 @@
 			.col-md-8#overview_carousel
 				h1 Big Data Collaboration
 				p.lead Securely exchange massive data sets amongst private communities over the Internet.
-				/ = image_tag 'Architecture Diagram v3.png'
-	
+				= image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
+			
 			
 			.col-md-4#login_box
 				hr
@@ -103,15 +103,17 @@
 
 	hr
 	.clearfix
-	p.text-center
-			span.icon.icon-windows style="font-size: 48pt;"
-				|  
-			span.icon.icon-apple style="font-size: 48pt;"
-				|  
-			span.icon.icon-linux style="font-size: 48pt;"
-	- if !user_signed_in?
-		p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary btn-lg')
-	p.lead BitTorious is a holistic solution to collaborative, private data transfer for organizations needing to share epic payloads across the Internet in a cost-scalable, manageable, automated, and easy-to-use platform.
-	
-javascript:
-	$(function(){ $('#overview_carousel').carousel(); });
+
+	section.row
+		.col-md-6
+			p.text-center
+					span.icon.icon-windows style="font-size: 48pt;"
+						|  
+					span.icon.icon-apple style="font-size: 48pt;"
+						|  
+					span.icon.icon-linux style="font-size: 48pt;"
+			p.lead BitTorious is a holistic solution to collaborative, private data transfer for organizations needing to share epic payloads across the Internet in a cost-scalable, manageable, automated, and easy-to-use platform.
+			- if !user_signed_in?
+				p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary btn-lg')
+
+		.col-md-6	= render partial: 'welcome/carousel'

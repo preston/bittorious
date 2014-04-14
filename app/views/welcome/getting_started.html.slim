@@ -3,14 +3,37 @@
 	.row
 		.col-md-12
 			h1 Getting Started
-			p BitTorious supports several BitTorrent client. More may work, but it's imperative that your choosen client respects the "private" nature of torrents, as well as supports encryption of P2P file transfers. For this reason we recommend uTorrent, with Vuze as a fall-back option. We'll use uTorrent for the examples in this tutorial. A free version of uTorrent is available at <a href=http://www.utorrent.com>utorrent.com</a>. Please note that the sample screenshots were made using the uTorrent client for Mac and consequently may look a little different for Windows and Linux users.
+			p BitTorious supports several popular BitTorrent client. More may work, but it's suuuuuuper important that you pick one that respects the "private" nature of BitTorious, as well as supports forced encryption of P2P file transfers. We recommend <a href=http://www.utorrent.com>uTorrent</a> with Vuze as a fall-back option, and we use uTorrent for Mac as the example in this guide. The Windows GUI similar, and the Linux version has the same functionality but a different web-based UI.
 
 
 			ul
-				li: a href="#publishing" Publishing 
 				li: a href="#downloading" Downloading 
-				li: a href="#subscribing" Subscribing 
+				li: a href="#subscribing" Subscribing To A Feed
+				li: a href="#publishing" Publishing A Torrent
+				li: a href="#publishing" Seeding The Torrent
 
+
+	.row
+
+		section.col-md-6#downloading
+			h2 Downloading A Torrent
+			p Log in to your approvied BitTorrious account and go to the #{link_to 'Dashboard', dashboard_path} in the BitTorious menu bar. Click on the feed that contains the data you wish to download.
+			= image_tag 'download.png', class: 'img-responsive img-thumbnail'
+			p Find the torrent of interest and click the green "Download" button. Back in uTorrent client, click the "Add" button, and select the torrent file you just downloaded. You should now see the torrent listed in the main window pane of uTorrent with a status of "Downloading".
+			= image_tag 'utorrent-add.png', class: 'img-responsive img-thumbnail'
+			p It may take a few minutes for uTorrent to start downloading the data. Be patient! Everything is fine as long as uTorrent doesn't report any errors. You can check the status of the network via the dashboard for a handy map and list of peers. (Your client can provide some of this as well.)
+			= image_tag 'status.png', class: 'img-responsive img-thumbnail'
+			
+
+
+		section.col-md-6#subscribing
+			h2 Subscribing To A Feed
+			p BitTorrious makes it possible to subscribe to torrent feeds via RSS, allowing for automatic replication of data between sites. Log in to the BitTorious dashboard and copy the relevant RSS URL for which you want to subscribe. A master "All Torrents RSS" URL may also be usued for convenence, as shown below.
+			= image_tag 'rss.png', class: 'img-responsive img-thumbnail'
+			p In uTorrent, for example, click on the "Add Feed" button and paste the URL from the previous step into the "Feed URL" field, then click "Save".
+			= image_tag 'utorrent-feed.png', class: 'img-responsive img-thumbnail'
+			p The relevant BitTorious data feed should now be listed in the left-hand pane of uTorrent. The individual torrents are listed in the main pane. You can double click them to manually start each one, but they will not start automatically. If you would like all torrents published to the feed to start automatically, also add a "Smart Feed" rule configured to automatically add and start all new torrents.
+			= image_tag 'utorrent-smart.png', class: 'img-responsive img-thumbnail'
 
 	.row
 		#publishing
@@ -31,13 +54,16 @@
 			p From the "File" drop-down menu, select "New Torrent".
 			= image_tag 'utorrent-new.png', class: 'img-responsive img-thumbnail'
 			p In the dialog, choose your files to publish. They will all be added to the same torrent. Enter the tracker URL plus "/announce" under the "Trackers". Use 4096KB as the piece size, which is needed for larger torrents. Also make sure the "Private torrent" box is checked, then click the "Create and save as...".
+			p.bg-info
+				i.icon.icon-star style='font-size: 32pt'
+				|  BitTorious will rewrite the .torrent to force the "private" flag on and only include the official tracker, so if you forget them it's no big deal. It's good practice, however, to always make sure they're set correctly from the start!
 			= image_tag 'utorrent-create.png', class: 'img-responsive img-thumbnail'
-			p Unless you're 100% super sure that you got all the settings correct, you should NOT use this .torrent to seed the network! Instead, you'll let the BitTorious portal rewrite it to double-check the important settings, and then download and launch the fresh sanity-checked .torrent.
+			p This .torrent will NOT work to seed the network! You need to let the BitTorious portal rewrite it, next, to double-check the important settings and add your secret token. Just download the new .torrent from the portal, trash your original, and open the fresh version instead.
 
-		section.col-md-6
+		section.col-md-6#seeding
 
 			h2 Uploading And Seeding A Torrent
-			p The torrent file you just created must now be published to your BitTorious instance. From the BitTorious dashboard, choose to which the torrent will be added, and click "Publish a torrent". 
+			p The torrent file you just created must now be published to your BitTorious instance. From the BitTorious dashboard select the feed to which the torrent will be added, and click "Publish a torrent". 
 			= image_tag 'add.png', class: 'img-responsive img-thumbnail'
 			p Provide a name (recommended: the same as the name of the torrent), select the .torrent file and click "Publish".
 			= image_tag 'publish.png', class: 'img-responsive img-thumbnail'
@@ -45,19 +71,3 @@
 			= image_tag 'download.png', class: 'img-responsive img-thumbnail'
 
 			p You may now open the new .torrent file in uTorrent, which will then register with your BitTorious portal and start seeding to the network. SWEET!!!
-
-	.row
-
-		section.col-md-6#downloading
-			h4 Downloading
-			p In a browser, navigate to https://uat.bittorious.com and login with your BitTorrious credentials, then click on "Dashboard" in the BitTorious menu bar and click on the feed that contains the data you wish to download. 
-			= image_tag 'download.png', class: 'img-responsive img-thumbnail'
-			p Find the torrent you wish to download in the "Torrents" list and click the green "Download" button. Make sure to note where it is downloaded on your system. Back in your torrent client click the "Add" button in the upper left-hand corner, then navigate to the torrent file you just downloaded. You should now see the torrent listed in the main window pane of uTorrent with a status of "Downloading".
-
-		section.col-md-6#subscribing
-			h4 Subscribing
-			p BitTorrious makes it possible to subscribe to feeds via RSS, allowing for automatic replication of data between sites. Log in to the BitTorious dashboard and copy the relevant RSS URL for which you want to subscribe.
-			p In uTorrent, for example, click on the "Add Feed" button and paste the URL from the previous step into the "Feed URL" field, then click "Save".
-			= image_tag 'utorrent-feed.png'
-			p The relevant BitTorious data feed should now be listed in the left-hand pane of uTorrent. The individual torrents are listed in the main pane. You can double click them to manually start each one, but they will not start automatically. If you would like all torrents published to the feed to start automatically, also add a "Smart Feed" rule configured to automatically add and start all new torrents.
-			= image_tag 'utorrent-smart.png'

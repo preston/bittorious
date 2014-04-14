@@ -1,0 +1,39 @@
+#landing-carousel.carousel.slide data-ride="carousel"
+  / Indicators
+  ol.carousel-indicators
+    li.active data-target="#landing-carousel" data-slide-to="0"
+    li data-target="#landing-carousel" data-slide-to="1"
+    li data-target="#landing-carousel" data-slide-to="2"
+
+
+  / Wrapper for slides
+  .carousel-inner
+    .item.active
+      = image_tag 'add.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | A slick, easy-to-use web portal to the BitTorious network.
+    .item
+      = image_tag 'download.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Download published torrents from your trusted colleagues.
+    .item
+      = image_tag 'encryption.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Your client can be configured to force SSL encryption for peer-to-peer transfers. All tracker announcements are made over an encrypted SSL. 
+    .item
+      = image_tag 'publish.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Add torrents to the tracker via a slick web interface.
+    .item
+      = image_tag 'rss.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Publish data torrents to an RSS feed with a few clicks.
+    .item
+      = image_tag 'utorrent-feed.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Use RSS support to automatically replicate published data to your local machine.
+  / Controls
+  a.left.carousel-control href="#landing-carousel" data-slide="prev"
+    span.icon.icon-chevron-left
+  a.right.carousel-control href="#landing-carousel" data-slide="next"
+    span.icon.icon-chevron-right
