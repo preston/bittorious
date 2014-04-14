@@ -1,6 +1,8 @@
 set :stage, :production
 set :rvm_ruby_version, '2.1.1'
 
+set :deploy_to, "/var/www/try.bittorious.com"
+
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
@@ -9,6 +11,7 @@ set :rvm_ruby_version, '2.1.1'
 role :app, %w{www-data@bittorious.com}
 role :web, %w{www-data@bittorious.com}
 role :db,  %w{www-data@bittorious.com}
+
 
 # Extended Server Syntax
 # ======================

@@ -3,7 +3,6 @@ set :repo_url, 'git@github.com:preston/bittorious.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, "/var/www/bittorious.com"
 set :scm, :git
 
 # set :format, :pretty
