@@ -44,7 +44,8 @@
 									= time_ago_in_words user.created_at
 									|  ago.
 								td
-									= button_to 'Approve', approve_user_path(user), :remote => true, :class => 'btn 	btn-primary', form_class: 'approve button_to'
-									= button_to 'Deny', deny_user_path(user), :remote => true, :class => 'btn btn-	primary deny', form_class: 'deny button_to', confirm: 'Are you sure you 	want to deny access to this user?'
+									.btn-group
+										= button_to 'Approve', approve_user_path(user), :remote => true, :class => 'btn btn-default', form_class: 'approve button_to'
+										= button_to 'Deny', deny_user_path(user), :remote => true, :class => 'btn btn-default deny', form_class: 'deny button_to', confirm: 'Are you sure you want to deny access to this user?'
 			- else
 				h1 Nada!

@@ -48,7 +48,7 @@
 
       .btn-group
         = link_to text_with_icon('All Torrents RSS', 'rss'), '#rss_dialog', class: 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#rss_dialog'
-        - if can? :create, Feed
+        - if current_user.admin
           = link_to text_with_icon('Create a feed.', 'plus'), new_feed_path, class: 'btn btn-default'
 
     .col-md-8#feed_details

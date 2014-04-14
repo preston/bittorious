@@ -20,8 +20,8 @@ class User < ActiveRecord::Base
 
   before_destroy :verify_no_torrents
 
-  scope :pending, -> {where(:approved => false)}
-  scope :approved, -> {where(:approved => true)}
+  scope :pending, -> {where(approved: nil)}
+  scope :approved, -> {where(approved: true)}
 
 
   def to_s
