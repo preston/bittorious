@@ -18,8 +18,8 @@
               td = peer.ip
               td = peer.port
               td = peer.left > 0 ? 'Peer' : 'Seeding'
-              td = as_size peer.left
-              td = as_size peer.uploaded
+              td = number_to_human_size(peer.left, precision: 3)
+              td = number_to_human_size(peer.uploaded, precision: 3)
               td
                 = time_ago_in_words peer.updated_at
                 |  ago

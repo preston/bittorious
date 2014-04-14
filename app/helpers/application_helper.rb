@@ -1,24 +1,5 @@
 module ApplicationHelper
 
-	# def as_size( s )
-	# 	prefix = %W(TiB GiB MiB KiB B)
-	# 	s = s.to_f
-	# 	i = prefix.length - 1
-	# 	while s > 512 && i > 0
-	# 	  s /= 1024
-	# 	  i -= 1
-	# 	end
-	# ((s > 9 || s.modulo(1) < 0.1 ? '%d' : '%.1f') % s) + ' ' + prefix[i]
-	# end
-
- #  def attachment_url(file, style = :original)
- #    "#{request.protocol}#{request_host_or_default}#{file.url(style)}"
- #  end
-
- #  def request_host_or_default
- #    request.host_with_port.match(/localhost/) ? AppConfig['default_hostname'].gsub(/:\d+/,'') : request.host_with_port
- #  end
-
   def feed_rss_url(feed)
     token_url(feed_path(feed, format: :rss))
   end

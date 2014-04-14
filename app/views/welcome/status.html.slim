@@ -35,8 +35,8 @@ div id="network_status"
         tr class="peer" data-ipv4_address="#{peer.ip}"
           td #{peer.ip}
           td #{peer.port}
-          td #{as_size peer.uploaded}
-          td #{as_size peer.downloaded}
+          td #{number_to_human_size(peer.uploaded, precision: 3}
+          td #{number_to_human_size(peer.downloaded, precision: 3}
           td #{time_ago_in_words peer.updated_at} ago
           td #{peer.peer_id}
         
