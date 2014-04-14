@@ -29,16 +29,16 @@
             th Last Publication
         tbody
           - @feeds.each do |feed|
-            tr class="feed_link" id="feed_#{feed.id}"
-              td data-id="#{feed.id}" data-href="#{url_for feed}"
-                = feed.name
-                p #{feed.torrents.count} #{'torrent'.pluralize(feed.torrents.count)}
-              td data-id="#{feed.id}" data-href="#{url_for feed}" #{time_ago_in_words feed.torrents.last.created_at + 'ago' rescue "Never"}
+            - if can? :read, feed
+              tr class="feed_link" id="feed_#{feed.id}"
+                td data-id="#{feed.id}" data-href="#{url_for feed}"
+                  = feed.name
+                  p #{feed.torrents.count} #{'torrent'.pluralize(feed.torrents.count)}
+                td data-id="#{feed.id}" data-href="#{url_for feed}" #{time_ago_in_words feed.torrents.last.created_at + 'ago' rescue "Never"}
 
 
       p.muted
-        | Select a feed to show torrents published to it. The RSS link can be used by your BitTorrent client to
-        | automatically download data published to the feed. For details, see the #{link_to "tutorial", 'getting_started'}.
+        | Select a feed to show torrents that have been published to it. Confused? See #{link_to "Getting Started", 'getting_started'}.
 
 
       .btn-group
@@ -54,6 +54,3 @@
     .col-md-12#torrent_details
       / Replacede via AJAX on torrent selection.
 
-  .row#disqus
-    .col-md-12
-      #disqus_thread

@@ -5,7 +5,7 @@ table.table.table-condensed.table-striped#feed-permissions
 			th Email
 			th Role
 	tbody
-		- User.all.each do |u|
+		- User.where(admin: false).each do |u|
 			- perm = Permission.where(feed_id: @feed, user_id: u).first || Permission.new(feed_id: @feed, user_id: u, role: Permission::NO_ROLE)
 			- puts "PERM #{perm}"
 			tr
@@ -23,3 +23,10 @@ table.table.table-condensed.table-striped#feed-permissions
 						label.radio
 							= radio_button 'user', 'role', Permission::SUBSCRIBER_ROLE, checked: perm.role == Permission::SUBSCRIBER_ROLE
 							| Subscriber
+
+
+h2 Administrators
+p BitTorious administrators always have access, so you don't need to explicitly authorize them! 
+ul
+	- User.where(admin: true).each do |u|
+		li = u.email

@@ -9,16 +9,18 @@ ul.nav.nav-tabs
       a href="#permissions" data-toggle="tab" 
         span.icon.icon-group
         |  Permissions
-  li
-    a href="#settings" data-toggle="tab"
-      span.icon.icon-gear
-      |  Settings
+  - if can? :update, @feed
+    li
+      a href="#settings" data-toggle="tab"
+        span.icon.icon-gear
+        |  Settings
 
 
 .tab-content
   .tab-pane.active#torrents = render partial: 'welcome/dashboard_feed_torrents'
   - if can? :grant, @feed
     .tab-pane#permissions = render partial: 'welcome/dashboard_feed_permissions'
-  .tab-pane#settings = render partial: 'welcome/dashboard_feed_settings'
+  - if can? :update, @feed
+    .tab-pane#settings = render partial: 'welcome/dashboard_feed_settings'
 
   

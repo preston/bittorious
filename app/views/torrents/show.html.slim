@@ -38,9 +38,12 @@
       initMapData();
 
 - else
-  h1 No peers. :(
+  h1 No peers for this torrent. :(
   .lead Time to make some friends?
 
+
+section.col-md-12#disqus
+  #disqus_thread
 javascript:
     var disqus_shortname = 'BitTorious';
     var disqus_identifier = '#{torrent_url(resource)}';
@@ -64,8 +67,7 @@ javascript:
         }
       });
     }
-
 noscript
-    | Please enable JavaScript to view the
-    a href="http://disqus.com/?ref_noscript"
-        comments.
+| Please enable JavaScript to view the
+a href="http://disqus.com/?ref_noscript"
+    comments.

@@ -5,9 +5,9 @@
 		h2
 			i.icon.icon-rss
 			|  RSS
-		p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
-		pre = link_to feed_rss_url(@feed), feed_rss_url(@feed)
 		p = @feed.description
+		pre = link_to feed_rss_url(@feed), feed_rss_url(@feed)
+		p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
 
 	.col-md-4
 		-if can? :create, Torrent
@@ -16,18 +16,19 @@
 			.btn-group
 				button.btn.btn-primary href="#upload_torrent_dialog" role="button" data-toggle="modal" Publish a torrent.
 
-h1 Torrents
-table.table.table-condensed.table-striped#feed_torrents
-	thead
-		tr
-			th Name
-			th Published By
-			th Seeds
-			th Peers
-			th Size
-			th Actions
-	tbody
-		=render :partial => 'welcome/torrent', :collection => @feed.torrents
+- if @feed.torrents.count > 0
+	h1 Torrents
+	table.table.table-condensed.table-striped#feed_torrents
+		thead
+			tr
+				th Name
+				th Published By
+				th Seeds
+				th Peers
+				th Size
+				th Actions
+		tbody
+			=render :partial => 'welcome/torrent', :collection => @feed.torrents
 
 =form_for Torrent.new do |f|
 
