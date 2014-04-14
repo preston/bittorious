@@ -45,15 +45,15 @@
 	}
 
 
-	#torrent_details #active_peers table {
+	#torrent_details #table_container {
 		background: image-url('textures/tileable_wood_texture/tileable_wood_texture.png') repeat;
 		// background: image-url('textures/xv/xv.png') repeat;
 		// box-shadow: 0 20px 20px #333 inset, 0 0px 2px #fff;
 		box-shadow: 0 20px 20px #333;
 		border-radius: 2px;
 		border: 1px solid #ccc;
-		// margin: 20px 0;
-		// padding: 20px;
+		margin: 20px;
+		padding: 20px;
 	}
 
 	#map_canvas {
