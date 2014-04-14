@@ -7,9 +7,9 @@ rss version="2.0"
     link
       = torrents_url
     lastBuildDate
-      = Torrent.order('updated_at DESC').first.updated_at
+      = Torrent.order('updated_at DESC').first.updated_at.to_formatted_s(:rfc822)
     pubDate
-      = Torrent.order('updated_at ASC').first.created_at
+      = Torrent.order('updated_at ASC').first.created_at.to_formatted_s(:rfc822)
     ttl 1800
     - collection.each do |t|
       item

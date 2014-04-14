@@ -7,9 +7,9 @@ rss version="2.0"
     link
       = link_to @feed.slug
     lastBuildDate
-      = @feed.updated_at
+      = @feed.updated_at.to_formatted_s(:rfc822)
     pubDate
-      = @feed.created_at
+      = @feed.created_at.to_formatted_s(:rfc822)
     ttl 1800
     - @feed.torrents.each do |t|
       item
