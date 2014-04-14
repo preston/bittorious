@@ -65,7 +65,7 @@ BitTorious::Application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'bittorious.com' }
+  config.action_mailer.default_url_options = { :host => 'try.bittorious.com' }
   config.action_mailer.delivery_method = :sendmail
 
 
