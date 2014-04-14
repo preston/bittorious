@@ -6,7 +6,6 @@ FactoryGirl.define do
     sequence(:slug) {|n| "torrent_slug_#{n}" }
     user
     feed
-    tag_list ['Test', 'Tag']
     sequence(:info_hash) {|n| "FakeInfoHash#{n}"}
     torrent_file { fixture_file_upload(File.join(Rails.root, 'spec', 'fixtures', 'mtb.torrent'), 'application/x-bittorrent') }
   end

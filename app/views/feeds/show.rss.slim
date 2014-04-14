@@ -18,8 +18,8 @@ rss version="2.0"
         description 
           = t.name + " uploaded by " + t.user.to_s + " on " + t.created_at.strftime("%A, %B %d, %Y at %T:%M%p")  + '.'
         link
-          = token_url(torrent_path(t, :format => :torrent, :host => request.host, :protocol => 'https'))
-        enclosure url="#{token_url(torrent_path(t, :format => :torrent, :host => request.host, :protocol => 'https'))}" type="application/x-bittorrent"
+          = token_url(torrent_path(t, :format => :torrent))
+        enclosure url="#{token_url(torrent_path(t, :format => :torrent))}" type="application/x-bittorrent"
         guid
           = t.info_hash
         pubDate
