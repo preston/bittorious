@@ -1,6 +1,7 @@
 class AdminMailer < ActionMailer::Base
 
-  # default :from => "no-reply@Bittorious.com"
+  default :from => "noreply@bittorious.com"
+  
   def new_user_waiting_for_approval(user)
     @user = user
     emails = User.where(admin: true, approved: true).collect{|u| u.email}
