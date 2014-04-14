@@ -1,38 +1,37 @@
 module ApplicationHelper
 
-	def as_size( s )
-		prefix = %W(TiB GiB MiB KiB B)
-		s = s.to_f
-		i = prefix.length - 1
-		while s > 512 && i > 0
-		  s /= 1024
-		  i -= 1
-		end
-	((s > 9 || s.modulo(1) < 0.1 ? '%d' : '%.1f') % s) + ' ' + prefix[i]
-	end
+	# def as_size( s )
+	# 	prefix = %W(TiB GiB MiB KiB B)
+	# 	s = s.to_f
+	# 	i = prefix.length - 1
+	# 	while s > 512 && i > 0
+	# 	  s /= 1024
+	# 	  i -= 1
+	# 	end
+	# ((s > 9 || s.modulo(1) < 0.1 ? '%d' : '%.1f') % s) + ' ' + prefix[i]
+	# end
 
-  def attachment_url(file, style = :original)
-    "#{request.protocol}#{request_host_or_default}#{file.url(style)}"
-  end
+ #  def attachment_url(file, style = :original)
+ #    "#{request.protocol}#{request_host_or_default}#{file.url(style)}"
+ #  end
 
-  def request_host_or_default
-    request.host_with_port.match(/localhost/) ? AppConfig['default_hostname'].gsub(/:\d+/,'') : request.host_with_port
-  end
+ #  def request_host_or_default
+ #    request.host_with_port.match(/localhost/) ? AppConfig['default_hostname'].gsub(/:\d+/,'') : request.host_with_port
+ #  end
 
   def feed_rss_url(feed)
-    rss_url(url_for(feed) + '.rss')
-    # url_for(feed) + '.rss'
+    token_url(feed_path(feed, format: :rss))
   end
+
 
   def torrents_rss_url
-    rss_url(torrents_path(:format => :rss))
-    # url_for(torrents_path(:format => :rss))
+    token_url(torrents_path(format: :rss))
   end
 
-  def rss_url(path)
+  def token_url(path)
     rss_uri = URI.parse(request.url)
     rss_uri.path = path
-    rss_uri.query = "authentication_token=#{current_user.authentication_token}"
+    rss_uri.query = authentication_token_param
     rss_uri.to_s
   end
 
@@ -42,6 +41,10 @@ module ApplicationHelper
 
   def text_with_icon(text, icon)
     "<i class=\"icon-white icon-#{icon}\"></i> #{text}".html_safe
+  end
+
+  def authentication_token_param
+    "authentication_token=#{current_user.authentication_token}"
   end
 
 end

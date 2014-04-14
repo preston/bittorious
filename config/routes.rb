@@ -8,7 +8,7 @@ BitTorious::Application.routes.draw do
 	resources :feeds do
 		resources :permissions
 		member do
-			put :grant
+			patch :grant
 			post :grant
 		end
 	end

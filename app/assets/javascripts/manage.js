@@ -1,4 +1,5 @@
 $(function() {
+
   $('#manage').on('ajax:success', 'form.approve', function(data, status, xhr) {
     if (status['approved'] == true) {
       approved_row = $(status['html']);
@@ -10,6 +11,7 @@ $(function() {
       row.remove();
     }
   });
+
   $('#manage').on('ajax:success', 'form.deny', function(data, status, xhr) {
     if (status == true) {
       row = $(this).parents('tr');
@@ -17,9 +19,11 @@ $(function() {
       row.remove();
     }
   });
+
   $('#manage').on('click', 'form.user input',function(){
     form = $(this).parents('form')
     form.find('input#user_admin').val($(this).val());
     form.submit();
   });
+
 });

@@ -4,7 +4,7 @@ ruby '2.1.1'
 gem 'rails', '4.1.0'
 
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 
 # General jQuery.
 gem 'jquery-rails'
@@ -73,7 +73,3 @@ end
 # group :production do
   gem 'pg'
 # end
-
-# gem 'rails_admin'
-
-

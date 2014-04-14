@@ -13,7 +13,7 @@ class Ability
 			cannot :approve, User, :id => user.id
 			cannot :deny, User, :id => user.id
 
-			can :manage, Peer
+			# can :manage, Peer
 		end
 
 		if user.admin
@@ -23,13 +23,13 @@ class Ability
 			# can :manage,	Torrent
 			# can :manage,	Permission
 		else
-			# Mere mortals.
+			# Non-admins.
 			can :manage,  Feed,		permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
 			can :read,    Feed,		permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
 			can :manage,  Torrent,	permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
 			can [:create, :destroy, :update, :show, :grant], Feed,	permissions: { user_id: user.id, role: Permission::PUBLISHER_ROLE }
 
-			can [:transfer, :read, :screpe, :announce], Torrent,	permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
+			can [:transfer, :read, :scrape, :announce], Torrent,	permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
 		end
 	end
 end
