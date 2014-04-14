@@ -3,19 +3,33 @@ p Bittorious was created by computer scientists at the Translational Genomics Re
 
 .row
 
+
 	.col-md-6
 
-		h3 What BitTorrent clients can I use with BitTorious?
-		p For 100% functionality, we currently support #{link_to 'uTorrent', 'http://www.utorrent.com'} on Windows, OSX, and Linux. Technically, any client that supports private torrents (#{link_to 'BEP-0027', 'http://www.bittorrent.org/beps/bep_0027.html'}), RSS feeds (#{link_to 'BEP-0036', 'http://www.bittorrent.org/beps/bep_0036.html'}), and HTTP-Basic authentication may be used. Most clients support some combination of these features, so 
+		h3 Can I run more than one client?
+		p Yes and no. Every BitTorious account will allow for one simultaneous client on the network. If you start another it will run, but performance will be extremely poor. This is because BitTorious effectively switching the "active" client back and forth every few minutes. If you want to run multiple clients, make sure you run them with different BitTorious accounts!
 
-		h3 What is BitTorrent?
-		p BitTorrent is a protocol used for peer-to-peer file sharing. Wikipedia has an in-depth article #{link_to 'here', 'http://en.wikipedia.org/wiki/BitTorrent'}. With BitTorrent, pieces of a file are shared between computers that are participating in the network.
+		h3 Can I share the .torrent files and RSS links to a friend?
+		p No no no NO!!! Every .torrent file and RSS link is generated specifically for YOU, and contains an authentication token that should be keep private. Forwarding it is essentially the same as forwarding your username and password.
 
-		h3 What is a torrent file?
-		p A small file with information that tells your torrent client how to get the data you wish to download.
+		h3 I accidentally leaked my authentication token. What should I do?
+		p It's not a huge deal as long as you invalidate it.
+		ol
+			li Go the your BitTorious account page.
+			li Regenerate you authentication token.
+			li Redownload any reimport any .torrent files and RSS links into your bittorrent client, because the old token is now invalid, and anyone registered with the tracker should drop off automatically in about 15 minutes.
+			li You do NOT need to re-download any data. :)
 
 	.col-md-6
 
 		h3 How do files get distributed?
 		p BitTorrent networks are peer-to-peer (P2U) "swarms": distributed clusters of computers that can download and upload from each other based on available bandwidth. This is different from conventional file transfer mechanisms based purely on HTTP, FTP, and rsync, where a single source server is generally used, with additional secondary "mirrors". With BitTorrent, the impact of distributing large files to both your local network and server are reduced by relying on the collective bandwidth of the entire swarm.
 
+		h3 What BitTorrent clients can I use with BitTorious?
+		p Any client that supports SSL encryption, honors "private" torrents, and supports RSS feeds should work, though we currently recommend #{link_to 'uTorrent', 'http://www.utorrent.com'} on Windows, OSX, and Linux. Private torrents (#{link_to 'BEP-0027', 'http://www.bittorrent.org/beps/bep_0027.html'}) and RSS feeds (#{link_to 'BEP-0036', 'http://www.bittorrent.org/beps/bep_0036.html'}) are extensions of the bittorrent specification, so some clients may only support some combination of the relevant features.
+
+		h3 What is BitTorrent?
+		p BitTorrent is a protocol used for peer-to-peer file sharing. Wikipedia has an in-depth article #{link_to 'here', 'http://en.wikipedia.org/wiki/BitTorrent'}. With BitTorrent, pieces of a file are shared between computers that are participating in the network.
+
+		h3 What is a torrent file?
+		p A small file with information that tells your torrent client how to get the data you wish to download.

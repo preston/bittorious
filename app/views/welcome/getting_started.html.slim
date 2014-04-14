@@ -28,9 +28,9 @@
 				a href="http://manpages.ubuntu.com/manpages/trusty/en/man1/ctorrent.1.html" man page 
 				| is pretty helpful.
 			h3 uTorrent (GUI)
-			li From the "File" drop-down menu, select "New Torrent".
+			p From the "File" drop-down menu, select "New Torrent".
 			= image_tag 'utorrent-new.png', class: 'img-responsive img-thumbnail'
-			li In the dialog, choose your files to publish. They will all be added to the same torrent. Enter the tracker URL plus "/announce" under the "Trackers". Use 4096KB as the piece size, which is needed for larger torrents. Also make sure the "Private torrent" box is checked, then click the "Create and save as...".
+			p In the dialog, choose your files to publish. They will all be added to the same torrent. Enter the tracker URL plus "/announce" under the "Trackers". Use 4096KB as the piece size, which is needed for larger torrents. Also make sure the "Private torrent" box is checked, then click the "Create and save as...".
 			= image_tag 'utorrent-create.png', class: 'img-responsive img-thumbnail'
 			p Unless you're 100% super sure that you got all the settings correct, you should NOT use this .torrent to seed the network! Instead, you'll let the BitTorious portal rewrite it to double-check the important settings, and then download and launch the fresh sanity-checked .torrent.
 
@@ -46,22 +46,18 @@
 
 			p You may now open the new .torrent file in uTorrent, which will then register with your BitTorious portal and start seeding to the network. SWEET!!!
 
-#downloading
-h4 Downloading
-ol
-	li In a browser, navigate to https://uat.bittorious.com and login with your BitTorrious credentials, then click on "Dashboard" in the BitTorious menu bar and click on the feed that contains the data you wish to download. 
-	= image_tag 'download.png', class: 'img-responsive img-thumbnail'
-	li Find the torrent you wish to download in the "Torrents" list and click the green "Download" button. Make sure to note where it is downloaded on your system. Back in your torrent client click the "Add" button in the upper left-hand corner, then navigate to the torrent file you just downloaded. You should now see the torrent listed in the main window pane of uTorrent with a status of "Downloading".
+	.row
 
-#subscribing
-h4 Subscribing
-p BitTorrious makes it possible to subscribe to feeds via RSS.
-ol
-	li Log in to BitTorious and navigate to the "Dashboard". in the BitTorious menu bar and find the feed to which you wish to subscribe.
-	= image_tag 'Bittorious_Feeds.png'
-	li Click the green "RSS" button for the feed: you will be presented with a popup. Copy the URL in the popup then click the "Got it" button.
-	= image_tag 'Bittorious_RSS_URL.png'
-	li In the uTorrent client, click on the "Add Feed" button and paste the URL from the previous step into the "Feed URL" field, then click "Save".
-	= image_tag 'uTorrent_Add_RSS_Feed.png'
-	li The Bittorious RSS feed should now be listed in the left-hand pane of uTorrent. The individual torrents are listed in the main pane.
-	= image_tag 'uTorrent_New_RSS_Feed.png'
+		section.col-md-6#downloading
+			h4 Downloading
+			p In a browser, navigate to https://uat.bittorious.com and login with your BitTorrious credentials, then click on "Dashboard" in the BitTorious menu bar and click on the feed that contains the data you wish to download. 
+			= image_tag 'download.png', class: 'img-responsive img-thumbnail'
+			p Find the torrent you wish to download in the "Torrents" list and click the green "Download" button. Make sure to note where it is downloaded on your system. Back in your torrent client click the "Add" button in the upper left-hand corner, then navigate to the torrent file you just downloaded. You should now see the torrent listed in the main window pane of uTorrent with a status of "Downloading".
+
+		section.col-md-6#subscribing
+			h4 Subscribing
+			p BitTorrious makes it possible to subscribe to feeds via RSS, allowing for automatic replication of data between sites. Log in to the BitTorious dashboard and copy the relevant RSS URL for which you want to subscribe.
+			p In uTorrent, for example, click on the "Add Feed" button and paste the URL from the previous step into the "Feed URL" field, then click "Save".
+			= image_tag 'utorrent-feed.png'
+			p The relevant BitTorious data feed should now be listed in the left-hand pane of uTorrent. The individual torrents are listed in the main pane. You can double click them to manually start each one, but they will not start automatically. If you would like all torrents published to the feed to start automatically, also add a "Smart Feed" rule configured to automatically add and start all new torrents.
+			= image_tag 'utorrent-smart.png'
