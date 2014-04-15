@@ -23,19 +23,21 @@
   table.table.table-condensed.table-striped
     thead
       tr
-        th Peer
+        th Peer ID
+        th Torrent
+        th IPv4
         th Port
         th Uploaded
         th Downloaded
         th Last Registered
-        th Peer ID
     tbody
       - Peer.active.each do |peer|
-        tr class="peer" data-ipv4_address="#{peer.ip}"
+        tr.peer data-ipv4_address="#{peer.ip}" data-latitude="#{peer.latitude}" data-longitude="#{peer.longitude}"
+          td #{peer.peer_id}
+          td #{peer.torrent.name} (#{peer.torrent.feed.name})
           td #{peer.ip}
           td #{peer.port}
           td #{number_to_human_size(peer.uploaded, precision: 3)}
           td #{number_to_human_size(peer.downloaded, precision: 3)}
           td #{time_ago_in_words peer.updated_at} ago
-          td #{peer.peer_id}
         

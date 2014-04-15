@@ -10,4 +10,5 @@ class Peer < ActiveRecord::Base
 
   geocoded_by :ip
   after_validation :geocode
+
 end
