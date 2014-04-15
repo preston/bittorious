@@ -44,7 +44,7 @@ gem 'uglifier', '>= 1.3.0'
 
 
 group :test, :development do
-  gem 'sqlite3'
+  # gem 'sqlite3'
   gem 'simplecov', :require => false
   gem 'debugger'
   gem 'minitest'
@@ -73,3 +73,9 @@ end
 # group :production do
   gem 'pg'
 # end
+
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end

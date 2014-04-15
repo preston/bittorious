@@ -48,7 +48,8 @@ header.navbar.navbar-default role="banner"
         li
           a href="#{edit_user_registration_path}"
             img src="#{gravatar_image_url(current_user.email, filetype: :png, rating: 'pg', size: 20, secure: true)}"
-            |  My Account
+            |  
+            = current_user.email
         li = link_to('Logout', destroy_user_session_path, :method=>'delete')
       - else
         li
