@@ -44,7 +44,6 @@ gem 'uglifier', '>= 1.3.0'
 
 
 group :test, :development do
-  # gem 'sqlite3'
   gem 'simplecov', :require => false
   gem 'debugger'
   gem 'minitest'
@@ -70,9 +69,7 @@ group :development do
   gem 'spring'
 end
 
-# group :production do
-  gem 'pg'
-# end
+gem 'pg'
 
 
 group :doc do
