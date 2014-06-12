@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.2'
 
 gem 'rails', '4.1.1'
 
@@ -45,7 +45,7 @@ gem 'uglifier' , '>= 1.3.0'
 
 group :test, :development do
   gem 'simplecov', :require => false
-  gem 'debugger'
+  # gem 'debugger'
   gem 'minitest'
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
@@ -58,7 +58,7 @@ end
 group :development do
   gem 'railroady'
 
-  gem 'capistrano', '>= 3.1.0'
+  gem 'capistrano'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
