@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.6'
 
 gem 'devise'
 gem 'cancancan'
@@ -37,14 +37,12 @@ gem 'gravatar_image_tag'
 gem 'sass-rails' , '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier' , '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
-# gem 'coffee-rails', '~> 4.0.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
 
 
 group :test, :development do
-  gem 'simplecov', :require => false
+  # gem 'simplecov', :require => false
   # gem 'debugger'
   gem 'minitest'
   gem 'rspec-rails'
