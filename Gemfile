@@ -42,7 +42,7 @@ gem 'uglifier' , '>= 1.3.0'
 
 
 group :test, :development do
-  # gem 'simplecov', :require => false
+  gem 'simplecov', :require => false
   # gem 'debugger'
   gem 'minitest'
   gem 'rspec-rails'
