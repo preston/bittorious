@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.1.3'
 
 gem 'rails', '4.1.6'
 
@@ -61,8 +61,9 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
 
-  gem 'binding_of_caller'
-  gem 'better_errors'
+  gem 'byebug'
+  # gem 'binding_of_caller'
+  # gem 'better_errors'
 
   gem 'spring'
 end
