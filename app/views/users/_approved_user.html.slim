@@ -16,7 +16,7 @@ tr
 		-if approved_user.last_sign_in_at.nil?
 			| Never
 		-else 
-			#{time_ago_in_words approved_user.last_sign_in_at} ago
+			= approved_user.last_sign_in_at.nil? ? '' : "#{time_ago_in_words approved_user.last_sign_in_at} ago"
 	td
 		- if approved_user == current_user
 			p.muted You may not delete you own account.
