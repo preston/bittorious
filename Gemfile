@@ -36,7 +36,7 @@ gem 'gravatar_image_tag'
 # Use SCSS for stylesheets
 gem 'sass-rails' , '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier' , '>= 1.3.0'
+gem 'uglifier' , '>= 2.5.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
 
