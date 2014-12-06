@@ -1,5 +1,5 @@
 doctype html
-html
+html ng-app="BitToriousApp" 
   head
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
@@ -19,6 +19,7 @@ html
   body class="#{yield(:body_class)}"
     / header
     = render 'layouts/navigation'
+    
     .main#main
       .container-fluid
         = render 'layouts/messages'

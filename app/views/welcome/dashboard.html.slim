@@ -1,54 +1,72 @@
 - content_for :title do 'Dashboard' end
 - content_for :body_class do 'dashboard' end
 
-/ .modal.fade#rss_dialog
-  .modal-dialog
-    .modal-content
-      .modal-header
-        button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
-        h4.modal-title#rss_dialog_label Handy RSS URL.
-      .modal-body
-        p.lead
-          | Paste this URL into your BitTorrent client for nifty automatic downloading of all torrents published to the feed!
-        .well.well-large
-          a id="rss_link" href="#{torrents_rss_url}"
-            = torrents_rss_url
-      .modal-footer
-        button.btn.button-default type="button" data-dismiss="modal" Close
 
-#dashboard ng-app="BitToriousApp" ng-controller="FeedController"
-  .row
-  
-    .col-md-4#feeds
-      h2 Data Feeds
-      table.table.table-condensed.table-striped
-        thead
-          tr
-            th
-              a href="" ng-click="reverse = !reverse; predicate = 'name'; " Name
-            th
-              a href="" ng-click="reverse = !reverse; predicate = 'torrents.length'; " Torrents
-            th
-              a href="" ng-click="reverse = !reverse; predicate = 'updated_at'; " Updated
-        tbody
-          tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse"
-                td data-id="{{feed.id}}" ng-bind="feed.name"
-                td data-id="{{feed.id}}" ng-bind="feed.torrents.length"
-                td data-id="{{feed.id}}" ng-bind="feed.updated_at | relativeDate"
+#dashboard ng-controller="FeedController"
+	= render partial: 'welcome/dialogs'
 
 
-      p.muted
-        | Select a feed to show torrents that have been published to it. Confused? See #{link_to "Getting Started", 'getting_started'}.
+	#sidebar-wrapper
+		#feeds
+			div
+				h2 Data Feeds
+				table.table.table-condensed
+					thead
+						tr
+							th
+								a href="" ng-click="reverse = !reverse; predicate = 'name'; " Name
+							th
+								a href="" ng-click="reverse = !reverse; predicate = 'torrents.length'; " Torrents
+							th
+								a href="" ng-click="reverse = !reverse; predicate = 'updated_at'; " Updated
+					tbody
+						tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse" ng-click="selectFeed(feed.slug)" ng-class="{selected: feed === selectedFeed}"
+								td
+									b ng-bind="feed.name"
+								td ng-bind="feed.torrents.length"
+								td
+									small ng-bind="feed.updated_at | relativeDate"
+
+				p.muted
+					| Select a feed to show torrents that have been published to it. Confused? See #{link_to "Getting Started", 'getting_started'}.
 
 
-      .btn-group
-        / = link_to text_with_icon('All Torrents RSS', 'rss'), '#rss_dialog', class: 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#rss_dialog'
-        - if current_user.admin
-          = link_to text_with_icon('Create a feed.', 'plus-sign'), new_feed_path, class: 'btn btn-default'
+				- if can? :create, Feed
+					.btn-group
+						button.btn.btn-default ng-click="newFeedDialog()" role="button"
+							span.glyphicon.glyphicon-plus-sign
+							|  Create a feed.
 
-    .col-md-8#feed_details
+
+	#page-content-wrapper
+		.container-fluid
+			.row
+				.col-lg-12#feed_details ng-show="selectedFeed"
+					div
+						ul.nav.nav-tabs
+							li.active
+								a href="#torrents" data-toggle="tab"
+									span.icon.icon-copy
+									|  Torrents
+							li
+								a href="#permissions" data-toggle="tab" 
+									span.icon.icon-group
+									|  Permissions
+							li
+								a href="#settings" data-toggle="tab"
+									span.icon.icon-gear
+									|  Settings
+						
+						
+						.tab-content
+							.tab-pane.active#torrents
+								div ng-include="templateUrl('torrents')"
+							.tab-pane#permissions
+								div ng-include="templateUrl('permissions')"
+							.tab-pane#settings
+								div ng-include="templateUrl('settings')"
 
 
-  .row
-    .col-md-12#torrent_details
+			.row
+				.col-md-12#torrent_details
 

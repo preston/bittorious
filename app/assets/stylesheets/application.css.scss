@@ -17,6 +17,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+textarea:invalid,
+input:invalid {
+	box-shadow: 0 10px 10px rgba(220,13,23, .5);
+}
+header.navbar {
+	margin-bottom: 0px;
+}
 footer p > span {
 	padding: 20px;
 }

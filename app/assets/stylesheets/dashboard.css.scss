@@ -1,41 +1,28 @@
 #dashboard {
 
-	#feeds {
-		td:nth-child(1),
-		td:nth-child(2) {
-			cursor: pointer;
-		}
-		a {
-			margin-top: 10px;
-		}
-	}
-
-	#create_feed_dialog {
-		#new_feed {
-			#feed_buttons {
-				display: none;
-			}
-		}
-	}
-
-	#torrents {
-		td:nth-child(1),
-		td:nth-child(2),
-		td:nth-child(3),
-		td:nth-child(4),
-		td:nth-child(5) {
-			cursor: pointer;
-		}
+	.modal-backdrop {
+		// FIXME Bad hack. :(
+		z-index: 0; 
 	}
 	#feeds,
 	#torrents {
-		tr {
+		tbody tr.selected {
+			background-color: #a7c6d8;
+			-webkit-transition:	all .2s ease-out;
+			-moz-transition:	all .2s ease-out;
+			-o-transition:		all .2s ease-out;
+			transition:			all .2s ease-out;
+		} 
+		tbody tr {
 			-webkit-transition:	all .2s ease-out;
 			-moz-transition:	all .2s ease-out;
 			-o-transition:		all .2s ease-out;
 			transition:			all .2s ease-out;
 		}
-		tr:hover {
+		tbody tr:hover {
+			cursor: pointer;
+		}
+		tbody tr:hover:not(.selected) {
 			background-color: #c7e6f8;
 			-webkit-transition:	all .2s ease-out;
 			-moz-transition:	all .2s ease-out;
@@ -63,4 +50,143 @@
 			box-shadow: 0 20px 20px #333, 0 0px 2px #fff inset;
 	}
 
+}
+
+
+
+
+
+
+
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+#dashboard {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#dashboard.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 500;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.1));
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    padding: 10px;
+
+    h2 {
+    	margin-top: 4px;
+    }
+}
+
+#dashboard.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px;
+}
+
+#dashboard.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+	li {
+    	text-indent: 20px;
+    	line-height: 40px;
+
+    	a {
+    		display: block;
+    		text-decoration: none;
+    		color: #999999;
+		}
+
+		a:hover {
+    		text-decoration: none;
+		}
+
+		a:active,
+		a:focus {
+		    text-decoration: none;
+		}
+    }
+}
+
+
+
+
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+
+	a {
+	    color: #999999;
+	}
+	
+	a:hover {
+	    color: #fff;
+	    background: none;
+	}
+}
+
+
+
+@media(min-width:768px) {
+    #dashboard {
+        padding-left: 250px;
+    }
+
+    #dashboard.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #dashboard.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #dashboard.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
 }

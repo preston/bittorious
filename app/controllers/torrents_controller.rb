@@ -2,6 +2,8 @@ class TorrentsController < InheritedResources::Base
    
   defaults resource_class: Torrent.friendly
 
+  before_filter :set_feed, except: [:announce, :scrape, :search]
+
   respond_to :json, :html, :xml, :rss
   prepend_before_filter :set_params_from_torrent, :only => [:create]
   prepend_before_filter :load_from_info_hash
@@ -11,7 +13,7 @@ class TorrentsController < InheritedResources::Base
 
   # load_and_authorize_resource
 
-  # admin@example.com
+  layout false
 
   def http_basic_authenticate
     # user, pass = ActionController::HttpAuthentication::Basic::user_name_and_password(request)
@@ -165,6 +167,10 @@ end
 
   private
 
+
+  def set_feed
+    @feed = Feed.friendly.find(params[:feed_id])  
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_torrent

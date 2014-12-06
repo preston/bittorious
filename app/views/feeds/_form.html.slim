@@ -1,25 +1,16 @@
-= form_for(@feed, html: {role: 'form'}) do |f|
-	- if @feed.errors.any?
-		div id="error_explanation"
-			h2
-				= pluralize(@feed.errors.count, "error")
-				| prohibited this feed from being saved:
-			ul
-				- @feed.errors.full_messages.each do |msg|
-					li = msg
+form#feed_form
 
 	.form-group
-		= f.label :name
-		= f.text_field :name, placeholder: 'My Awesome Data Feed', class: 'form-control', required: true
+		label for="feed_name"
+		input#feed_name.form-control type="text" name="feed[name]" placeholder="My Awesome Data Feed" required="true" ng-model="selectedFeed.name"
 				
 	.form-group
-		= f.label :description
-		= f.text_area :description, placeholder: 'Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta acconsectetur ac, vestibulum at eros.', class: 'form-control', rows: 4, required: true
+		label for="feed_description"
+		textarea#feed_description.form-control name="feed[description]" placeholder="Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta acconsectetur ac, vestibulum at eros." rows="4" required="true" ng-model="selectedFeed.description"
 
 	.checkbox
 		label
-			= f.check_box :enable_public_archiving
-			| Enable archiving of all torrents published to this feed to anonymous volunteer peers. All feed data will effectively becomes publically-accessable.
+			input#form_enable_public_archiving type="checkbox" name="form[enable_public_archiving]" ng-model="selectedFeed.enable_public_archiving"
+				| Enable archiving of all torrents published to this feed to anonymous volunteer peers. All feed data will effectively becomes publically-accessable.
 		
-	.form-group#feed_buttons
-		= f.submit "Save", :class => 'btn btn-primary btn-lg'
+	buttons type="submit" class="btn btn-primary btn-lg" Save

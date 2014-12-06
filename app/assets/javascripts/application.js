@@ -4,6 +4,7 @@
 //= require restangular
 //= require lodash
 //= require angular-rails-templates
+//= require angular-route
 //= require angular-relative-date
 
 //= require angular-app/app

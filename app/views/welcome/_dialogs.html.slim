@@ -1,0 +1,55 @@
+.modal.fade#create_feed_dialog
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+				h1 Create a brand new feed.
+			.modal-body
+
+				form#feed_form name="feed_form"
+				
+					.form-group
+						label for="name"
+							| Name
+							span.text-muted ng-show='feed_form.name.$error.required'
+								|  (Required)
+
+						input#feed_name.form-control type="text" name='name' placeholder="My Awesome Data Feed" ng-model="newFeed.name" required="true" autofocus="true"
+								
+					.form-group
+						label for="description"
+							| Description
+							span.text-muted ng-show='feed_form.description.$error.required'
+								|  (Required)
+						textarea#feed_description.form-control name="description" placeholder="Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta acconsectetur ac, vestibulum at eros." rows="4" ng-model="newFeed.description" required="true"
+
+					.checkbox
+						label
+							input#form_enable_public_archiving type="checkbox" name="enable_public_archiving" ng-model="newFeed.enable_public_archiving"
+								| Enable public archiving.
+							p.help-block ng-show="newFeed.enable_public_archiving" All torrents published to this feed will be eligible for replication via the anonymous volunteer network. All feed data will effectively become publically accessable. Please be sure to not public sensitive torrents to the feed without encrypting the files!
+						
+					button.btn.btn-primary.btn-lg type="submit" ng-click="createFeed()" ng-disabled="feed_form.$invalid"
+						span.glyphicon.glyphicon-floppy-disk
+						|  Create it!
+
+.modal.fade#upload_torrent_dialog
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+				h3
+					| Publish a torrent to
+					span ng-bind="selectedFeed.name"
+			.modal-body
+				input type="hidden" name="feed_id" value="{{selectedFeed.id}}"
+				.form-group
+					label for="torrent_name" Name
+					input type="text" id="torrent_name" name="torrent[name]" placeholder="Demo Package X" required="true" class="form-control"
+					p.help-block Human-readable name for the torrent. You probably want to use the same name used when creating the .torrent to avoid confusion.
+				.form-group
+					label for="torrent_file"
+					input type="file" id="torrent_file" name="torrent[file]" required="true"
+					p.help-block Upload a .torrent file from your computer.
+			/ .modal-footer
+				button.btn.button-default type="button" data-dismiss="modal" Close

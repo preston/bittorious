@@ -1,9 +1,16 @@
 class PermissionsController < InheritedResources::Base
 
 	before_filter :authenticate_user!
+  before_filter :set_feed
 	load_and_authorize_resource
+  layout false
 
 	private 
+
+
+  def set_feed
+    @feed = Feed.friendly.find(params[:feed_id])  
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_permission

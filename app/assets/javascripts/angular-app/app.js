@@ -1,6 +1,7 @@
 app = angular.module('BitToriousApp', [
 	'templates',
 	'restangular',
+	'ngRoute',
 	'relativeDate'
 ]);
 

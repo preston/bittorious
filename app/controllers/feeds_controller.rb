@@ -2,10 +2,17 @@ class FeedsController < InheritedResources::Base
 
   defaults resource_class: Feed.friendly
 
-  before_filter :authenticate_user!, except: [:index]
+  before_filter :authenticate_user!, except: [:index, :template]
   load_and_authorize_resource
   respond_to :html, :json, :rss, :xml
   actions :update, :create, :destroy, :index, :edit
+
+
+  def settings
+    respond_to do |format|
+      format.html { render layout: false }
+    end
+  end
 
   def grant
     r = params[:user][:role]
@@ -68,7 +75,7 @@ class FeedsController < InheritedResources::Base
         {torrents: {}}
         ] }) }
       format.html { render layout: false }
-      format.any { render }
+      # format.any { render }
     end
   end
 

@@ -7,9 +7,10 @@ BitTorious::Application.routes.draw do
 
 	resources :feeds do
 		resources :permissions
-		resources :torrents
+		resources :torrents 
 		member do
-			patch :grant
+			get :settings
+			# patch :grant
 			post :grant
 		end
 	end
