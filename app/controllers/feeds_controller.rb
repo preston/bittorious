@@ -2,10 +2,10 @@ class FeedsController < InheritedResources::Base
 
   defaults resource_class: Feed.friendly
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:index]
   load_and_authorize_resource
   respond_to :html, :json, :rss, :xml
-  actions :update, :create, :destroy, :index
+  actions :update, :create, :destroy, :index, :edit
 
   def grant
     r = params[:user][:role]
@@ -43,8 +43,15 @@ class FeedsController < InheritedResources::Base
 	end
 
   def index
-    @feeds = current_user.feeds
-    index!
+    @feeds = []
+    Feed.order('LOWER(name) ASC').each do |f|
+      if can? :read, f
+        @feeds << f
+      end
+    end
+    respond_to do |format|
+      format.json { render json: @feeds, include: [{torrents: {only: [:id, :name]}}] }
+    end
   end
 
   def update
@@ -52,16 +59,15 @@ class FeedsController < InheritedResources::Base
   end
 
   def show
-    # @feed = Feed.friendly.find(params[:id])
-    # raise :hell
     respond_to do |format|
-      format.json { render :json => {
-          :id => resource.id,
-          :name => resource.name,
-          :publisher => resource.user.name,
-          :torrent_html => render_to_string('feeds/show', :formats => :html, :layout => false) #, :locals => {:torrents => resource.torrents})
-        }
-      }
+      format.json { render json: @feed.to_json({include: [
+        {user: {
+          only: [:id, :name] #,
+          # torrent_html: render_to_string('feeds/show', :formats => :html, :layout => false)
+        }},
+        {torrents: {}}
+        ] }) }
+      format.html { render layout: false }
       format.any { render }
     end
   end

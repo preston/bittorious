@@ -1,26 +1,17 @@
 = '<?xml version="1.0" encoding="UTF-8" ?>'.html_safe
 rss version="2.0"
   channel
-    title
-      All Torrents
-    description RSS 2.0 for All Torrents data.
-    link
-      = torrents_url
-    lastBuildDate
-      = Torrent.order('updated_at DESC').first.updated_at.to_formatted_s(:rfc822)
-    pubDate
-      = Torrent.order('updated_at ASC').first.created_at.to_formatted_s(:rfc822)
+    title All Torrents
+    description RSS 2.0 for all torrents data.
+    link = torrents_url
+    lastBuildDate = Torrent.order('updated_at DESC').first.updated_at.to_formatted_s(:rfc822)
+    pubDate = Torrent.order('updated_at ASC').first.created_at.to_formatted_s(:rfc822)
     ttl 1800
     - collection.each do |t|
       item
-        title
-          = t.name
-        description 
-          = t.name + " uploaded by " + t.user.to_s + " on " + t.created_at.strftime("%A, %B %d, %Y at %T:%M%p")  + '.'
-        link
-          = token_url(torrent_path(t, :format => :torrent))
+        title = t.name
+        description = t.name + " uploaded by " + t.user.to_s + " on " + t.created_at.strftime("%A, %B %d, %Y at %T:%M%p")  + '.'
+        link = token_url(torrent_path(t, :format => :torrent))
         enclosure url="#{token_url(torrent_path(t, :format => :torrent))}" type="application/x-bittorrent"
-        guid
-          = t.info_hash
-        pubDate
-          = t.created_at
+        guid = t.info_hash
+        pubDate = t.created_at

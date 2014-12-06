@@ -5,9 +5,9 @@ module ApplicationHelper
   end
 
 
-  def torrents_rss_url
-    token_url(torrents_path(format: :rss))
-  end
+  # def torrents_rss_url
+  #   token_url(all_torrents_path(format: :rss))
+  # end
 
   def token_url(path)
     rss_uri = URI.parse(request.url)
@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def text_with_icon(text, icon)
-    "<i class=\"icon-white icon-#{icon}\"></i> #{text}".html_safe
+    "<span class=\"glyphicon glyphicon-#{icon}\"></span> #{text}".html_safe
   end
 
   def authentication_token_param

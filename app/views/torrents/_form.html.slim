@@ -1,4 +1,4 @@
-= form_for(@torrent, html: {role: 'form'}) do |f|
+= form_for([@torrent.feed, @torrent], html: {role: 'form'}) do |f|
 	- if @torrent.errors.any?
 		div id="error_explanation"
 			h2
@@ -18,4 +18,3 @@
 
 	.form-group#feed_buttons
 		= f.submit "Save", :class => 'btn btn-primary btn-lg'
-

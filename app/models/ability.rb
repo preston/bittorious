@@ -26,6 +26,7 @@ class Ability
 			# Non-admins.
 			can :manage,  Feed,		permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
 			can :read,    Feed,		permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
+			can :read,    Feed,		:enable_public_archiving
 			can :manage,  Torrent,	permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
 			can [:create, :destroy, :update, :show, :grant], Feed,	permissions: { user_id: user.id, role: Permission::PUBLISHER_ROLE }
 

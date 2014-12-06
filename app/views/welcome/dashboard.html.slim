@@ -1,7 +1,7 @@
 - content_for :title do 'Dashboard' end
 - content_for :body_class do 'dashboard' end
 
-.modal.fade#rss_dialog
+/ .modal.fade#rss_dialog
   .modal-dialog
     .modal-content
       .modal-header
@@ -16,25 +16,25 @@
       .modal-footer
         button.btn.button-default type="button" data-dismiss="modal" Close
 
-#dashboard
-  
+#dashboard ng-app="BitToriousApp" ng-controller="FeedController"
   .row
   
     .col-md-4#feeds
       h2 Data Feeds
-      table.table.table-condensed
+      table.table.table-condensed.table-striped
         thead
           tr
-            th Name
-            th Last Publication
+            th
+              a href="" ng-click="reverse = !reverse; predicate = 'name'; " Name
+            th
+              a href="" ng-click="reverse = !reverse; predicate = 'torrents.length'; " Torrents
+            th
+              a href="" ng-click="reverse = !reverse; predicate = 'updated_at'; " Updated
         tbody
-          - @feeds.each do |feed|
-            - if can? :read, feed
-              tr class="feed_link" id="feed_#{feed.id}"
-                td data-id="#{feed.id}" data-href="#{url_for feed}"
-                  = feed.name
-                  p #{feed.torrents.count} #{'torrent'.pluralize(feed.torrents.count)}
-                td data-id="#{feed.id}" data-href="#{url_for feed}" #{time_ago_in_words feed.torrents.last.created_at + 'ago' rescue "Never"}
+          tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse"
+                td data-id="{{feed.id}}" ng-bind="feed.name"
+                td data-id="{{feed.id}}" ng-bind="feed.torrents.length"
+                td data-id="{{feed.id}}" ng-bind="feed.updated_at | relativeDate"
 
 
       p.muted
@@ -42,15 +42,13 @@
 
 
       .btn-group
-        = link_to text_with_icon('All Torrents RSS', 'rss'), '#rss_dialog', class: 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#rss_dialog'
+        / = link_to text_with_icon('All Torrents RSS', 'rss'), '#rss_dialog', class: 'btn btn-default', 'data-toggle' => 'modal', 'data-target' => '#rss_dialog'
         - if current_user.admin
-          = link_to text_with_icon('Create a feed.', 'plus'), new_feed_path, class: 'btn btn-default'
+          = link_to text_with_icon('Create a feed.', 'plus-sign'), new_feed_path, class: 'btn btn-default'
 
     .col-md-8#feed_details
-      / Replaced via AJAX on feed selection.
 
 
   .row
     .col-md-12#torrent_details
-      / Replacede via AJAX on torrent selection.
 

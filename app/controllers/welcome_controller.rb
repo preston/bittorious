@@ -7,8 +7,6 @@ class WelcomeController < ApplicationController
   end
 
   def dashboard
-    authorize! :read, Feed
-    @feeds = Feed.order(:name).load
   end
 
   def concepts

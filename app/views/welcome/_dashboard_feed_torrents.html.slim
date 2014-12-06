@@ -14,7 +14,9 @@
 			h2  Publish Data
 			p.help-block To publish a new data .torrent to this feed, create the .torrent metadata file on your local machine, and then upload it via this dialog.
 			.btn-group
-				button.btn.btn-primary href="#upload_torrent_dialog" role="button" data-toggle="modal" Publish a torrent.
+				button.btn.btn-primary href="#upload_torrent_dialog" role="button" data-toggle="modal"
+					span.glyphicon.glyphicon-upload
+					|  Publish a torrent.
 
 - if @feed.torrents.count > 0
 	h1 Torrents
@@ -30,7 +32,7 @@
 		tbody
 			=render :partial => 'welcome/torrent', :collection => @feed.torrents
 
-=form_for Torrent.new do |f|
+= form_for [@feed, Torrent.new] do |f|
 
 	.modal.fade#upload_torrent_dialog
 		.modal-dialog

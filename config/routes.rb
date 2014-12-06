@@ -1,12 +1,13 @@
 BitTorious::Application.routes.draw do
 
 
-	devise_for :users, :controllers => { :registrations => 'registrations' } 
+	devise_for :users, :controllers => { registrations: :registrations } 
 
-	resources :torrents
+	# get 'torrents' => 'torrents#index', as: :all_torrents
 
 	resources :feeds do
 		resources :permissions
+		resources :torrents
 		member do
 			patch :grant
 			post :grant
@@ -14,10 +15,10 @@ BitTorious::Application.routes.draw do
 	end
 
 	get 'scrape' => 'torrents#scrape'
-	get "tags/torrents" => "torrents#tags", :as => :tags
+	get "tags/torrents" => "torrents#tags", as: :tags
 
 	get 'search' => 'torrents#search'
-	get 'announce' => 'torrents#announce', :as => 'announce'
+	get 'announce' => 'torrents#announce', as: :announce
 
 	get 'manage' => 'users#manage'
 	post 'manage/:user_id/deny' => 'users#deny', as: :deny_user

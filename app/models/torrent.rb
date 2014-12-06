@@ -8,7 +8,7 @@ class Torrent < ActiveRecord::Base
 
 
   belongs_to :user
-  belongs_to :feed
+  belongs_to :feed, touch: true
   has_many :peers, :foreign_key => 'info_hash', :primary_key => 'info_hash', :dependent => :destroy
 
   has_many :permissions, :through => :feed
@@ -21,6 +21,12 @@ class Torrent < ActiveRecord::Base
   validates_uniqueness_of :slug
 
   # before_save :reprocess_meta
+
+  # Force slug regeneration every time the record is saved.
+  def should_generate_new_friendly_id?() true end
+
+  # Update the timestamp on the parent feed.
+  # after_save { |torrent| torrent.feed.touch }
 
   default_scope {order('created_at')}
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
@@ -49,21 +55,21 @@ class Torrent < ActiveRecord::Base
     self.peers.active.peers.count
   end
 
-  def as_json(options={})
-    {
-      name: self.name,
-      torrent_url: torrent_url,
-      publisher: self.user.name
-    }
-  end
+  # def as_json(options={})
+  #   {
+  #     name: self.name,
+  #     torrent_url: torrent_url,
+  #     publisher: self.user.name
+  #   }
+  # end
 
-  def torrent_url
-    self.torrent_file.url(:bt)
-  end
+  # def torrent_url
+  #   self.torrent_file.url(:bt)
+  # end
 
-  def to_xml(options = {})
-    super options.merge({:methods => [:torrent_url]})
-  end
+  # def to_xml(options = {})
+  #   super options.merge({:methods => [:torrent_url]})
+  # end
 
   def data_for_user(user, announce_url)
     b = BEncode.load(self.data)

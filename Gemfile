@@ -1,23 +1,24 @@
 source 'https://rubygems.org'
 ruby '2.1.4'
 
-gem 'rails', '4.1.7'
+gem 'rails', '4.1.8'
 
 gem 'devise'
+gem 'devise-bootstrap-views'
 gem 'cancancan'
+
+# AngularJS
+# http://www.intridea.com/blog/2014/9/25/how-to-set-up-angular-with-rails
+gem 'angular-rails-templates'
+gem 'bower-rails'
 
 # General jQuery.
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'chosen-rails'
-# gem 'rails3-jquery-autocomplete'
-# gem 'bootstrap-tagsinput-rails'
-# gem 'jquery-tablesorter'
 
-# Twitter Bootstrap: https://github.com/seyhunak/twitter-bootstrap-rails
-# gem 'therubyracer'
-# gem 'less-rails'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 
 
 # Better templating.
@@ -34,7 +35,7 @@ gem 'geocoder'
 gem 'gravatar_image_tag'
 
 # Use SCSS for stylesheets
-gem 'sass-rails' , '~> 4.0.3'
+gem 'sass-rails' , '~> 4.0.5'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier' , '>= 2.5.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

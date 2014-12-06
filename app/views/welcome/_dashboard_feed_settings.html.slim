@@ -1,4 +1,3 @@
 - if can? :manage, @feed
 	= render 'feeds/form'
-	hr
-	= link_to '<i class="icon-trash icon-white"></i> Delete this feed forever!'.html_safe, @feed, 'class' => "text-danger", method: :delete, data: {confirm: 'This will permanently delete the feed from the system, and existing subscribers will no longer receive data.'} if @feed.torrents.count == 0
+	= link_to text_with_icon('Delete this feed forever!', 'trash'), @feed, class: "pull-right btn btn-lg btn-danger", method: :delete, data: {confirm: 'This will permanently delete the feed and all torrents from the system. Existing subscribers will no longer receive data. This cannot be undone. Are you completely 100% sure you want to delete this feed?'}

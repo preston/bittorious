@@ -1,0 +1,22 @@
+{
+  "name": "angular-relative-date",
+  "version": "0.1.0",
+  "description": "AngularJS filter to provide relative, human-readable dates.",
+  "homepage": "https://github.com/wildlyinaccurate/angular-relative-date",
+  "authors": [
+    "Joseph Wynn <joseph@wildlyinaccurate.com>"
+  ],
+  "keywords": [
+    "angular",
+    "relative",
+    "date"
+  ],
+  "license": "MIT",
+  "main": "./angular-relative-date.js",
+  "dependencies": {
+    "angular": ">=1.0.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.x"
+  }
+}

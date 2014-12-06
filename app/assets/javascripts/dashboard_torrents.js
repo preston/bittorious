@@ -3,10 +3,10 @@ $(function() {
 	// Hide the torrent details section by default.
 	$('#torrent_details').hide();
 
-	$('.dashboard').on('click', ' tr.feed_link td:nth-child(1), tr.feed_link td:nth-child(2)', feed_handler);
-
-
-
+	$('.dashboard').on('click',
+							'tr.feed_link td:nth-child(1),' +
+							'tr.feed_link td:nth-child(2)',
+							feed_handler);
 
 	$('.dashboard').on('click',	'.torrent_link td:nth-child(1),' +
 								'.torrent_link td:nth-child(2),' +
@@ -20,14 +20,6 @@ $(function() {
 		$(this).button('loading');
 	});
 
-	// Torrent details map stuff.
-	// map = document.getElementById("map_canvas");
-	// if(map) {
-
-	// }
-	// new google.maps.Map(document.getElementById("map_canvas"),
-	//           mapOptions);
-	
 
 });
 
@@ -37,16 +29,19 @@ $(function() {
 function feed_handler(e) {
 	// e.preventDefault();
 
-	torrent_details_hide()
+	torrent_details_hide();
 	
 	feed_id = $(this).data('id');
 	console.log("Loading feed ID: " + feed_id);
 	$('.success').removeClass('success');
 	$(this).parent().addClass('success');
 	$.ajax({
-		url: $(this).data('href') + '.json',
+		url: $(this).data('href') + '.html',
 		success: function(data) {
-			$('#feed_details').html(data['torrent_html']);
+
+
+			$('#feed_details').html(data);
+			// $('#feed_details').html(data['torrent_html']);
 			// $('#torrents table#feed_torrents tbody').replaceWith(data['torrent_html']);
 			// $('#torrents .btn.disabled').removeClass('disabled');
 			// $('form #torrent_feed_id').val(feed_id);

@@ -7,7 +7,6 @@ table.table.table-condensed.table-striped#feed-permissions
 	tbody
 		- User.where(admin: false).each do |u|
 			- perm = Permission.where(feed_id: @feed, user_id: u).first || Permission.new(feed_id: @feed, user_id: u, role: Permission::NO_ROLE)
-			- puts "PERM #{perm}"
 			tr
 				td = u.name
 				td = u.email
