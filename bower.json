@@ -5,7 +5,8 @@
       "angularjs" : "latest",
       "angular-route" : "latest",
       "restangular" : "latest",
-      "angular-relative-date" : "latest"
+      "angular-relative-date" : "latest",
+      "ng-form-data" : "latest"
     }
   },
   "vendor": {

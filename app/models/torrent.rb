@@ -20,13 +20,10 @@ class Torrent < ActiveRecord::Base
   validates_uniqueness_of :info_hash, :message => 'This torrent has already been uploaded.'
   validates_uniqueness_of :slug
 
-  # before_save :reprocess_meta
 
   # Force slug regeneration every time the record is saved.
   def should_generate_new_friendly_id?() true end
 
-  # Update the timestamp on the parent feed.
-  # after_save { |torrent| torrent.feed.touch }
 
   default_scope {order('created_at')}
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
@@ -48,11 +45,11 @@ class Torrent < ActiveRecord::Base
   end
 
   def seed_count
-    self.peers.active.seeds.count
+    "#{self.peers.active.seeds.count}"
   end
 
   def peer_count
-    self.peers.active.peers.count
+    "#{self.peers.active.peers.count}"
   end
 
   # def as_json(options={})
@@ -89,8 +86,7 @@ class Torrent < ActiveRecord::Base
     b['announce'] = ''
     b["announce-list"] = [[]]
 
-    # Force private! :)
-    b["info"]["private"] = 1
+    b["info"]["private"] = (self.feed.enable_public_archiving ? 0 : 1)
 
     # Shameless plug. :)
     b["comment"] = "Powered by BitTorious!"
@@ -100,7 +96,6 @@ class Torrent < ActiveRecord::Base
 
     b = BEncode.load(self.data)
     self.info_hash = Digest::SHA1.hexdigest(b["info"].bencode)
-    # puts "HASHY!!! #{info_hash}"
     true
   end
 end

@@ -38,5 +38,8 @@ BitTorious::Application.routes.draw do
 	get 'getting_started' => "welcome#getting_started",	as: :getting_started
 
 	root :to => 'welcome#landing'
+	get 'dashboard/feeds' => 'welcome#feeds'
+	get 'dashboard/torrents' => 'welcome#torrents'
+	get 'dashboard/settings' => 'welcome#settings'
 
 end

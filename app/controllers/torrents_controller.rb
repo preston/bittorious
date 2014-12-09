@@ -48,18 +48,34 @@ class TorrentsController < InheritedResources::Base
   def create
     @torrent = Torrent.new(torrent_params)
     @torrent.user = current_user
-    @torrent.data = request[:torrent][:torrent_file].read
+    @torrent.data = request[:torrent][:file].read
+    @torrent.feed = Feed.friendly.find(params[:feed_id]) # Must be set prior to metadata reprocessing.
     @torrent.reprocess_meta
-    create! { dashboard_path }
+    respond_to do |format|
+      format.json {
+        if @torrent.save
+          render json: @torrent, except: [:data]
+        else
+          render json: {errors: @torrent.errors}, except: [:data], status: :unprocessable_entity
+        end
+      }
+    end
   end
 
-  def destroy
-    destroy! { dashboard_path }
+  def index
+    @torrents = @feed.torrents
+    respond_to do |f|
+      f.json { render json: @torrents, include: [{user: {only: [:id, :name]}}], methods: [:seed_count, :peer_count], except: [:data] }
+    end    
   end
 
-  def update
-    update! { dashboard_path }
-  end
+  # def destroy
+  #   destroy!
+  # end
+
+  # def update
+  #   update!
+  # end
 
 	def scrape
 		# From http://wiki.theory.org/BitTorrentSpecification
@@ -99,7 +115,7 @@ class TorrentsController < InheritedResources::Base
 
   def show
     respond_to do |format|
-      format.html { render layout: false}
+      format.json { render json: resource, except: [:data], include: [{user: {only: [:id, :name]}}, :peers]}
       format.torrent { send_data(resource.data_for_user(current_user, announce_url))}
       # format.json { render :json => {:id => resource.id, :name => resource.name, :meta_html => render_to_string('_meta_data', :formats => :html, :layout => false, :locals => {:meta_data => resource.tracker.meta_data})}}
     end

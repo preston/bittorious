@@ -1,7 +1,0 @@
-- if can? :manage, @feed
-	= render 'feeds/form'
-	button.pull-right.btn.btn-lg.btn-danger ng-click="deleteFeed()" ng-confirm-click="This will permanently delete the feed and all torrents from the system. Existing subscribers will no longer receive data. This cannot be undone. Are you completely 100% sure you want to delete this feed?"
-		= text_with_icon('Delete this feed forever!', 'trash')
-
-- else
-	p.lead Sorry, but you don't have permission to change this feeds settings!

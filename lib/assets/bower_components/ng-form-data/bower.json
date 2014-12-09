@@ -1,0 +1,53 @@
+{
+  "name": "ng-form-data",
+  "version": "0.0.1",
+  "authors": [
+    "tomchentw <developer@tomchentw.com>"
+  ],
+  "description": "Support input[type=\"file\"] with ng-model and transparently submit with HTML5 FormData",
+  "main": "ng-form-data.js",
+  "keywords": [
+    "Angular",
+    "directive",
+    "ng-model",
+    "input",
+    "FormData",
+    "file",
+    "image",
+    "upload"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tomchentw/ng-form-data",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "app",
+    "bower_components",
+    "config",
+    "lib",
+    "node_modules",
+    "pkg",
+    "public",
+    "server",
+    "test",
+    "tmp",
+    "vendor",
+    "Gemfile",
+    "gulpfile.ls",
+    "index.ls",
+    "Makefile",
+    "package.json",
+    "Rakefile",
+    "ng-form-data.gemspec"
+  ],
+  "dependencies": {
+    "angular": "~1.2.13"
+  },
+  "devDependencies": {
+    "angular-sanitize": "~1.2.13",
+    "angular-mocks": "~1.2.13",
+    "google-code-prettify": "~1.0.1",
+    "angular-bootstrap": "~0.10.0",
+    "twbs-bootstrap-sass": "~3.1.1"
+  }
+}

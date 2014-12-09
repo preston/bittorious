@@ -1,0 +1,29 @@
+#feeds 
+	div
+		h2 Data Feeds
+		table.table.table-condensed
+			thead
+				tr
+					th
+						a href="" ng-click="reverse = !reverse; predicate = 'name'; " Name
+					th
+						a href="" ng-click="reverse = !reverse; predicate = 'torrents.length'; " Torrents
+					th
+						a href="" ng-click="reverse = !reverse; predicate = 'updated_at'; " Updated
+			tbody
+				tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse" ng-click="selectFeed(feed.slug)" ng-class="{selected: feed === selectedFeed}"
+						td
+							b ng-bind="feed.name"
+						td ng-bind="feed.torrents.length"
+						td
+							small ng-bind="feed.updated_at | relativeDate"
+
+		p.muted
+			| Select a feed to show torrents that have been published to it. Confused? See #{link_to "Getting Started", 'getting_started'}.
+
+
+		- if can? :create, Feed
+			.btn-group
+				button.btn.btn-default ng-click="newFeedDialog()" role="button"
+					span.glyphicon.glyphicon-plus-sign
+					|  Create a feed.

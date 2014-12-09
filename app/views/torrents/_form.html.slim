@@ -1,20 +1,16 @@
-= form_for([@torrent.feed, @torrent], html: {role: 'form'}) do |f|
-	- if @torrent.errors.any?
-		div id="error_explanation"
-			h2
-				= pluralize(@torrent.errors.count, "error")
-				| prohibited this feed from being saved:
-			ul
-				- @torrent.errors.full_messages.each do |msg|
-					li = msg
-
+form#torrent_form name="torrent_form"
+	input type="hidden" name="feed_id" value="{{selectedFeed.id}}"
 	.form-group
-		= f.label :feed_id
-		= f.select :feed_id, Feed.all.collect{|f|[f.name, f.id]}, {}, {class: 'form-control'}
+		label for="torrent_name"
+			| Name
+			span.text-muted ng-show='torrent_form.name.$error.required'
+				|  (Required)
+		input#torrent_name.form-control type="text" name="name" placeholder="My Sweet Torrent" required="true" ng-model="newTorrent.torrent.name"
+		p.help-block Human-readable name for the torrent. You probably want to use	the same name used when creating the .torrent to avoid confusion. This only affects the name as displayed in the portal, not what peers display when downloading the torrent.
 	.form-group
-		= f.label :name
-		= f.text_field :name, placeholder: 'Demo Package X', required: true, class: 'form-control'
-		p.help-block Human-readable name for the torrent. You probably want to use the same name used when creating the .torrent to avoid confusion. This only affects the name displayed in the portal, and shouldn't affect peers already part of the swarm.
-
-	.form-group#feed_buttons
-		= f.submit "Save", :class => 'btn btn-primary btn-lg'
+		label for="torrent_file"
+		input#torrent_file.form-control type="file" name="file" ng-model="newTorrent.torrent.file" accept="application/x-bittorrent, *.torrent"
+	.text-danger ng-bind="newTorrent.errorMessage" ng-if="newTorrent.errorMessage"
+	button.btn.btn-primary.btn-lg type="submit" ng-click="createTorrent()" ng-disabled="torrent_form.$invalid"
+		span.glyphicon.glyphicon-floppy-disk
+		|  Save

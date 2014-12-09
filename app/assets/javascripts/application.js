@@ -6,6 +6,7 @@
 //= require angular-rails-templates
 //= require angular-route
 //= require angular-relative-date
+//= require ng-form-data
 
 //= require angular-app/app
 //= require_tree ./angular-app/templates

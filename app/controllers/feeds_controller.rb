@@ -8,11 +8,14 @@ class FeedsController < InheritedResources::Base
   actions :update, :create, :destroy, :index, :edit
 
 
-  def settings
-    respond_to do |format|
-      format.html { render layout: false }
-    end
-  end
+  # def torrents
+  # end
+  
+  # def settings
+  #   respond_to do |format|
+  #     format.html { render layout: false }
+  #   end
+  # end
 
   def grant
     r = params[:user][:role]
