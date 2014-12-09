@@ -1,4 +1,4 @@
-angular.module('BitToriousApp').controller('FeedController', function($scope, $location, growl, Restangular) {
+angular.module('BitToriousApp').controller('FeedController', ['$scope', '$location', 'growl', 'Restangular', function($scope, $location, growl, Restangular) {
 
 	console.log("Initializing AngularJS FeedController.");
 
@@ -149,4 +149,4 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, $l
 		});
 	}
 
-});
+}]);
