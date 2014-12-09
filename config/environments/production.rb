@@ -24,8 +24,8 @@ BitTorious::Application.configure do
 
   # Compress JavaScripts and CSS.
   # config.assets.js_compressor = :uglifier
-  config.assets.js_compressor = Uglifier.new(mangle: false) # AngularJS doesn't play well with obfuscation. :(
-  config.assets.css_compressor = :sass
+  # config.assets.js_compressor = Uglifier.new(mangle: false) # AngularJS doesn't play well with obfuscation. :(
+  # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   # config.assets.compile = false
