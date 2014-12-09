@@ -1,66 +1,41 @@
 .row
 
-  .col-md-8
-	h1.lead ng-if="selectedFeed.torrents.length == 0" No torrents have been published to {{selectedFeed.name}}!
-	table.table.table-condensed#feed_torrents ng-if="selectedFeed.torrents.length > 0"
-	  thead
-		tr
-		  th
-			a href="" ng-click="reverse = !reverse; predicate = 'name'; " Name
-		  th
-			a href="" ng-click="reverse = !reverse; predicate = 'user.name'; " Publisher
-		  th
-			a href="" ng-click="reverse = !reverse; predicate = 'seed_count'; " Seeds
-		  th
-			a href="" ng-click="reverse = !reverse; predicate = 'peer_count'; " Peers
-		  th
-			a href="" ng-click="reverse = !reverse; predicate = 'size'; " Size
-	  tbody
-		tr.torrent_link ng-repeat="torrent in selectedFeed.torrents | orderBy:predicate:reverse" ng-click="selectTorrent(torrent.slug)" ng-class="{selected: torrent.slug === selectedTorrent.slug}"
-		  td
-			b ng-bind="torrent.name"
-			small ng-bind="torrent.description"
-		  td ng-bind="torrent.user.name"
-		  td ng-bind="torrent.seed_count"
-		  td ng-bind="torrent.peer_count"
-		  td ng-bind="torrent.size | humanizeBytes"
+	.col-md-12
+		h1.lead ng-if="selectedFeed.torrents.length == 0" No torrents have been published to 	{{selectedFeed.name}}!
+		table.table.table-condensed#feed_torrents ng-if="selectedFeed.torrents.length > 0"
+		  thead
+			tr
+				th
+					a ng-click="reverse = !reverse; predicate = 'name'; " Name
+				th
+					a ng-click="reverse = !reverse; predicate = 'user.name'; " Publisher
+				th
+					a ng-click="reverse = !reverse; predicate = 'seed_count'; " Seeders
+				th
+					a ng-click="reverse = !reverse; predicate = 'peer_count'; " Peers
+				th
+					a ng-click="reverse = !reverse; predicate = 'size'; " Size
+				th Download
+		  tbody
+			tr.torrent_link ng-repeat="torrent in selectedFeed.torrents | orderBy:predicate:reverse" ng-click="selectTorrent(torrent.slug)" ng-class="{selected: torrent.slug === selectedTorrent.	slug}"
+			  td
+				b ng-bind="torrent.name"
+				small ng-bind="torrent.description"
+			  td ng-bind="torrent.user.name"
+			  td ng-bind="torrent.seed_count"
+			  td ng-bind="torrent.peer_count"
+			  td ng-bind="torrent.size | humanizeBytes"
+			  td
+			  	a.btn.btn-primary href="/feeds/{{selectedFeed.slug}}/torrents/{{torrent.slug}}.torrent" = text_with_icon('Download', 'download')
 
-  .col-md-4
-	h1 ng-bind="selectedFeed.name"
-	p ng-bind="selectedFeed.description"
-	-if can? :create, Torrent
-	  / h2  Publish Data
-	  .btn-group
-		button.btn.btn-primary.btn-lg href="#create_torrent_dialog" role="button" ng-click="newTorrentDialog()"
-		  span.glyphicon.glyphicon-upload
-		  |  Register a torrent.
-	  p.help-block
-		small To publish a new data .torrent to this feed, create the .torrent metadata file on your 								local machine, and then upload it via this dialog.
-	h4
-	  i.icon.icon-rss
-	  |  Data RSS Feed
-	pre
-		a href="/feeds/{{selectedFeed.slug}}.rss"
-	p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
+	.col-md-6 ng-if="selectedTorrent.peers.length == 0"
+		h1 No peers for this torrent.
+		.lead Time to make some friends?
 
-.col-md-8#torrent_details ng-if="selectedTorrent"
-	hr
-	h1 ng-bind="selectedTorrent.name"
-	p
-		| {{selectedTorrent.peers.count}} peers currently registered.
-	.btn-group
-	  a.btn.btn-default href="/feeds/{{selectedFeed.slug}}/torrents/{{selectedTorrent.slug}}.torrent"
-		= text_with_icon('Download', 'download')
-	  - if can? :manage, @feed
-		a.btn.btn-default href="/feeds/{{selectedFeed.slug}}/torrents/{{selectedTorrent.slug}}.torrent"
-		  = text_with_icon('Edit', 'edit')
-		a.btn.btn-danger href="/feeds/{{selectedFeed.slug}}/torrents/{{selectedTorrent.slug}}.torrent"
-			  = text_with_icon('Delete', 'trash')
-
-
-	div ng-if="selectedTorrent.peers.length > 0"
-	  section#active_peers
-		h3 Active Peers
+	.col-md-6#active_peers ng-if="selectedTorrent.peers.length > 0"
+		h3
+			span ng-bind="selectedTorrent.peers.length"
+			|  active nodes for this torrent.
 		#table_container
 			table.table.table-condensed.table-striped
 				thead
@@ -81,8 +56,41 @@
 						td ng-bind="peer.left | humanizeBytes"
 						td ng-bind="peer.uploaded | humanizeBytes"
 						td ng-bind="peer.updated_at | relativeDate"
-	
-	  section
+
+
+	.col-md-6#torrent_details ng-show="selectedTorrent"
+		h3 ng-bind="selectedTorrent.name"
+		.btn-group
+			a.btn.btn-default href="/feeds/{{selectedFeed.slug}}/torrents/{{selectedTorrent.slug}}.torrent" = text_with_icon('Download', 'download')
+			- if can? :manage, @feed
+				a.btn.btn-default ng-click="updateTorrent()"
+					= text_with_icon('Save', 'floppy-disk')
+				a.btn.btn-default ng-click="deleteTorrent()" ng-confirm-click="Are you sure?"
+					= text_with_icon('Delete', 'trash')
+		form#edit_torrent_form role="form" ng-submit="updateTorrent()"
+			.form-group
+				label for="name" Name
+				input#torrent_name.form-control type="text" ng-model="selectedTorrent.name"
+		dl.dl-horizontal
+			dt Created
+			dd ng-bind="selectedTorrent.created_at | relativeDate"
+			dt Updated
+			dd ng-bind="selectedTorrent.updated_at | relativeDate"
+			dt Publisher
+			dd ng-bind="selectedTorrent.user.name"
+			dt Created With
+			dd ng-bind="selectedTorrent.file_created_by"
+			dt Pieces
+			dd ng-bind="selectedTorrent.pieces"
+			dt Piece Size
+			dd ng-bind="selectedTorrent.piece_length | humanizeBytes"
+			dt Feed
+			dd ng-bind="selectedFeed.name"
+			dt Info Hash
+			dd ng-bind="selectedTorrent.info_hash"
+
+
+	.col-md-12  ng-if="selectedTorrent.peers.length > 0"
 		h3 Node Map
 		div#map_canvas
 		javascript:  
@@ -93,8 +101,3 @@
 		  };
 		  var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 		  initMapData();
-	
-	div ng-if="selectedTorrent.peers.length == 0"
-	  h1 No peers for this torrent. :(
-	  .lead Time to make some friends?
-

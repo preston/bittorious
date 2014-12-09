@@ -1,6 +1,15 @@
-angular.module('BitToriousApp').controller('FeedController', function($scope, Restangular) {
+angular.module('BitToriousApp').controller('FeedController', function($scope, $location, growl, Restangular) {
 
 	console.log("Initializing AngularJS FeedController.");
+
+	var port = $location.port();
+	var proto = $location.protocol();
+	$scope.urlRoot = proto + "://" + $location.host();
+	if((proto == 'http' && port == 80) || (proto == 'https' && port == 443)) {
+		// We don't need to explicitly set the port.
+	} else {
+		$scope.urlRoot += ":" + port;
+	}
 
 	Restangular.all('feeds').getList().then(function(feeds) {
 		$scope.feeds = feeds;
@@ -24,7 +33,7 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, Re
 			console.log("Loaded " + torrents.length + " torrents.");
 			$scope.selectedFeed.torrents = torrents;
 		});
-		$scope.selelctedTorrent = null;
+		$scope.selectedTorrent = null;
 	};
 
 	$scope.templateUrl = function(name) {
@@ -48,6 +57,7 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, Re
 			newFeed();
 			$("#create_feed_dialog").modal('hide');
 			$scope.selectedFeed = feed;
+			growl.success("Feed " + feed.name +"created.", {title : "Success!"});
 		});
 	}
 
@@ -60,11 +70,10 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, Re
 					$scope.feeds.splice(i, 1);
 				}
 			}
-			if($scope.selectedFeed.id == feed.id) {
-				console.log("SELECETD: " + $scope.selectedFeed.id);
-				$scope.selectedFeed == null;
-				$scope.$apply;
-			}
+			$scope.selectedFeed = null;
+			growl.success("Feed deleted.", {title : "Success!"});
+		}, function(e) {
+			console.log("Server refused to delete feed: " + e);
 		});
 	}
 
@@ -73,11 +82,7 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, Re
 	}
 
 	$scope.setTorrentFile = function(e) {
-		// var $scope = this.$scope;
-    	// $scope.$apply(function() {
-    		console.log("SETTING: " + e.files[0]);
-        	$scope.newTorrent.torrent.file = e.files[0];
-	    // });
+       	$scope.newTorrent.torrent.file = e.files[0];
 	};
 
 	$scope.newTorrentDialog = function() {
@@ -93,6 +98,7 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, Re
 			$scope.selectedFeed.torrents.push(torrent);
 			newTorrent();
 			$("#create_torrent_dialog").modal('hide');
+			growl.success("Torrent created.", {title : "Success!"});
 		}, function(response) {
 			var errors = response.data.errors;
 			$scope.newTorrent.errors = errors;
@@ -106,19 +112,41 @@ angular.module('BitToriousApp').controller('FeedController', function($scope, Re
 	}
 
 	$scope.selectTorrent = function(slug) {
-		console.log("Selected torrent: " + slug);
-		for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
-			t = $scope.selectedFeed.torrents[i];
-			if(t.slug == slug) {
-				$scope.selectedTorrent = t;
-				break;
-			}
-		};
-		// Restangular.one('torrents', slug)
+		console.log("Loading torrent: " + slug);
 		$scope.selectedFeed.one('torrents', slug).get().then(function(torrent) {
-			console.log("Loaded torrent : " + torrent.name);
+			// console.log("Loaded torrent : " + torrent.name);
+			for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
+				if($scope.selectedFeed.torrents[i].slug == slug) {
+					// $scope.selectedFeed.torrents[i] = torrent;
+					break;
+				}
+			}
 			$scope.selectedTorrent = torrent;
 		});
 	};
+
+	$scope.deleteTorrent = function() {
+		$scope.selectedTorrent.remove().then(function() {
+			console.log("Deleted torrent ID: " + $scope.selectedTorrent.id);
+			// Remove from local array.
+			for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
+				if($scope.selectedFeed.torrents[i].id == $scope.selectedTorrent.id) {
+					$scope.selectedFeed.torrents.splice(i, 1);
+				}
+			}
+			$scope.selectedTorrent = null;
+			growl.success("Torrent deleted.", {title : "Success!"});
+		}, function(e) {
+			growl.error("Torrent couldn't be deleted. Please refresh the page and try again.", {title: "Error :("});
+			console.log("Server refused to delete torrent: " + e);
+		});
+	}
+
+	$scope.updateTorrent = function() {
+		$scope.selectedTorrent.patch().then(function(t) {
+			growl.success("Torrent updated.", {title : "Success!"});
+			console.log("Successfully updated torrent.");
+		});
+	}
 
 });

@@ -4,7 +4,9 @@ app = angular.module('BitToriousApp', [
 	'ngRoute',
 	'relativeDate',
 	'ng-form-data',
-	'humanizeFilters'
+	'humanizeFilters',
+	'angular-growl',
+	'ngAnimate'
 ]);
 
 // For compatibility with Rails CSRF protection
@@ -17,6 +19,11 @@ app.config(
 			id: "slug"
 		});
 	}]);
+
+app.config(['growlProvider', function(growlProvider) {
+    growlProvider.globalTimeToLive(2000);
+}]);
+
 
 app.run(function() {
 	console.log('BitTorious App is up and running!');

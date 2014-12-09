@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301210457) do
+ActiveRecord::Schema.define(version: 20141209053904) do
 
   create_table "feeds", force: true do |t|
     t.string   "name"
@@ -62,10 +62,13 @@ ActiveRecord::Schema.define(version: 20140301210457) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "size",       limit: 8
-    t.string   "info_hash",            null: false
-    t.binary   "data",                 null: false
+    t.integer  "size",            limit: 8
+    t.string   "info_hash",                 null: false
+    t.binary   "data",                      null: false
     t.integer  "feed_id"
+    t.integer  "pieces"
+    t.integer  "piece_length"
+    t.string   "file_created_by"
   end
 
   add_index "torrents", ["feed_id"], name: "index_torrents_on_feed_id"

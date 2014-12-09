@@ -9,25 +9,48 @@
 
 	#page-content-wrapper
 		.container-fluid
-			.row
-				.col-lg-12#feed_details ng-show="selectedFeed"
-					div
-						ul.nav.nav-tabs
-							li.active
-								a href="#torrents" data-toggle="tab"
-									span.icon.icon-copy
-									|  Torrents
-							li
-								a href="#settings" data-toggle="tab"
-									span.icon.icon-gear
-									|  Settings
-						
-						
-						.tab-content
-							.tab-pane.active#torrents
-								ng-include src="'/dashboard/torrents'"
 
-							.tab-pane#settings
-								ng-include src="'/dashboard/settings'"
+			.row ng-show="selectedFeed"
+				.col-md-6
+					h1 ng-bind="selectedFeed.name"
+					p ng-bind="selectedFeed.description"
+					-if can? :create, Torrent
+					  / h2  Publish Data
+					  .btn-group
+						button.btn.btn-primary.btn-lg href="#create_torrent_dialog" role="button" ng-click="newTorrentDialog()"
+						  span.glyphicon.glyphicon-upload
+						  |  Register a torrent.
+					  p.help-block
+						small To publish a new data .torrent to this feed, create the .torrent metadata file on 	your local machine, and then upload it via this dialog.
+				.col-md-6
+					h1 &nbsp;
+					h4
+					  i.icon.icon-rss
+					  |  Data RSS Feed
+					pre
+						a href="{{$location.host}}/feeds/{{selectedFeed.slug}}.rss"
+							| {{urlRoot}}/feeds/{{selectedFeed.slug}}.rss
+					p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
+
+			/ .row
+				/ .col-lg-12
+			#feed_details ng-show="selectedFeed"
+				div
+					ul.nav.nav-tabs
+						li.active
+							a href="#torrents" data-toggle="tab"
+								span.icon.icon-copy
+								|  Torrents
+						li
+							a href="#settings" data-toggle="tab"
+								span.icon.icon-gear
+								|  Settings
+					
+					
+					.tab-content
+						.tab-pane.active#torrents
+							ng-include src="'/dashboard/torrents'"
+						.tab-pane#settings
+							ng-include src="'/dashboard/settings'"
 
 

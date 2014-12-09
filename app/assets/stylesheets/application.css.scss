@@ -11,6 +11,7 @@
  *= require_self
  *= require_tree .
  *= require devise_bootstrap_views
+ *= require angular-growl-v2
  */
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"

@@ -16,18 +16,9 @@ class TorrentsController < InheritedResources::Base
   layout false
 
   def http_basic_authenticate
-    # user, pass = ActionController::HttpAuthentication::Basic::user_name_and_password(request)
-    # puts "USER #{user}, PASS #{pass}."
-    # request_http_basic_authentication
     authenticate_or_request_with_http_basic do |email, password|
       u = User.where(email: email).first
       ok = !u.nil? && u.valid_password?(password)
-      # if ok
-      #   warden.custom_failure! if performed?
-      #   current_user = u
-      # else
-      #   request_http_basic_authentication
-      # end
       ok
     end
   end
@@ -36,10 +27,11 @@ class TorrentsController < InheritedResources::Base
     # authorize! :announce, :torrents
     resource.register_peer(peer_params)
 
-    tracker_response = {'interval'    => 15.minutes,
-                 'complete'   => resource.seed_count,
-                 'incomplete' => resource.peer_count,
-                 'peers'      => resource.peers.active.map{|p|  {'ip' => p.ip, 'peer id' => p.peer_id, 'port' => p.port}} }
+    tracker_response = {
+      'interval'    => Peer::UPDATE_PERIOD_MINUTES.minutes,
+      'complete'   => resource.seed_count,
+      'incomplete' => resource.peer_count,
+      'peers'      => resource.peers.active.map{|p|  {'ip' => p.ip, 'peer id' => p.peer_id, 'port' => p.port}} }
     response.headers['Content-Type'] = 'text/plain; charset=ASCII'
     #force US-ASCII
     render :text => tracker_response.to_bencoding.encode('ASCII')
@@ -68,14 +60,6 @@ class TorrentsController < InheritedResources::Base
       f.json { render json: @torrents, include: [{user: {only: [:id, :name]}}], methods: [:seed_count, :peer_count], except: [:data] }
     end    
   end
-
-  # def destroy
-  #   destroy!
-  # end
-
-  # def update
-  #   update!
-  # end
 
 	def scrape
 		# From http://wiki.theory.org/BitTorrentSpecification

@@ -9,19 +9,18 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :slug
 
   belongs_to :user
-  has_many :torrents
+  has_many :torrents, dependent: :destroy
+  has_many :permissions, dependent: :destroy
 
-  has_many :permissions, :dependent => :destroy
-
-  before_destroy :verify_no_torrents
+  # before_destroy :verify_no_torrents
 
 
   private
 
-  def verify_no_torrents
-    if self.torrents.count != 0
-      return false
-    end
-  end
+  # def verify_no_torrents
+  #   if self.torrents.count != 0
+  #     return false
+  #   end
+  # end
 
 end

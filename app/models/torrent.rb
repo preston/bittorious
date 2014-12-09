@@ -30,7 +30,6 @@ class Torrent < ActiveRecord::Base
   
 
   def register_peer(peer_params)
-    # peer = Peer.find_or_create_by_info_hash_and_peer_id(peer_params[:info_hash], peer_params[:peer_id])
     peer = Peer.find_or_create_by!(info_hash: peer_params[:info_hash], peer_id: peer_params[:peer_id])
     peer.update_attributes(
       downloaded:   peer_params['downloaded'],
@@ -41,6 +40,7 @@ class Torrent < ActiveRecord::Base
       ip:           peer_params[:remote_ip]
       )
     peer.touch
+    peer.save!
     peer
   end
 
@@ -51,22 +51,6 @@ class Torrent < ActiveRecord::Base
   def peer_count
     "#{self.peers.active.peers.count}"
   end
-
-  # def as_json(options={})
-  #   {
-  #     name: self.name,
-  #     torrent_url: torrent_url,
-  #     publisher: self.user.name
-  #   }
-  # end
-
-  # def torrent_url
-  #   self.torrent_file.url(:bt)
-  # end
-
-  # def to_xml(options = {})
-  #   super options.merge({:methods => [:torrent_url]})
-  # end
 
   def data_for_user(user, announce_url)
     b = BEncode.load(self.data)
@@ -87,12 +71,15 @@ class Torrent < ActiveRecord::Base
     b["announce-list"] = [[]]
 
     b["info"]["private"] = (self.feed.enable_public_archiving ? 0 : 1)
-
+    b["info"]["name"] = self.name
     # Shameless plug. :)
     b["comment"] = "Powered by BitTorious!"
 
-    self.data = b.to_bencoding
+    self.file_created_by = b["created by"]
     self.size = b['info']['length']
+    self.pieces = b['info']['pieces'].length / 20
+    self.piece_length = b['info']['piece length']
+    self.data = b.to_bencoding
 
     b = BEncode.load(self.data)
     self.info_hash = Digest::SHA1.hexdigest(b["info"].bencode)

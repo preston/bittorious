@@ -19,6 +19,9 @@ html ng-app="BitToriousApp"
   body class="#{yield(:body_class)}"
     / header
     = render 'layouts/navigation'
+
+    / angular-growl. rawr!
+    div growl=""
     
     .main#main
       .container-fluid
