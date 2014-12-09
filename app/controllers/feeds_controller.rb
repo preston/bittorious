@@ -3,7 +3,9 @@ class FeedsController < InheritedResources::Base
   defaults resource_class: Feed.friendly
 
   before_filter :authenticate_user!, except: [:index, :template]
+
   load_and_authorize_resource
+
   respond_to :html, :json, :rss, :xml
   actions :update, :create, :destroy, :index, :edit
 
@@ -72,16 +74,13 @@ class FeedsController < InheritedResources::Base
 
   def show
     respond_to do |format|
-      format.json { render json: @feed.to_json({include: [
-        {user: {
-          only: [:id, :name] #,
-          # torrent_html: render_to_string('feeds/show', :formats => :html, :layout => false)
-        }},
-        {torrents: {}}
-        ] }) }
-      # format.html { render layout: false }
+      format.json {
+        render json: @feed.to_json({include: [
+          {user: { only: [:id, :name] }},
+          {torrents: {}}
+        ]})
+      }
       format.rss { render }
-      # format.any { render }
     end
   end
 
