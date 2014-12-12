@@ -20,6 +20,8 @@ class Torrent < ActiveRecord::Base
   validates_uniqueness_of :info_hash, :message => 'This torrent has already been uploaded.'
   validates_uniqueness_of :slug
 
+  # Freely available geocoding data file.
+  GEOIP = GeoIP.new(File.join(Rails.root, 'public', 'GeoLiteCity.dat'))
 
   # Force slug regeneration every time the record is saved.
   def should_generate_new_friendly_id?() true end
@@ -40,8 +42,19 @@ class Torrent < ActiveRecord::Base
       ip:           peer_params[:remote_ip]
       )
     peer.touch
+    if(peer.latitude.nil? || peer.longitude.nil?)
+      data = GEOIP.city(peer.ip)
+      peer.latitude = data.latitude
+      peer.longitude = data.longitude
+      peer.country_name = data.country_name
+      peer.city_name = data.city_name
+    end
     peer.save!
     peer
+  end
+
+  def active_peers
+    self.peers.active
   end
 
   def seed_count

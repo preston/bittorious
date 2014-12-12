@@ -24,6 +24,8 @@ gem 'autoprefixer-rails'
 # Better templating.
 gem 'slim-rails'
 
+# Local IP address -> coordinate geocoding.
+gem 'geoip'
 
 # gem 'paperclip'
 gem 'friendly_id'

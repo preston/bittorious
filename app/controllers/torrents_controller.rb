@@ -61,6 +61,12 @@ class TorrentsController < InheritedResources::Base
     end    
   end
 
+  def peers
+    respond_to do |f|
+      f.json { render json: resource.active_peers }
+    end
+  end
+
 	def scrape
 		# From http://wiki.theory.org/BitTorrentSpecification
 		#   If info_hash was supplied and was valid, this dictionary will contain a single key/value. Each key consists of a 20-byte binary info_hash. The value of each entry is another dictionary containing the following:
@@ -99,7 +105,7 @@ class TorrentsController < InheritedResources::Base
 
   def show
     respond_to do |format|
-      format.json { render json: resource, except: [:data], include: [{user: {only: [:id, :name]}}, :peers]}
+      format.json { render json: resource, except: [:data], include: [{user: {only: [:id, :name]}}, :active_peers]}
       format.torrent { send_data(resource.data_for_user(current_user, announce_url))}
       # format.json { render :json => {:id => resource.id, :name => resource.name, :meta_html => render_to_string('_meta_data', :formats => :html, :layout => false, :locals => {:meta_data => resource.tracker.meta_data})}}
     end

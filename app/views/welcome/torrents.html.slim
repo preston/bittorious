@@ -17,7 +17,7 @@
 					a ng-click="reverse = !reverse; predicate = 'size'; " Size
 				th Download
 		  tbody
-			tr.torrent_link ng-repeat="torrent in selectedFeed.torrents | orderBy:predicate:reverse" ng-click="selectTorrent(torrent.slug)" ng-class="{selected: torrent.slug === selectedTorrent.	slug}"
+			tr.torrent_link ng-repeat="torrent in selectedFeed.torrents | orderBy:predicate:reverse" ng-click="selectTorrent(torrent)" ng-class="{selected: torrent.slug === selectedTorrent.	slug}"
 			  td
 				b ng-bind="torrent.name"
 				small ng-bind="torrent.description"
@@ -28,13 +28,13 @@
 			  td
 			  	a.btn.btn-primary href="/feeds/{{selectedFeed.slug}}/torrents/{{torrent.slug}}.torrent" = text_with_icon('Download', 'download')
 
-	.col-md-6 ng-if="selectedTorrent.peers.length == 0"
+	.col-md-6 ng-if="selectedTorrent.active_peers.length == 0"
 		h1 No peers for this torrent.
 		.lead Time to make some friends?
 
-	.col-md-6#active_peers ng-if="selectedTorrent.peers.length > 0"
+	.col-md-6#active_peers ng-if="selectedTorrent.active_peers.length > 0"
 		h3
-			span ng-bind="selectedTorrent.peers.length"
+			span ng-bind="selectedTorrent.active_peers.length"
 			|  active nodes for this torrent.
 		#table_container
 			table.table.table-condensed.table-striped
@@ -47,8 +47,11 @@
 					th Uploaded
 					th Last Registered
 				tbody
-					tr.peer ng-repeat="peer in selectedTorrent.peers" data-ipv4_address="{{peer.ip}}" 	data-latitude="{{peer.latitude}}" data-longitude="{{peer.longitude}}"
-						td ng-bind="peer.ip"
+					tr.peer ng-repeat="peer in selectedTorrent.active_peers"
+						td
+							ng-bind="peer.ip"
+							small ng-bind="peer.latitude"
+							small ng-bind="peer.longitude"
 						td ng-bind="peer.port"
 						td
 							span ng-if="peer.left > 0" Peer
@@ -65,7 +68,7 @@
 			- if can? :manage, @feed
 				a.btn.btn-default ng-click="updateTorrent()"
 					= text_with_icon('Save', 'floppy-disk')
-				a.btn.btn-default ng-click="deleteTorrent()" ng-confirm-click="Are you sure?"
+				a.btn.btn-default ng-click="deleteTorrent(selectedTorrent)" ng-confirm-click="Are you sure?"
 					= text_with_icon('Delete', 'trash')
 		form#edit_torrent_form role="form" ng-submit="updateTorrent()"
 			.form-group
@@ -90,7 +93,7 @@
 			dd ng-bind="selectedTorrent.info_hash"
 
 
-	.col-md-12  ng-if="selectedTorrent.peers.length > 0"
+	.col-md-12  ng-if="selectedTorrent.active_peers.length > 0"
 		h3 Node Map
 		div#map_canvas
 		javascript:  

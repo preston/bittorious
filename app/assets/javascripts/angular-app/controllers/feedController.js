@@ -61,8 +61,9 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 		});
 	}
 
-	$scope.deleteFeed = function() {
-		$scope.selectedFeed.remove().then(function(feed) {
+	$scope.deleteFeed = function(f) {
+		// $scope.selectedFeed
+		f.remove().then(function(feed) {
 			console.log("Deleted feed ID: " + feed.id);
 			// Remove from local array.
 			for (var i = 0; i < $scope.feeds.length; i++) {
@@ -111,28 +112,34 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 		});
 	}
 
-	$scope.selectTorrent = function(slug) {
-		console.log("Loading torrent: " + slug);
-		$scope.selectedFeed.one('torrents', slug).get().then(function(torrent) {
-			// console.log("Loaded torrent : " + torrent.name);
-			for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
-				if($scope.selectedFeed.torrents[i].slug == slug) {
-					// $scope.selectedFeed.torrents[i] = torrent;
-					break;
-				}
-			}
-			$scope.selectedTorrent = torrent;
-		});
+	$scope.selectTorrent = function(t) {
+		// console.log("Loading torrent: " + slug);
+		$scope.selectedTorrent = t;
+		if(t.active_peers == null) {
+			t.active_peers = t.getList('peers').$object;
+			// $scope.selectedFeed.one('torrents', t.slug).get().then(function(torrent) {
+			// 	t.active_peers = torrent.active_peers;
+			// });			
+		}
+		// 	// console.log("Loaded torrent : " + torrent.name);
+		// 	for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
+		// 		if($scope.selectedFeed.torrents[i].slug == slug) {
+		// 			// $scope.selectedFeed.torrents[i] = torrent;
+		// 			break;
+		// 		}
+		// 	}
+		// 	$scope.selectedTorrent = torrent;
+		// });
 	};
 
-	$scope.deleteTorrent = function() {
-		$scope.selectedTorrent.remove().then(function() {
+	$scope.deleteTorrent = function(t) {
+		// $scope.selectedTorrent
+		t.remove().then(function() {
 			console.log("Deleted torrent ID: " + $scope.selectedTorrent.id);
 			// Remove from local array.
-			for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
-				if($scope.selectedFeed.torrents[i].id == $scope.selectedTorrent.id) {
-					$scope.selectedFeed.torrents.splice(i, 1);
-				}
+			var i = $scope.selectedFeed.torrents.indexOf(t);
+			if(i > -1) {
+				$scope.selectedFeed.torrents.splice(i, 1);
 			}
 			$scope.selectedTorrent = null;
 			growl.success("Torrent deleted.", {title : "Success!"});

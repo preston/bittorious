@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209053904) do
+ActiveRecord::Schema.define(version: 20141212040904) do
 
   create_table "feeds", force: true do |t|
     t.string   "name"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20141209053904) do
     t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "country_name"
+    t.string   "city_name"
   end
 
   add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state"
