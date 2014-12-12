@@ -42,8 +42,8 @@ function refreshMap(peers) {
     var p = peers[i];
     var latitude = p.latitude;
     var longitude = p.longitude;
-    addMarker('33.422', '112.273', 'Nowhere', 'United States');
-    // addMarker(latitude, longitude, p.city_name, p.country_name);
+    // addMarker('33.422', '112.273', 'Nowhere', 'United States');
+    addMarker(latitude, longitude, p.city_name, p.country_name);
 	};
 }
 
