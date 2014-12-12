@@ -26,4 +26,4 @@ config/initializers/devise.rb
 .capistrano
 
 # Large data files
-#public/data/*
+public/data/*
