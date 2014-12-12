@@ -62,6 +62,7 @@ group :development do
 
   gem 'capistrano'
   gem 'capistrano-rvm'
+  gem 'capistrano-rails-console'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
 

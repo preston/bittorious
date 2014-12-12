@@ -10,7 +10,7 @@ set :scm, :git
 # set :pty, true
 
 set :linked_files, %w{config/database.yml config/initializers/devise.rb}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/data}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 3

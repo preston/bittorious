@@ -21,7 +21,8 @@ class Torrent < ActiveRecord::Base
   validates_uniqueness_of :slug
 
   # Freely available geocoding data file.
-  GEOIP = GeoIP.new(File.join(Rails.root, 'public', 'GeoLiteCity.dat'))
+  GEOIP_DATA = File.join(Rails.root, 'public', 'data', 'GeoLiteCity.dat')
+  GEOIP = GeoIP.new(GEOIP_DATA)
 
   # Force slug regeneration every time the record is saved.
   def should_generate_new_friendly_id?() true end
