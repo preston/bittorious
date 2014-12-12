@@ -40,19 +40,31 @@
 			table.table.table-condensed.table-striped
 				thead
 				  tr
-					th IPv4
-					th Port
-					th State
-					th Needs
-					th Uploaded
-					th Last Registered
+					th
+						a ng-click="reverse = !reverse; predicate = 'ip'; " IPv4:Port
+					th
+						a ng-click="reverse = !reverse; predicate = 'city_name'; " City
+					th
+						a ng-click="reverse = !reverse; predicate = 'country_name'; " Country
+					th
+						a ng-click="reverse = !reverse; predicate = 'active_peers.length'; " Status
+					th
+						a ng-click="reverse = !reverse; predicate = 'left'; " Needs
+					th
+						a ng-click="reverse = !reverse; predicate = 'uploaded'; " Uploaded
+					th
+						a ng-click="reverse = !reverse; predicate = 'updated_at'; " Last Registered
 				tbody
 					tr.peer ng-repeat="peer in selectedTorrent.active_peers"
 						td
-							ng-bind="peer.ip"
-							small ng-bind="peer.latitude"
-							small ng-bind="peer.longitude"
-						td ng-bind="peer.port"
+							span ng-bind="peer.ip"
+							| :
+							span ng-bind="peer.port"
+							br
+							small#latitude ng-bind="peer.latitude" ng-show="peer.latitude"
+							small#longitude ng-bind="peer.longitude" ng-show="peer.longitude"
+						td ng-bind="peer.city_name"
+						td ng-bind="peer.country_name"
 						td
 							span ng-if="peer.left > 0" Peer
 							span ng-if="peer.left == 0" Seeding
@@ -103,4 +115,4 @@
 			zoom: 4
 		  };
 		  var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-		  initMapData();
+		  refreshMap();

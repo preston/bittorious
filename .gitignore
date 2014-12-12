@@ -24,3 +24,6 @@ config/initializers/devise.rb
 /tmp
 /coverage
 .capistrano
+
+# Large data files
+public/*.dat

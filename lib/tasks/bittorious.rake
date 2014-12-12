@@ -1,4 +1,6 @@
 require 'peer_reaper'
+# require 'uri'
+require 'open-uri'
 
 namespace :bittorious do
 
@@ -11,15 +13,16 @@ namespace :bittorious do
   task :cache_geolocation do
 	url = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz'
 	path = File.join(Rails.root, 'public', 'GeoLiteCity.dat')
-	File.delete(path)
+	File.delete(path) if File.exists?(path)
 	puts "Downloading #{url}..."
-  	data = open(url) { |io| io.read }
-  	puts "Decompressing..."
-	data = Zlib::GzipReader.new(data).read
-	puts "Writing to disk..."
-	File.open(path, 'wb')
-	File.write data
-	File.close
+  	data = open(url, 'rb') do |input|
+  		puts "Decompressing..."
+		data = Zlib::GzipReader.new(input).read
+		puts "Writing to #{path}..."
+		out = File.open path, 'wb'
+		out.write data
+		out.close
+	end
 	puts "Done!"
   end
 

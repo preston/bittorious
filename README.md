@@ -29,3 +29,12 @@ Features
     *    List of Active Peers
     *    Google map of Peers
     *    Integrated Disqus for commenting
+
+Development Quick Start
+--------
+
+    bundle install
+    rake bittorious:cache_geolocation # The geolocation data file is not included.
+    rake db:migrate
+    rake db:seed
+    open http://localhost:3000 # Yay!

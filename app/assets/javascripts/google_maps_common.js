@@ -2,7 +2,7 @@ var map;
 var markers = [];
 var peers = {};
 
-function geoDataToLatLong(latitude,longitude) {
+function coordinatesToLatLong(latitude,longitude) {
 	var ll = null;
 	if(latitude != "0" && longitude != "0"){
 		console.log(latitude + ' ' + longitude);
@@ -12,7 +12,7 @@ function geoDataToLatLong(latitude,longitude) {
 }
 
 function addMarker(peer) {
-  console.log('adding marker');
+  console.log('Adding marker...');
 	var marker = new google.maps.Marker({
   	position: peer,
     map: map,
@@ -22,7 +22,7 @@ function addMarker(peer) {
 }
 
 function removeMarkers() {
-  console.log('removing markers');
+  console.log('Removing markers...');
   $.each(markers, function(i, m) {
     m.setMap(null);
   });
@@ -30,12 +30,18 @@ function removeMarkers() {
   markers.length = 0;
 }
 
-function initMapData() {
-  console.log('init map');
-  removeMarkers();
+var mapInitialized = false;
+
+function refreshMap() {
+  if(mapInitialized) {
+    removeMarkers();
+  }
+  console.log('Refreshing map...');
 	$.each($('.peer'), function(i, e) {
-    console.log("Adding Marker.");
-    var ll = geoDataToLatLong(e.getAttribute('data-latitude'), e.getAttribute('data-longitude'));
+    var latitude = $(this).find('#latitude').val();
+    var longitude = $(this).find('#longitude').val();
+    // console.log("Adding Marker.");
+    var ll = coordinatesToLatLong(latitude, longitude);
     addMarker(ll);
 	});
 }
