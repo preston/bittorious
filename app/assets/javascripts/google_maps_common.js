@@ -1,21 +1,26 @@
+var mapInitialized = false;
 var map;
 var markers = [];
 var peers = {};
 
-function coordinatesToLatLong(latitude,longitude) {
+function coordinatesToLatLong(latitude, longitude) {
 	var ll = null;
-	if(latitude != "" && longitude != ""){
-		console.log(latitude + ' ' + longitude);
-		ll = new google.maps.LatLng(latitude, longitude);
-	}
+	if(latitude == "" || longitude == ""){
+    console.log("Peer coordinates are invalid. They will not be mapped.");
+	} else {
+    console.log("Peer: " + latitude + ', ' + longitude);
+    ll = new google.maps.LatLng(latitude, longitude);
+  }
 	return ll;
 }
 
-function addMarker(peer) {
+function addMarker(latitude, longitude, city, country) {
   console.log('Adding marker...');
+  var ll = coordinatesToLatLong(latitude, longitude);
 	var marker = new google.maps.Marker({
-  	position: peer,
+  	position: ll,
     map: map,
+    title: city + ', ' + country,
 		animation: google.maps.Animation.DROP
   });
   markers.push(marker);
@@ -30,19 +35,15 @@ function removeMarkers() {
   markers.length = 0;
 }
 
-var mapInitialized = false;
 
-function refreshMap() {
-  if(mapInitialized) {
-    removeMarkers();
-  }
+function refreshMap(peers) {
   console.log('Refreshing map...');
-	$.each($('.peer'), function(i, e) {
-    var latitude = $(this).find('#latitude').val();
-    var longitude = $(this).find('#longitude').val();
-    // console.log("Adding Marker.");
-    var ll = coordinatesToLatLong(latitude, longitude);
-    addMarker(ll);
-	});
+  for(var i = 0; i < peers.length; i++)  {
+    var p = peers[i];
+    var latitude = p.latitude;
+    var longitude = p.longitude;
+    addMarker('33.422', '112.273', 'Nowhere', 'United States');
+    // addMarker(latitude, longitude, p.city_name, p.country_name);
+	};
 }
 

@@ -113,24 +113,19 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 	}
 
 	$scope.selectTorrent = function(t) {
-		// console.log("Loading torrent: " + slug);
 		$scope.selectedTorrent = t;
 		if(t.active_peers == null) {
-			t.active_peers = t.getList('peers').$object;
-			// $scope.selectedFeed.one('torrents', t.slug).get().then(function(torrent) {
-			// 	t.active_peers = torrent.active_peers;
-			// });			
+			t.getList('peers').then(function(actives) {
+				t.active_peers = actives;
+			});;	
 		}
-		// 	// console.log("Loaded torrent : " + torrent.name);
-		// 	for (var i = 0; i < $scope.selectedFeed.torrents.length; i++) {
-		// 		if($scope.selectedFeed.torrents[i].slug == slug) {
-		// 			// $scope.selectedFeed.torrents[i] = torrent;
-		// 			break;
-		// 		}
-		// 	}
-		// 	$scope.selectedTorrent = torrent;
-		// });
+		// refreshMap(t.active_peers);
 	};
+	$scope.$watch("selectedTorrent", function() {
+		if($scope.selectedTorrent != null && $scope.selectedTorrent.active_peers != null) {
+			refreshMap($scope.selectedTorrent.active_peers);
+		}
+	});
 
 	$scope.deleteTorrent = function(t) {
 		// $scope.selectedTorrent
