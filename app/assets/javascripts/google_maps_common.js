@@ -4,7 +4,7 @@ var peers = {};
 
 function coordinatesToLatLong(latitude,longitude) {
 	var ll = null;
-	if(latitude != "0" && longitude != "0"){
+	if(latitude != "" && longitude != ""){
 		console.log(latitude + ' ' + longitude);
 		ll = new google.maps.LatLng(latitude, longitude);
 	}
