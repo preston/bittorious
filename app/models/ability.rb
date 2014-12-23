@@ -2,14 +2,13 @@ class Ability
 	include CanCan::Ability
 
 	def initialize(user)
-# puts "USER: #{user}"
 		user ||= User.new # guest user (not logged in)
 		cannot :manage, :all
 		cannot :approve, User
 		cannot :deny, User
 
 		# Anyone can read public (non-"private") torrents.
-		can :read,  Feed #,		enable_public_archiving: true
+		can :read,  Feed,		enable_public_archiving: true
 		can :read,  Torrent,	feed: {enable_public_archiving: true}
 		can :read,	Peer,	torrent: {feed: {enable_public_archiving: true}}
 		if user.id.nil?

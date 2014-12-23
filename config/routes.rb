@@ -3,7 +3,7 @@ BitTorious::Application.routes.draw do
 
 	devise_for :users, :controllers => { registrations: :registrations } 
 
-	# get 'torrents' => 'torrents#index', as: :all_torrents
+	get 'users' => 'users#index', as: :users
 
 	resources :feeds do
 		resources :permissions

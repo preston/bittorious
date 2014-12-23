@@ -26,21 +26,23 @@ ensure
 	# admin.update_attribute(:super_user, true)
 end
 
-User.find_by_email('subscriber@example.com') || User.create({
+subscriber = User.find_by_email('subscriber@example.com') || User.create({
 	name: 'Demo Subscriber',
 	email: 'subscriber@example.com',
 	password: 'password',
 	password_confirmation: 'password',
 	approved: true
 	})
+subscriber.confirm!
 
-User.find_by_email('publisher@example.com') || User.create({
+publisher = User.find_by_email('publisher@example.com') || User.create({
 	name: 'Demo Publisher',
 	email: 'publisher@example.com',
 	password: 'password',
 	password_confirmation: 'password',
 	approved: true
 	})
+publisher.confirm!
 
 begin
   # torrent = admin.torrents.find_or_create_by_name('Torrent Foo')
@@ -48,3 +50,6 @@ begin
 end
 
 feed = Feed.create!(name: 'Sample Feed', user: admin)
+Permission.create!(user: subscriber, feed: feed, role: Permission::SUBSCRIBER_ROLE)
+Permission.create!(user: publisher, feed: feed, role: Permission::PUBLISHER_ROLE)
+

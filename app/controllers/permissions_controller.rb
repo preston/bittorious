@@ -2,8 +2,37 @@ class PermissionsController < InheritedResources::Base
 
 	before_filter :authenticate_user!
   before_filter :set_feed
-	load_and_authorize_resource
+  load_and_authorize_resource :feed
+	load_and_authorize_resource :permission, through: :feed
   layout false
+
+  def index
+    @permissions = @feed.permissions.sort {|a,b| a.user.name <=> b.user.name}
+    respond_to do |format|
+      format.json { render json: @permissions, include: {user: {only: [:id, :name]}} }
+    end
+  end
+
+  def create
+    @permission = Permission.new(permission_params)
+    @permission.feed = @feed
+    respond_to do |format|
+      format.json {
+        if @permission.save
+          render json: @permission, include: {user: {only: [:id, :name]}}
+        else
+          render json: {errors: @permission.errors}, status: :unprocessable_entity
+        end
+      } 
+    end
+  end
+
+  def destroy
+    @permission.destroy!
+    respond_to do |format|
+      format.json { render json: @permission.to_json }
+    end
+  end
 
 	private 
 
@@ -20,8 +49,8 @@ class PermissionsController < InheritedResources::Base
   # Never trust parameters from the scary internet, only allow the white list through.
   def permission_params
     params.require(:permission).permit(
-      # :feed_id, :user_id
-      :role, :user, :feed)
+      :role, :feed_id, :user_id)
+      # :role, :user, :feed)
 
   end
 

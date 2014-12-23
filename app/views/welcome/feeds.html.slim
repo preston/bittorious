@@ -11,7 +11,7 @@
 					th
 						a href="" ng-click="reverse = !reverse; predicate = 'updated_at'; " Updated
 			tbody
-				tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse" ng-click="selectFeed(feed.slug)" ng-class="{selected: feed === selectedFeed}"
+				tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse" ng-click="selectFeed(feed)" ng-class="{selected: feed === selectedFeed}"
 						td
 							b ng-bind="feed.name"
 						td ng-bind="feed.torrents.length"

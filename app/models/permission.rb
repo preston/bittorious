@@ -7,6 +7,8 @@ class Permission < ActiveRecord::Base
 	SUBSCRIBER_ROLE = 'subscriber'
 	PUBLISHER_ROLE = 'publisher'
 
-	validates_presence_of :user, :feed
+	validates_presence_of :user
+	validates_presence_of :feed
+	validates_uniqueness_of :user, scope: [:feed_id]
 
 end

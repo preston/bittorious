@@ -2,6 +2,11 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 
 	console.log("Initializing AngularJS FeedController.");
 
+	// Administrators 
+	Restangular.all('users').getList().then(function(users) {
+		$scope.users = users;
+	});
+
 	var port = $location.port();
 	var proto = $location.protocol();
 	$scope.urlRoot = proto + "://" + $location.host();
@@ -11,25 +16,38 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 		$scope.urlRoot += ":" + port;
 	}
 
+	$scope.selectedFeed = null;
 	Restangular.all('feeds').getList().then(function(feeds) {
 		$scope.feeds = feeds;
+		if($scope.feeds != null && $scope.feeds.length > 0) {
+			$scope.selectFeed($scope.feeds[0]);
+		}
 	});
 
-	$scope.selectedFeed = null;
-	if($scope.feeds != null && $scope.feeds.length > 0) {
-		$scope.selectedFeed = $scope.feeds[0];
-	}
-
-	$scope.selectFeed = function(slug) {
-		console.log("Selected feed: " + slug);
-		for (var i = 0; i < $scope.feeds.length; i++) {
-			f = $scope.feeds[i];
-			if(f.slug == slug) {
-				$scope.selectedFeed = f;
-				break;
-			}
-		};
-		$scope.selectedFeed.getList('torrents').then(function(torrents) {
+	$scope.selectFeed = function(f) {
+		console.log("Selected feed: " + f.slug);
+		$scope.selectedFeed = f;
+		// Fetch permissions.
+		f.getList('permissions').then(function(permissions) {
+			console.log("Loaded " + permissions.length + " permissions.");
+			$scope.selectedFeed.permissions = permissions;
+		});
+		// for (var i = 0; i < $scope.feeds.length; i++) {
+		// 	var f = $scope.feeds[i];
+		// 	if(f.slug == slug) {
+		// 		$scope.selectedFeed = f;
+		// 		var map = {};
+		// 		console.log("Mapping " + f.permissions.length + " permissions.");
+		// 		for (var j = 0; j < f.permissions.length; j++) {
+		// 			var p = f.permissions[j];
+		// 			map[p.user.id] = p.role;
+		// 			console.log("Permissions map: " + p.user.id + ':' + p.role);
+		// 		};
+		// 		$scope.selectedFeed.roleMap = map;
+		// 		break;
+		// 	}
+		// };
+		f.getList('torrents').then(function(torrents) {
 			console.log("Loaded " + torrents.length + " torrents.");
 			$scope.selectedFeed.torrents = torrents;
 		});
@@ -149,6 +167,37 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			growl.success("Torrent updated.", {title : "Success!"});
 			console.log("Successfully updated torrent.");
 		});
+	};
+
+	$scope.deletePermission = function(perm) {
+		var f = $scope.selectedFeed;
+		console.log("Revoking " + perm.role + " permission for " + perm.user.name + " on " + f.name);
+		perm.remove().then(function() {
+			growl.success("Role revoked.");
+			var i = f.permissions.indexOf(perm);
+			if(i > -1) {
+				f.permissions.splice(i, 1);
+			}
+		});
+	};
+
+	$scope.createPermission = function(user, role) {
+		var f = $scope.selectedFeed;
+		console.log("Granting " + role + " permission for " + user.name + " on " + f.name);
+		f.post('permissions', {'permission' : {'role' : role, 'user_id' : user.id}}).then(function(perm) {
+			growl.success(user.name + " has been granted " + role + " permissions for " + f.name + '.');
+			f.permissions.push(perm);
+		}, function(e) {
+			growl.error("Permission couldn't be granted.", {title: "Error :("});
+			console.log("Server refused to create permission: " + e);
+		});
+
+	};
+
+	$scope.userSearch = { 'text' : ''};
+	$scope.userFilterMatch = function(user) {
+		// console.log("FILTER: " + $scope.userSearch.text + user.name);
+		return user.name.toLowerCase().indexOf($scope.userSearch.text.toLowerCase()) >= 0
 	}
 
 }]);

@@ -10,26 +10,6 @@ class FeedsController < InheritedResources::Base
   actions :update, :create, :destroy, :index, :edit
 
 
-  def grant
-    r = params[:user][:role]
-    user = User.find(params[:user_id])
-    puts "DDD: #{user.name}"
-    perm = Permission.where(feed_id: @feed.id, user_id: user.id).first || Permission.new(feed_id: @feed.id, user_id: user.id)
-    case r
-    when Permission::NO_ROLE
-      perm.destroy
-    when Permission::PUBLISHER_ROLE
-      perm.role = Permission::PUBLISHER_ROLE
-      perm.save!
-    when Permission::SUBSCRIBER_ROLE
-      perm.role = Permission::SUBSCRIBER_ROLE
-      perm.save!
-    end
-
-    render json: :head
-  end
-
-
 	def create
     @feed = Feed.new(feed_params)
     @feed.user = current_user
@@ -51,11 +31,22 @@ class FeedsController < InheritedResources::Base
     @feeds = []
     Feed.order('LOWER(name) ASC').each do |f|
       if can? :read, f
+        f.can_manage = can?(:manage, f)
+        # puts "CAN: #{can?(:manage, f)}"
         @feeds << f
       end
     end
     respond_to do |format|
-      format.json { render json: @feeds, include: [{torrents: {only: [:id, :name]}}] }
+      format.json {
+        json = @feeds.to_json({
+          include: [
+            {torrents: {only: [:id, :name]}} #,
+            # {permissions: { include: {user: { only: [:id, :name]}}}}
+          ]
+        })
+        puts "JSON: #{json}"
+        render json: json
+      }
     end
   end
 
@@ -66,10 +57,13 @@ class FeedsController < InheritedResources::Base
   def show
     respond_to do |format|
       format.json {
-        render json: @feed.to_json({include: [
+        json = @feed.to_json({include: [
           {user: { only: [:id, :name] }},
-          {torrents: {}}
+          {torrents: {}},
+          {permissions: {}} # user: { only: [:id, :name, :email]}
         ]})
+        # puts json
+        render json: json
       }
       format.rss { render }
     end

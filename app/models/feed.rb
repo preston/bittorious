@@ -14,6 +14,11 @@ class Feed < ActiveRecord::Base
 
   # before_destroy :verify_no_torrents
 
+  attr_accessor :can_manage
+
+  def attributes
+    super.merge({can_manage: can_manage})
+  end
 
   private
 

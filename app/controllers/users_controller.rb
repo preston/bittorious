@@ -3,6 +3,15 @@ class UsersController < ApplicationController
 	before_filter	:authenticate_user!
   before_filter :load_user, :only => [:approve, :deny, :update, :transfer]
 
+  def index
+    @users = User.all.order(name: :asc)
+    respond_to do |format|
+      format.json {
+        render json: @users, only: [:id, :name, :admin]
+      }
+    end
+  end
+
 	def manage
     @approved = User.approved
     @pending = User.pending

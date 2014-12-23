@@ -85,7 +85,7 @@
 		form#edit_torrent_form role="form" ng-submit="updateTorrent()"
 			.form-group
 				label for="name" Name
-				input#torrent_name.form-control type="text" ng-model="selectedTorrent.name"
+				input#torrent_name.form-control type="text" ng-model="selectedTorrent.name" ng-readonly="!selectedFeed.can_manage"
 		dl.dl-horizontal
 			dt Created
 			dd ng-bind="selectedTorrent.created_at | relativeDate"

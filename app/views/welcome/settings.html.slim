@@ -1,34 +1,49 @@
-table.table.table-condensed.table-striped#feed-permissions
-	thead
-		tr
-			th Name
-			th Email
-			th Role
-	tbody
-		/ - User.where(admin: false).each do |u|
-			- perm = Permission.where(feed_id: @feed, user_id: u).first || Permission.new(feed_id: @feed, user_id: u, role: Permission::NO_ROLE)
-			tr
-				td = u.name
-				td = u.email
-				td 
-					form action="/feeds/{{selectedFeed.slug}}/grant.json"
-						input type="hidden" name="user_id" value="u.id"
-						label.radio
-							= radio_button 'user', 'role', Permission::NO_ROLE, checked: perm.role == 								Permission::NO_ROLE
-							| No Access
-						label.radio
-							= radio_button 'user', 'role', Permission::PUBLISHER_ROLE, checked: perm.role == 								Permission::PUBLISHER_ROLE
-							| Publisher
-						label.radio
-							= radio_button 'user', 'role', Permission::SUBSCRIBER_ROLE, checked: perm.role == 								Permission::SUBSCRIBER_ROLE
-							| Subscriber
+.row
+
+	.col-md-6
+		.h2 Authorized Users
+		table.table.table-condensed.table-striped#authorized-users
+			thead
+				tr
+					th
+						a ng-click="reverse = !reverse; predicate = 'user.name'; " Name
+					th
+						a ng-click="reverse = !reverse; predicate = 'role'; " Role
+					th ng-show="selectedFeed.can_manage" Actions
+			tbody
+				tr ng-repeat="p in selectedFeed.permissions | orderBy:predicate:reverse"
+					td ng-bind="p.user.name"
+					td ng-bind="p.role"
+					td ng-show="selectedFeed.can_manage"
+						button.btn.btn-default ng-click="deletePermission(p)" = text_with_icon('Revoke', 'trash')
+
+	.col-md-6
+		h2 &nbsp;
+		h4 User Search
+		form role="form"
+			.form-group
+				/ label for="userFilterFormInput" User Search
+				input.form-control id="userFilterFormInput" placeholder="John Smith" ng-model="userSearch.text"
+		table.table.table-condensed.table-striped#unauthorized-users ng-show="userSearch.text.length > 0"
+			thead
+				tr
+					th
+						a ng-click="reverse = !reverse; predicate = 'name'; " Name
+					th Grant
+			tbody
+				tr ng-repeat="u in users | filter:userFilterMatch | orderBy:predicate:reverse" ng-show="selectedFeed" ng-if="!u.admin"
+					td ng-bind="u.name"
+					td
+						.btn-group
+							button.btn.btn-default ng-click="createPermission(u,'#{Permission::SUBSCRIBER_ROLE}')" = text_with_icon('Subscriber', 'download')
+							button.btn.btn-default ng-click="createPermission(u,'#{Permission::PUBLISHER_ROLE}')" = text_with_icon('Publisher', 'upload')
 
 
-h2 Administrators
-p BitTorious administrators always have access, so you don't need to explicitly authorize them! 
-ul
-	- User.where(admin: true).each do |u|
-		li = u.email
+		h4 Administrators
+		p Portal administrators always have access, so they won't be shown. 
+		ul
+			- User.where(admin: true).each do |u|
+				li = u.name
 
 
 
