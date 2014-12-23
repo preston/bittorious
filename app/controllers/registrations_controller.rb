@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+
   def destroy
     if resource.destroy
       set_flash_message :notice, :destroyed
@@ -8,4 +9,15 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to edit_user_registration_path
     end
   end
+
+  private
+ 
+  def sign_up_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+ 
+  def account_update_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :current_password)
+  end
+
 end
