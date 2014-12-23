@@ -9,20 +9,31 @@ class FeedsController < InheritedResources::Base
   respond_to :html, :json, :rss, :xml
   actions :update, :create, :destroy, :index, :edit
 
+  INCLUDES = [
+    {torrents: {only: [:id, :name]}} #,
+            # {permissions: { include: {user: { only: [:id, :name]}}}}
+  ]
 
 	def create
     @feed = Feed.new(feed_params)
     @feed.user = current_user
-		create! do |success, failure|
-      success.html { redirect_to dashboard_path }
+    # @feed.torrents = 
+
+    respond_to do |format|
+      format.json {
+        if @feed.save
+          @feed.can_manage = can?(:manage, @feed)
+          render :json => @feed.to_json({include: INCLUDES})
+        else
+          render json: {errors: @feed.errors}, status: :unprocessable_entity
+        end
+      }
     end
 	end
 	
 	def destroy
     Feed.friendly.find(params[:id]).destroy!
-    # destroy! do |format|
     respond_to do |format|
-      # format.html { redirect_to dashboard_path}
       format.json { render :json => @feed.to_json }
     end
 	end
@@ -32,18 +43,12 @@ class FeedsController < InheritedResources::Base
     Feed.order('LOWER(name) ASC').each do |f|
       if can? :read, f
         f.can_manage = can?(:manage, f)
-        # puts "CAN: #{can?(:manage, f)}"
         @feeds << f
       end
     end
     respond_to do |format|
       format.json {
-        json = @feeds.to_json({
-          include: [
-            {torrents: {only: [:id, :name]}} #,
-            # {permissions: { include: {user: { only: [:id, :name]}}}}
-          ]
-        })
+        json = @feeds.to_json({include: INCLUDES})
         puts "JSON: #{json}"
         render json: json
       }
@@ -57,11 +62,7 @@ class FeedsController < InheritedResources::Base
   def show
     respond_to do |format|
       format.json {
-        json = @feed.to_json({include: [
-          {user: { only: [:id, :name] }},
-          {torrents: {}},
-          {permissions: {}} # user: { only: [:id, :name, :email]}
-        ]})
+        json = @feed.to_json({include: INCLUDES})
         # puts json
         render json: json
       }

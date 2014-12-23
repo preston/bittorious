@@ -10,39 +10,15 @@
 	#page-content-wrapper
 		.container-fluid
 
-			.row ng-show="selectedFeed"
-				.col-md-9
-					h1 ng-bind="selectedFeed.name"
-					p ng-bind="selectedFeed.description"
-					pre
-						h4
-						  i.icon.icon-rss
-						  |  Data RSS Feed
-						a href="{{$location.host}}/feeds/{{selectedFeed.slug}}.rss?authentication_token=#{current_user.authentication_token}"
-							| {{urlRoot}}/feeds/{{selectedFeed.slug}}.rss?authentication_token=#{current_user.authentication_token}
-					p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
-
-				.col-md-3
-					div ng-if="selectedFeed.can_manage"
-						h1 &nbsp;
-						button.btn.btn-primary href="#create_torrent_dialog" role="button" ng-click="newTorrentDialog()"
-							span.glyphicon.glyphicon-upload
-							|  Register a torrent.
-
-						p.help-block
-							small To publish a new data .torrent to this feed, create the .torrent metadata file on your local machine, and then upload it via this dialog.
-
 			#feed_details ng-show="selectedFeed"
 				div
 					ul.nav.nav-tabs
 						li.active
 							a href="#torrents" data-toggle="tab"
-								span.icon.icon-copy
-								|  Torrents
+								h3 = text_with_icon('Torrents', 'file')
 						li ng-if="selectedFeed.can_manage"
 							a href="#settings" data-toggle="tab"
-								span.icon.icon-gear
-								|  Settings
+								h3 = text_with_icon('Settings', 'wrench')
 					
 					
 					.tab-content

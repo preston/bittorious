@@ -32,21 +32,6 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			console.log("Loaded " + permissions.length + " permissions.");
 			$scope.selectedFeed.permissions = permissions;
 		});
-		// for (var i = 0; i < $scope.feeds.length; i++) {
-		// 	var f = $scope.feeds[i];
-		// 	if(f.slug == slug) {
-		// 		$scope.selectedFeed = f;
-		// 		var map = {};
-		// 		console.log("Mapping " + f.permissions.length + " permissions.");
-		// 		for (var j = 0; j < f.permissions.length; j++) {
-		// 			var p = f.permissions[j];
-		// 			map[p.user.id] = p.role;
-		// 			console.log("Permissions map: " + p.user.id + ':' + p.role);
-		// 		};
-		// 		$scope.selectedFeed.roleMap = map;
-		// 		break;
-		// 	}
-		// };
 		f.getList('torrents').then(function(torrents) {
 			console.log("Loaded " + torrents.length + " torrents.");
 			$scope.selectedFeed.torrents = torrents;
@@ -59,7 +44,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 	}
 
 	function newFeed() {
-		$scope.newFeed = {'torrents' : []};
+		$scope.newFeed = {}; // {'torrents' : []};
 	}
 
 	$scope.newFeedDialog = function() {
@@ -74,10 +59,17 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			$scope.feeds.push(feed);
 			newFeed();
 			$("#create_feed_dialog").modal('hide');
-			$scope.selectedFeed = feed;
+			$scope.selectFeed(feed);
 			growl.success("Feed " + feed.name +"created.", {title : "Success!"});
 		});
 	}
+
+	$scope.updateFeed = function() {
+		$scope.selectedFeed.patch().then(function(f) {
+			growl.success("Feed updated.", {title : "Success!"});
+			console.log("Successfully updated feed.");
+		});
+	};
 
 	$scope.deleteFeed = function(f) {
 		// $scope.selectedFeed
@@ -188,7 +180,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			growl.success(user.name + " has been granted " + role + " permissions for " + f.name + '.');
 			f.permissions.push(perm);
 		}, function(e) {
-			growl.error("Permission couldn't be granted.", {title: "Error :("});
+			growl.error("Permission couldn't be granted. Are they already assigned a role?", {title: "Error :("});
 			console.log("Server refused to create permission: " + e);
 		});
 
