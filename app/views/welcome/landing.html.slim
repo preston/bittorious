@@ -116,4 +116,5 @@
 			- if !user_signed_in?
 				p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary btn-lg')
 
-		.col-md-6	= render partial: 'welcome/carousel'
+		.col-md-6
+			= render partial: 'welcome/carousel'
