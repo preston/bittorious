@@ -3,4 +3,4 @@ html
   body
   	h3 Hey #{@permission.user.name}!
     p You've been granted #{@permission.role} permissions on the #{@permission.feed.name}. Cool!
-    = link_to 'Dashboard', root_url
+    = link_to 'Dashboard', dashboard_url
