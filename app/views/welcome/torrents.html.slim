@@ -12,13 +12,13 @@
 		p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
 		i
 			span
-				| Public Volunteer Archiving: 
+				| Public volunteer archiving is 
 				b
-					| {{selectedFeed.enable_public_archiving ? 'Enabled' : 'Disabled'}}
-			span
-				| , Target Replication Percentage: 
-				b ng-bind="selectedFeed.replication_percentage" disabled="true" ng-show="selectedFeed.	enable_public_archiving"
-				| %
+					| {{selectedFeed.enable_public_archiving ? 'enabled' : 'disabled'}}
+			span ng-show="selectedFeed.enable_public_archiving"
+				| , with a target replication percentage of  
+				b ng-bind="selectedFeed.replication_percentage" 
+				| % per peer per torrent.
 	.col-md-3
 		div ng-if="selectedFeed.can_manage"
 			h1 &nbsp;
