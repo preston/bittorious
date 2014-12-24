@@ -7,10 +7,10 @@
     = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" }) do |f|
       .form-group
         = f.label :name
-        = f.email_field :name, class: "form-control", required: true
+        = f.text_field :name, class: "form-control", required: true
       .form-group
         = f.label :email
-        = f.email_field :email, class: "form-control", required: true
+        = f.text_field :email, class: "form-control", required: true
       .form-group
         = f.label :password
         br

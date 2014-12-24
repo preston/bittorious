@@ -1,6 +1,5 @@
 doctype html
 html
   body
-    | 
-      A new user has registered for BitTorious with the email #{@user.email}.
-      It's not polite to keep people waiting, so please log in and approve them!
+    p A new user has registered for BitTorious with the email #{@user.email}. It's not polite to keep people waiting, so please log in and approve them!
+    = link_to 'Dashboard', dashboard_url
