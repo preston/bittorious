@@ -6,7 +6,7 @@ class AdminMailer < ActionMailer::Base
     @user = user
     emails = User.where(admin: true, approved: true).collect{|u| u.email}
     if emails.length > 0
-      mail(:to => emails, :subject => "New User Awaiting Approval")
+      mail(:to => emails, :subject => "[BitTorious] New User Awaiting Approval")
     end
   end
 
