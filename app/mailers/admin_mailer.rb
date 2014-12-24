@@ -6,13 +6,23 @@ class AdminMailer < ActionMailer::Base
     @user = user
     emails = User.where(admin: true, approved: true).collect{|u| u.email}
     if emails.length > 0
-      mail(:to => emails, :subject => "New user awaiting approval")
+      mail(:to => emails, :subject => "New User Awaiting Approval")
     end
   end
 
   def deny_application(user)
     @user = user
-    mail(:to => @user.email, :subject => "Bittorious application denied")
+    mail(:to => @user.email, :subject => "[BitTorious] Application Denied")
+  end
+
+  def permission_grant(p)
+    @permission = p
+    mail(:to => p.user.email, :subject => "[BitTorious] #{p.feed.name} (#{p.role}) Access Granted")
+  end
+
+  def permission_revoke(p)
+    @permission = p
+    mail(:to => p.user.email, :subject => "[BitTorious] #{p.feed.name} (#{p.role}) Access Revoked")
   end
 
 end

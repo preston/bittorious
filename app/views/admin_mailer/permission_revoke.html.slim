@@ -1,0 +1,6 @@
+doctype html
+html
+  body
+  	h3 Bad news, #{@permission.user.name}.
+    p Your #{@permission.name} permissions on the #{@permission.feed} have been revoked. Oh well. :(
+    = link_to 'Dashboard', root_url

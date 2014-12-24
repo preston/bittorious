@@ -19,6 +19,7 @@ class PermissionsController < InheritedResources::Base
     respond_to do |format|
       format.json {
         if @permission.save
+          AdminMailer.permission_grant(@permission).deliver
           render json: @permission, include: {user: {only: [:id, :name]}}
         else
           render json: {errors: @permission.errors}, status: :unprocessable_entity
@@ -30,7 +31,10 @@ class PermissionsController < InheritedResources::Base
   def destroy
     @permission.destroy!
     respond_to do |format|
-      format.json { render json: @permission.to_json }
+      format.json {
+        AdminMailer.permission_revoke(@permission).deliver
+        render json: @permission.to_json
+      }
     end
   end
 

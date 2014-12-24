@@ -1,0 +1,6 @@
+doctype html
+html
+  body
+  	h3 Hey #{@permission.user.name}!
+    p You've been granted #{@permission.name} permissions on the #{@permission.feed}. Cool!
+    = link_to 'Dashboard', root_url
