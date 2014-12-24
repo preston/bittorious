@@ -2,5 +2,5 @@ doctype html
 html
   body
   	h3 Bad news, #{@permission.user.name}.
-    p Your #{@permission.role} permissions on the #{@permission.feed.name} have been revoked. Oh well. :(
+    p Your #{@permission.role} permissions on #{@permission.feed.name} have been revoked. Oh well. :(
     = link_to 'Dashboard', dashboard_url
