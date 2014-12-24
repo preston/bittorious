@@ -60,7 +60,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			newFeed();
 			$("#create_feed_dialog").modal('hide');
 			$scope.selectFeed(feed);
-			growl.success("Feed " + feed.name +"created.", {title : "Success!"});
+			growl.success("Feed " + feed.name +" created.", {title : "Success!"});
 		});
 	}
 
