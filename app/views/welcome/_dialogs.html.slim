@@ -28,6 +28,11 @@
 							input#form_enable_public_archiving type="checkbox" name="enable_public_archiving" ng-model="newFeed.enable_public_archiving"
 								| Enable public archiving.
 							p.help-block ng-show="newFeed.enable_public_archiving" All torrents published to this feed will be eligible for replication via the anonymous volunteer network. All feed data will effectively become publically accessable. Please be sure to not public sensitive torrents to the feed without encrypting the files!
+
+					.form-group ng-show="newFeed.enable_public_archiving"
+						label for="feed_replication_percentage" Target Replication Percentage
+						input#feed_replication_percentage.form-control type="number" min="1" max="100" step="1" required="required" ng-model="newFeed.replication_percentage"
+						p.help-block 1-100. This is used by volunteer peer to determine how much of each torrent should be replicated. A higher number provides the maximum amount of redundancy, while a lower number provides the largest amount of network storage capacity.
 						
 					button.btn.btn-primary.btn-lg type="submit" ng-click="createFeed()" ng-disabled="feed_form.$invalid"
 						span.glyphicon.glyphicon-floppy-disk

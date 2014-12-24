@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.5'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 gem 'devise'
 gem 'devise-bootstrap-views'
@@ -29,7 +29,7 @@ gem 'geoip'
 
 # gem 'paperclip'
 gem 'friendly_id'
-gem 'inherited_resources'
+gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2'
 # gem 'acts-as-taggable-on'
 gem 'bencode' # BitTorrent data serialation format support.
 gem 'formtastic'

@@ -44,7 +44,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 	}
 
 	function newFeed() {
-		$scope.newFeed = {}; // {'torrents' : []};
+		$scope.newFeed = {'replication_percentage' : 20};
 	}
 
 	$scope.newFeedDialog = function() {

@@ -49,11 +49,11 @@ class User < ActiveRecord::Base
   end
   
   def send_admin_mail
-    AdminMailer.new_user_waiting_for_approval(self).deliver 
+    AdminMailer.new_user_waiting_for_approval(self).deliver_later
   end
 
   def deny!
-    AdminMailer.deny_application(self).deliver
+    AdminMailer.deny_application(self).deliver_later
     self.destroy
   end
 
@@ -61,12 +61,6 @@ class User < ActiveRecord::Base
     self.approved = true
     self.save
   end
-
-  # def send_confirmation
-  #   if self.approved_changed?
-  #     ::Devise.mailer.confirmation_instructions(self).deliver
-  #   end
-  # end
 
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)

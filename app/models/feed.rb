@@ -12,7 +12,10 @@ class Feed < ActiveRecord::Base
   has_many :torrents, dependent: :destroy
   has_many :permissions, dependent: :destroy
 
-  # before_destroy :verify_no_torrents
+  validates_numericality_of :replication_percentage,
+    only_integer: true,
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: 100
 
   attr_accessor :can_manage
 
@@ -20,12 +23,5 @@ class Feed < ActiveRecord::Base
     super.merge({can_manage: can_manage})
   end
 
-  private
-
-  # def verify_no_torrents
-  #   if self.torrents.count != 0
-  #     return false
-  #   end
-  # end
 
 end

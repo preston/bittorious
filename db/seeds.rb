@@ -27,7 +27,7 @@ ensure
 end
 
 subscriber = User.find_by_email('subscriber@example.com') || User.create({
-	name: 'Demo Subscriber',
+	name: 'Test Subscriber',
 	email: 'subscriber@example.com',
 	password: 'password',
 	password_confirmation: 'password',
@@ -36,7 +36,7 @@ subscriber = User.find_by_email('subscriber@example.com') || User.create({
 subscriber.confirm!
 
 publisher = User.find_by_email('publisher@example.com') || User.create({
-	name: 'Demo Publisher',
+	name: 'Test Publisher',
 	email: 'publisher@example.com',
 	password: 'password',
 	password_confirmation: 'password',

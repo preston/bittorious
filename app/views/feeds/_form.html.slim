@@ -1,4 +1,4 @@
-form#feed_form
+form#feed_form role="form"
 
 	.form-group
 		label for="feed_name" Name
@@ -12,10 +12,15 @@ form#feed_form
 		label
 			input#form_enable_public_archiving type="checkbox" name="form[enable_public_archiving]" ng-model="selectedFeed.enable_public_archiving"
 				| Enable archiving of all torrents published to this feed to anonymous volunteer peers. All feed data will effectively becomes publically-accessable.
+
+	.form-group ng-show="selectedFeed.enable_public_archiving"
+		label for="feed_replication_percentage" Target Replication Percentage
+		input#feed_replication_percentage.form-control type="number" min="1" max="100" step="1" required="required" name="form[replication_percentage]" ng-model="selectedFeed.replication_percentage"
+
 	
 	.row
 		.col-md-9
-			button.btn.btn-primary.btn-lg type="submit" ng-click="updateFeed()"
+			button.btn.btn-primary.btn-lg type="submit" ng-click="updateFeed()" ng-disabled="feed_form.$invalid"
 				= text_with_icon('Save', 'floppy-disk')
 		.col-md-3
 			button.btn.btn-lg.btn-danger ng-click="deleteFeed(selectedFeed)" ng-confirm-click="This will permanently delete the feed and all torrents from the system. Existing subscribers will no longer receive data. This cannot be undone. Are you completely 100% sure you want to delete this feed?"

@@ -79,7 +79,7 @@ class FeedsController < InheritedResources::Base
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def feed_params
-    params.require(:feed).permit(:name, :description, :slug, :permissions, :enable_public_archiving)
+    params.require(:feed).permit(:name, :description, :slug, :permissions, :enable_public_archiving, :replication_percentage)
   end
 
 end

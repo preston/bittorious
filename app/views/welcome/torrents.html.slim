@@ -10,7 +10,15 @@
 			a href="{{$location.host}}/feeds/{{selectedFeed.slug}}.rss?authentication_token=#{current_user.authentication_token}"
 				| {{urlRoot}}/feeds/{{selectedFeed.slug}}.rss?authentication_token=#{current_user.authentication_token}
 		p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
-
+		i
+			span
+				| Public Volunteer Archiving: 
+				b
+					| {{selectedFeed.enable_public_archiving ? 'Enabled' : 'Disabled'}}
+			span
+				| , Target Replication Percentage: 
+				b ng-bind="selectedFeed.replication_percentage" disabled="true" ng-show="selectedFeed.	enable_public_archiving"
+				| %
 	.col-md-3
 		div ng-if="selectedFeed.can_manage"
 			h1 &nbsp;
