@@ -1,4 +1,5 @@
 #landing-carousel.carousel.slide data-ride="carousel"
+
   / Indicators
   ol.carousel-indicators
     li.active data-target="#landing-carousel" data-slide-to="0"
@@ -9,21 +10,29 @@
   / Wrapper for slides
   .carousel-inner
     .item.active
+      = image_tag 'map.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Real-time activity monitoring for every peer in the network.
+    .item
+      = image_tag 'status.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Administrative interfaces are provided for account management and network status monitoring.
+    .item
       = image_tag 'add.png', class: 'img-responsive img-thumbnail'
       .carousel-caption
-        | A slick, easy-to-use web portal to the BitTorious network.
+        | A slick, easy-to-use web portal to the BitTorious network. Torrents are registered via the web interface.
     .item
       = image_tag 'download.png', class: 'img-responsive img-thumbnail'
       .carousel-caption
         | Download published torrents from your trusted colleagues.
     .item
-      = image_tag 'encryption.png', class: 'img-responsive img-thumbnail'
+      = image_tag 'settings.png', class: 'img-responsive img-thumbnail'
+      .carousel-caption
+        | Feed settings and permissions are managed and enforced by the portal.
+    .item
+      = image_tag 'utorrent-encryption.png', class: 'img-responsive img-thumbnail'
       .carousel-caption
         | Your client can be configured to force SSL encryption for peer-to-peer transfers. All tracker announcements are made over an encrypted SSL. 
-    .item
-      = image_tag 'publish.png', class: 'img-responsive img-thumbnail'
-      .carousel-caption
-        | Add torrents to the tracker via a slick web interface.
     .item
       = image_tag 'rss.png', class: 'img-responsive img-thumbnail'
       .carousel-caption

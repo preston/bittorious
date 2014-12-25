@@ -10,8 +10,17 @@
 			.col-md-8#overview_carousel
 				h1 Big Data Collaboration
 				p.lead Securely exchange massive data sets amongst private communities over the Internet.
-				= image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
-			
+				= render partial: 'welcome/carousel'
+				/ = image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
+				p.text-center
+					span = text_with_icon('cloud data publishing ', 'cloud-upload')
+					span = text_with_icon('data downloads ', 'cloud-download')
+					br
+					span = text_with_icon('account management ', 'user')
+					span = text_with_icon('platform neutral ', 'globe')
+					br
+					span = text_with_icon('completely free ', 'usd')
+					span = text_with_icon('secured access ', 'lock')
 			
 			.col-md-4#login_box
 				hr
@@ -57,6 +66,10 @@
 							= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(	resource_name, provider)
 							br
 				hr
+
+				p.lead BitTorious is a holistic solution to collaborative, private data transfer for 	organizations needing to share epic payloads across the Internet in a cost-scalable, 	manageable, automated, and easy-to-use platform.
+				- if !user_signed_in?
+					p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary')
 				
 
 	section.row
@@ -103,18 +116,3 @@
 
 	hr
 	.clearfix
-
-	section.row
-		.col-md-6
-			p.text-center
-					span.icon.icon-windows style="font-size: 48pt;"
-						|  
-					span.icon.icon-apple style="font-size: 48pt;"
-						|  
-					span.icon.icon-linux style="font-size: 48pt;"
-			p.lead BitTorious is a holistic solution to collaborative, private data transfer for organizations needing to share epic payloads across the Internet in a cost-scalable, manageable, automated, and easy-to-use platform.
-			- if !user_signed_in?
-				p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary btn-lg')
-
-		.col-md-6
-			= render partial: 'welcome/carousel'
