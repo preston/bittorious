@@ -29,10 +29,10 @@ class PermissionsController < InheritedResources::Base
   end
 
   def destroy
+    AdminMailer.permission_revoke(@permission).deliver_later
     @permission.destroy!
     respond_to do |format|
       format.json {
-        AdminMailer.permission_revoke(@permission).deliver_later
         render json: @permission.to_json
       }
     end

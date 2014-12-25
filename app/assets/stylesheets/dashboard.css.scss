@@ -4,32 +4,7 @@
 		// FIXME Bad hack. :(
 		z-index: 0; 
 	}
-	#feeds,
-	#torrents {
-		tbody tr.selected {
-			background-color: #a7c6d8;
-			-webkit-transition:	all .2s ease-out;
-			-moz-transition:	all .2s ease-out;
-			-o-transition:		all .2s ease-out;
-			transition:			all .2s ease-out;
-		} 
-		tbody tr {
-			-webkit-transition:	all .2s ease-out;
-			-moz-transition:	all .2s ease-out;
-			-o-transition:		all .2s ease-out;
-			transition:			all .2s ease-out;
-		}
-		tbody tr:hover {
-			cursor: pointer;
-		}
-		tbody tr:hover:not(.selected) {
-			background-color: #c7e6f8;
-			-webkit-transition:	all .2s ease-out;
-			-moz-transition:	all .2s ease-out;
-			-o-transition:		all .2s ease-out;
-			transition:			all .2s ease-out;
-		} 
-	}
+
 
 
 	#torrent_details #table_container {

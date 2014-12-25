@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :torrents, :dependent => :destroy
   has_many :feeds, :dependent => :destroy
-
   has_many :permissions, :dependent => :destroy
+  has_many :peers, :dependent => :destroy
 
   validates_uniqueness_of :email
 

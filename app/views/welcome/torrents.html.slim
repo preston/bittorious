@@ -42,7 +42,7 @@
 				th
 					a ng-click="reverse = !reverse; predicate = 'seed_count'; " Seeders
 				th
-					a ng-click="reverse = !reverse; predicate = 'peer_count'; " Peers
+					a ng-click="reverse = !reverse; predicate = 'peer_count'; " Leechers
 				th
 					a ng-click="reverse = !reverse; predicate = 'size'; " Size
 				th Download
@@ -65,27 +65,28 @@
 	.col-lg-6#active_peers ng-if="selectedTorrent.active_peers.length > 0"
 		h3
 			span ng-bind="selectedTorrent.active_peers.length"
-			|  active nodes for this torrent.
+			|  active peers for this torrent.
 		#table_container
-			table.table.table-condensed.table-striped
+			table.table.table-condensed
 				thead
 				  tr
+				  	th
+						a ng-click="reverse = !reverse; predicate = 'user.name'; " User
 					th
-						a ng-click="reverse = !reverse; predicate = 'ip'; " IPv4:Port
+						a ng-click="reverse = !reverse; predicate = 'ip'; " IP Address
 					th
-						a ng-click="reverse = !reverse; predicate = 'city_name'; " City
-					th
-						a ng-click="reverse = !reverse; predicate = 'country_name'; " Country
+						a ng-click="reverse = !reverse; predicate = 'city_name'; " Location
 					th
 						a ng-click="reverse = !reverse; predicate = 'active_peers.length'; " Status
 					th
 						a ng-click="reverse = !reverse; predicate = 'left'; " Needs
 					th
 						a ng-click="reverse = !reverse; predicate = 'uploaded'; " Uploaded
-					th
+					/ th
 						a ng-click="reverse = !reverse; predicate = 'updated_at'; " Last Registered
 				tbody
-					tr.peer ng-repeat="peer in selectedTorrent.active_peers"
+					tr ng-repeat="peer in selectedTorrent.active_peers"
+						td ng-bind="peer.user.name"
 						td
 							span ng-bind="peer.ip"
 							| :
@@ -93,24 +94,24 @@
 							br
 							small#latitude ng-bind="peer.latitude" ng-show="peer.latitude"
 							small#longitude ng-bind="peer.longitude" ng-show="peer.longitude"
-						td ng-bind="peer.city_name"
-						td ng-bind="peer.country_name"
 						td
-							span ng-if="peer.left > 0" Peer
+							b#latitude ng-bind="peer.city_name" ng-show="peer.city_name"
+							br
+							small#longitude ng-bind="peer.country_name" ng-show="peer.country_name"
+						td
+							span ng-if="peer.left > 0" Leeching
 							span ng-if="peer.left == 0" Seeding
 						td ng-bind="peer.left | humanizeBytes"
 						td ng-bind="peer.uploaded | humanizeBytes"
-						td ng-bind="peer.updated_at | relativeDate"
+						/ td ng-bind="peer.updated_at | relativeDate"
 
 
 	.col-lg-6#torrent_details ng-show="selectedTorrent"
 		h3 ng-bind="selectedTorrent.name"
-		.btn-group
-			a.btn.btn-default href="/feeds/{{selectedFeed.slug}}/torrents/{{selectedTorrent.slug}}.torrent" = text_with_icon('Download', 'download')
-			- if can? :manage, @feed
-				a.btn.btn-default ng-click="updateTorrent()"
+		- if can? :manage, @feed
+			a.btn.btn-primary ng-click="updateTorrent()"
 					= text_with_icon('Save', 'floppy-disk')
-				a.btn.btn-default ng-click="deleteTorrent(selectedTorrent)" ng-confirm-click="Are you sure?"
+			a.btn.btn-danger.pull-right ng-click="deleteTorrent(selectedTorrent)" ng-confirm-click="Are you sure?"
 					= text_with_icon('Delete', 'trash')
 		form#edit_torrent_form role="form" ng-submit="updateTorrent()"
 			.form-group

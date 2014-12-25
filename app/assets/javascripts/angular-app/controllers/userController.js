@@ -6,25 +6,11 @@ angular.module('BitToriousApp').controller('UserController', ['$scope', '$locati
 	Restangular.all('users').getList().then(function(users) {
 		console.log("Loaded " + users.length + " users.");
 		$scope.users = users;
-		for (var i = 0; i < users.length; i++) {
-			// var tmp = i; // We need to save a copy of 'i' for the closure so it isn't different in the callback.
-			// console.log(tmp + " " + $scope.users[tmp].name);
-			// $scope.users[i].getList('feeds').then(function(data) {
-			// 	if(data.length > 0) {
-			// 		console.log("FEEDS FOR USER " + data[0].user_id);
-			// 		$scope.users[data[0].user_id].feeds = data;
-			// 	}
-			// });
-			// $scope.users[i].getList('torrents').then(function(data) {
-			// 	if(data.length > 0) {
-			// 		console.log("TORRENTS FOR USER " + data[0].user_id);
-			// 		$scope.users[data[0].user_id].torrents = data;
-			// 	}
-			// });
-		}
 		$scope.approved = $scope.users.filter(function(u) { u.approved });
 		$scope.pending = $scope.users.filter(function(u) { !u.approved });
 	});
+
+	// $scope.tableParams = {}
 
 	$scope.feedNames = function(u) {
 		return _.pluck(u.feeds, 'name').join(', ')

@@ -28,3 +28,31 @@ header.navbar {
 footer p > span {
 	padding: 20px;
 }
+
+table tbody {
+
+	tr.selected {
+		background-color: #a7c6d8;
+		-webkit-transition:	all .2s ease-out;
+		-moz-transition:	all .2s ease-out;
+		-o-transition:		all .2s ease-out;
+		transition:			all .2s ease-out;
+	} 
+	tr {
+		-webkit-transition:	all .2s ease-out;
+		-moz-transition:	all .2s ease-out;
+		-o-transition:		all .2s ease-out;
+		transition:			all .2s ease-out;
+	}
+	tr:hover {
+		cursor: pointer;
+	}
+	tr:hover:not(.selected) {
+		background-color: #c7e6f8;
+		-webkit-transition:	all .2s ease-out;
+		-moz-transition:	all .2s ease-out;
+		-o-transition:		all .2s ease-out;
+		transition:			all .2s ease-out;
+	} 
+
+}

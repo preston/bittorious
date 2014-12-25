@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224011630) do
+ActiveRecord::Schema.define(version: 20141225182904) do
 
   create_table "feeds", force: :cascade do |t|
     t.string   "name"
@@ -42,11 +42,13 @@ ActiveRecord::Schema.define(version: 20141224011630) do
     t.float    "longitude"
     t.string   "country_name"
     t.string   "city_name"
+    t.integer  "user_id"
   end
 
   add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state"
   add_index "peers", ["ip"], name: "index_peers_on_ip"
   add_index "peers", ["peer_id"], name: "index_peers_on_peer_id"
+  add_index "peers", ["user_id"], name: "index_peers_on_user_id"
 
   create_table "permissions", force: :cascade do |t|
     t.integer  "user_id"

@@ -10,15 +10,18 @@
 		thead
 			tr
 				th
+					a ng-click="reverse = !reverse; predicate = 'user.name'; " User
+				th
 					a ng-click="reverse = !reverse; predicate = 'peer_id'; " Peer ID
 				th Torrent
-				th IPv4
+				th IP Address
 				th Port
 				th Uploaded
 				th Downloaded
 				th Last Registered
 		tbody
 			tr.peer ng-repeat="peer in peers | orderBy:predicate:reverse"
+				td ng-bind="peer.user.name"
 				td ng-bind="peer.peer_id"
 				td ng-bind="peer.torrent.name"
 				td ng-bind="peer.ip"

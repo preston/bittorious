@@ -4,6 +4,7 @@ class Peer < ActiveRecord::Base
 	UPDATE_PERIOD_MINUTES = 5
 
 	belongs_to :torrent, :foreign_key => 'info_hash', :primary_key => 'info_hash'
+	belongs_to :user # For authenticated peers.
 
 	# attr_accessible :downloaded, :info_hash, :ip, :left, :peer_id, :port, :state, :uploaded
 

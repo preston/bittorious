@@ -25,7 +25,7 @@ class TorrentsController < InheritedResources::Base
 
   def announce
     authorize! :announce, resource
-    resource.register_peer(peer_params)
+    resource.register_peer(peer_params, current_user)
 
     tracker_response = {
       'interval'    => Peer::UPDATE_PERIOD_MINUTES.minutes,
@@ -65,7 +65,7 @@ class TorrentsController < InheritedResources::Base
 
   def peers
     respond_to do |f|
-      f.json { render json: resource.active_peers }
+      f.json { render json: resource.active_peers, include: {user: {only: [:id, :name]}} }
     end
   end
 

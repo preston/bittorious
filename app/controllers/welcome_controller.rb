@@ -27,7 +27,7 @@ class WelcomeController < ApplicationController
 	def status
 		authorize! :manage, Peer
 		respond_to do |format|
-			format.json { render json: Peer.active.to_json(include: {torrent: {only: [:id, :name]} })  }
+			format.json { render json: Peer.active.to_json(include: {torrent: {only: [:id, :name]}, user: {only: [:id, :name]} })  }
 			format.html { render }
 		end
 	end

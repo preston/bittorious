@@ -32,7 +32,7 @@ class Torrent < ActiveRecord::Base
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
   
 
-  def register_peer(peer_params)
+  def register_peer(peer_params, user = nil)
     peer = Peer.find_or_create_by!(info_hash: peer_params[:info_hash], peer_id: peer_params[:peer_id])
     peer.update_attributes(
       downloaded:   peer_params['downloaded'],
@@ -50,6 +50,7 @@ class Torrent < ActiveRecord::Base
       peer.country_name = data.country_name
       peer.city_name = data.city_name
     end
+    peer.user = user
     peer.save!
     peer
   end
