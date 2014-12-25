@@ -62,7 +62,7 @@
 		h1 No peers for this torrent.
 		.lead Time to make some friends?
 
-	.col-md-6#active_peers ng-if="selectedTorrent.active_peers.length > 0"
+	.col-lg-6#active_peers ng-if="selectedTorrent.active_peers.length > 0"
 		h3
 			span ng-bind="selectedTorrent.active_peers.length"
 			|  active nodes for this torrent.
@@ -103,7 +103,7 @@
 						td ng-bind="peer.updated_at | relativeDate"
 
 
-	.col-md-6#torrent_details ng-show="selectedTorrent"
+	.col-lg-6#torrent_details ng-show="selectedTorrent"
 		h3 ng-bind="selectedTorrent.name"
 		.btn-group
 			a.btn.btn-default href="/feeds/{{selectedFeed.slug}}/torrents/{{selectedTorrent.slug}}.torrent" = text_with_icon('Download', 'download')
@@ -135,20 +135,6 @@
 			dd ng-bind="selectedTorrent.info_hash"
 
 
-	.col-md-12  ng-if="selectedTorrent.active_peers.length > 0"
+	.col-md-12 ng-show="selectedTorrent.active_peers.length > 0"
 		h3 Node Map
-		div#map_canvas
-		javascript:
-			if(mapInitialized) {
-			  removeMarkers();
-			} else {
-			  var mapOptions = {
-			    zoom: 4,
-			    center: new google.maps.LatLng(40.397, -98.644)
-			  };
-			  var tmp = document.getElementById("map_canvas");
-			  if(tmp != null) {
-			    map = new google.maps.Map(tmp, mapOptions);
-			    mapInitialized = true;
-			  }
-			}
+		#map_canvas

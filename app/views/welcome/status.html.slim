@@ -1,43 +1,29 @@
 - content_for :title do 'Network Status' end
-    
-#network_status
+		
+#network_status ng-controller="PeerController"
 
-  #map_canvas
+	#map_canvas
 
-  javascript:  
-    // Initialize the map.
-    var mapOptions = {
-      center: new google.maps.LatLng(40.397, -98.644),
-      zoom: 4,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-    $(function() {
-    
-      initMapData();
-    });
-
-  h1 Network Status
-  p Locations are approximated based on registered client IP address.
-  table.table.table-condensed.table-striped
-    thead
-      tr
-        th Peer ID
-        th Torrent
-        th IPv4
-        th Port
-        th Uploaded
-        th Downloaded
-        th Last Registered
-    tbody
-      - Peer.active.each do |peer|
-        tr.peer data-ipv4_address="#{peer.ip}" data-latitude="#{peer.latitude}" data-longitude="#{peer.longitude}"
-          td #{peer.peer_id}
-          td #{peer.torrent.name} (#{peer.torrent.feed.name})
-          td #{peer.ip}
-          td #{peer.port}
-          td #{number_to_human_size(peer.uploaded, precision: 3)}
-          td #{number_to_human_size(peer.downloaded, precision: 3)}
-          td #{time_ago_in_words peer.updated_at} ago
-        
+	h1 Network Status
+	p Locations are approximated based on registered client IP address.
+	table.table.table-condensed.table-striped
+		thead
+			tr
+				th
+					a ng-click="reverse = !reverse; predicate = 'peer_id'; " Peer ID
+				th Torrent
+				th IPv4
+				th Port
+				th Uploaded
+				th Downloaded
+				th Last Registered
+		tbody
+			tr.peer ng-repeat="peer in peers | orderBy:predicate:reverse"
+				td ng-bind="peer.peer_id"
+				td ng-bind="peer.torrent.name"
+				td ng-bind="peer.ip"
+				td ng-bind="peer.port"
+				td ng-bind="peer.uploaded | humanizeBytes"
+				td ng-bind="peer.downloaded | humanizeBytes"
+				td ng-bind="peer.updated_at | relativeDate"
+				

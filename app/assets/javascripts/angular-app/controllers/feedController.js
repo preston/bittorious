@@ -127,6 +127,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 		if(t.active_peers == null) {
 			t.getList('peers').then(function(actives) {
 				t.active_peers = actives;
+				refreshMap(actives);
 			});;	
 		}
 		// refreshMap(t.active_peers);

@@ -15,23 +15,28 @@ class WelcomeController < ApplicationController
 		render layout: false
 	end
 
-  def landing
-  end
-
-  def dashboard
-  end
-
-  def concepts
-  end
-
-	def status
+	def landing
 	end
 
-  def legal
-  end
+	def dashboard
+	end
 
-  def faq
-  end
+	def concepts
+	end
+
+	def status
+		authorize! :manage, Peer
+		respond_to do |format|
+			format.json { render json: Peer.active.to_json(include: {torrent: {only: [:id, :name]} })  }
+			format.html { render }
+		end
+	end
+
+	def legal
+	end
+
+	def faq
+	end
 
 	private
 	
@@ -40,7 +45,7 @@ class WelcomeController < ApplicationController
 		if session[:selected_feed_id]
 			@selected_feed = Feed.find(session[:selected_feed_id])
 		end
-    authorize! :read, @selected_feed if @selected_feed
+		authorize! :read, @selected_feed if @selected_feed
 		@selected_feed
 	end
 
