@@ -2,13 +2,13 @@ class TorrentsController < InheritedResources::Base
    
   defaults resource_class: Torrent.friendly
 
-  before_filter :set_feed, except: [:announce, :scrape, :search]
+  # before_filter :set_feed, except: [:announce, :scrape, :search]
 
   respond_to :json, :html, :xml, :rss
   prepend_before_filter :set_params_from_torrent, :only => [:create]
   prepend_before_filter :load_from_info_hash
 
-  # skip_before_filter :authenticate_user!, only: [:announce, :scrape]
+  skip_before_filter :authenticate_user!, only: [:announce, :scrape]
   # before_filter :http_basic_authenticate, only: [:announce, :scrape]
 
   # load_and_authorize_resource
@@ -24,7 +24,7 @@ class TorrentsController < InheritedResources::Base
   end
 
   def announce
-    # authorize! :announce, :torrents
+    authorize! :announce, resource
     resource.register_peer(peer_params)
 
     tracker_response = {
@@ -55,6 +55,8 @@ class TorrentsController < InheritedResources::Base
   end
 
   def index
+    @feed = Feed.find(params[:feed_id])
+    authorize! :read, @feed
     @torrents = @feed.torrents
     respond_to do |f|
       f.json { render json: @torrents, include: [{user: {only: [:id, :name]}}], methods: [:seed_count, :peer_count], except: [:data] }
@@ -78,9 +80,12 @@ class TorrentsController < InheritedResources::Base
 		requested = []
 		torrents = {}
 		if(params[:info_hash] && t = load_from_info_hash)
+      authorize! :read, t
 			requested << t if t
 		else
-			requested = Torrent.all
+			Torrent.all.each do |t|
+        requested << t if can?(:read, t)
+      end
 		end
 		requested.each do |t|
 			torrents[t.info_hash] = {
@@ -93,16 +98,6 @@ class TorrentsController < InheritedResources::Base
 		render text: {files: torrents}.bencode
 	end
 
-  def search
-    tag = params[:q]
-    @torrents = Torrent.all(:conditions => ['name LIKE ?', "%#{tag}%"])
-    # FIXME Removing solr for now.
-    # @torrents = Torrent.search do
-    #   fulltext params[:q]
-    # end.results
-    render :json => {html: render_to_string('_search_results', :layout => false)}
-  end
-
   def show
     respond_to do |format|
       format.json { render json: resource, except: [:data], include: [{user: {only: [:id, :name]}}, :active_peers]}
@@ -110,13 +105,6 @@ class TorrentsController < InheritedResources::Base
       # format.json { render :json => {:id => resource.id, :name => resource.name, :meta_html => render_to_string('_meta_data', :formats => :html, :layout => false, :locals => {:meta_data => resource.tracker.meta_data})}}
     end
   end
-
-  # def tags 
-  #   @tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{params[:q]}%")
-  #   respond_to do |format|
-  #     format.json { render :json => @tags.map{|t| {:id => t.name, :label => t.name, :value => t.name }}}
-  #   end
-  # end
 
   private
 

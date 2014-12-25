@@ -20,6 +20,8 @@ gem 'chosen-rails'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
+# JSON output customization
+gem 'jbuilder'
 
 # Better templating.
 gem 'slim-rails'

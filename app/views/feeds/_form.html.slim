@@ -11,7 +11,11 @@ form#update_feed_form role="form" name="update_feed_form"
 	.checkbox
 		label
 			input#form_enable_public_archiving type="checkbox" name="form[enable_public_archiving]" ng-model="selectedFeed.enable_public_archiving"
-				| Enable archiving of all torrents published to this feed to anonymous volunteer peers. All feed data will effectively become publically accessable, which is roughly equivalent to granting #{Permission::SUBSCRIBER_ROLE} permissions to all anonymous users.
+				p
+					b Enable archiving of torrent data to anonymous volunteer peers. 
+					| All feed data will effectively become publically accessable, which is roughly equivalent to granting #{Permission::SUBSCRIBER_ROLE} permissions to all anonymous users. 
+					b When changing this settings, users may have to reimport the torrent files into their client(s) to receive the new settings
+					| , depending on if they're subscribed to the RSS feed and have their client, set to automatically apply all updates.
 
 	.form-group ng-show="selectedFeed.enable_public_archiving"
 		label for="feed_replication_percentage" Target Replication Percentage

@@ -56,7 +56,7 @@ class FeedsController < InheritedResources::Base
   end
 
   def update
-    update!{ dashboard_path }
+    update! { dashboard_path }
   end
 
   def show

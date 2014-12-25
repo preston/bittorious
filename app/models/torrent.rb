@@ -75,8 +75,6 @@ class Torrent < ActiveRecord::Base
     b.to_bencoding
   end
 
-  # private
-
   def reprocess_meta
     b = BEncode.load(self.data)
 

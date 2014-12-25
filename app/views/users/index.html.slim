@@ -1,0 +1,72 @@
+= content_for :title do
+	| Management Console
+
+#manage ng-controller="UserController"
+
+	br
+	ul.nav.nav-tabs
+		li.active
+			a href="#accounts" data-toggle="tab"
+				h3 = text_with_icon 'Active Accounts', 'user'
+		li
+			a href="#requests" data-toggle="tab"
+				h3 = text_with_icon 'Pending Accounts', 'exclamation-sign'
+
+	.tab-content
+	
+		.tab-pane.active#accounts
+			p.help-block Note that you may not remove administrative rights from your own account, but can have another admin do it. This is a safety precaution to prevent complete system lock-outs.
+			table.table.table-striped.table-condensed
+				thead
+					tr
+						th
+							a ng-click="reverse = !reverse; predicate = 'name'; " Name
+						th
+							a ng-click="reverse = !reverse; predicate = 'admin'; " Admin?
+						th
+							a ng-click="reverse = !reverse; predicate = 'email'; " Email
+						th
+							a ng-click="reverse = !reverse; predicate = 'created_at'; " Created
+						th Last Login
+						th Feeds Owned
+						th Torrents Owned
+						th Actions
+				tbody
+					tr ng-repeat="u in users | orderBy:predicate:reverse" ng-show="u.approved"
+						td
+							input.form-control type="text" ng-model="u.name"
+						td
+							input.form-control type="checkbox" ng-model="u.admin" ng-disabled="u.id == #{current_user.id}"
+						td ng-bind="u.email"
+						td ng-bind="u.created_at | relativeDate"
+						td ng-bind="u.last_sign_in_at | relativeDate"
+						td ng-bind="feedNames(u)"
+						td ng-bind="torrentNames(u)"
+						td
+							.btn-group
+								button.btn.btn-default ng-click="update(u)"
+									= text_with_icon('Save', 'floppy-disk')
+								button.btn.btn-default ng-click="delete(u)" ng-disabled="u.id == #{current_user.id} || u.torrents.length > 0 || u.torrents.length > 0"
+									= text_with_icon('Delete', 'trash')
+
+
+
+		.tab-pane#requests
+				table.table.table-striped.table-condensed
+					thead
+						tr
+							th Email
+							th Confirmed?
+							th Created
+							th Actions
+					tbody
+						tr ng-repeat="u in users" ng-show="!u.approved"
+							td ng-bind="u.email"
+							td ng-bind="u.confirmed_at | relativeDate"
+							td ng-bind="u.created_at | relativeDate"
+							td
+								.btn-group
+									button.btn.btn-default ng-click="approve(u)"
+										= text_with_icon('Approve', 'thumbs-up')
+									button.btn.btn-default ng-click="deny(u)"
+										= text_with_icon('Deny', 'thumbs-down')

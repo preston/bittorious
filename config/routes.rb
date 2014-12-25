@@ -2,7 +2,18 @@ Rails.application.routes.draw do
 
 	devise_for :users, :controllers => { registrations: :registrations } 
 
-	get 'users' => 'users#index', as: :users
+	# get 'users' => 'users#index', as: :users
+	resources :users do
+		member do
+			post :deny
+			post :approve
+		end
+		# collection do
+		# 	get :detailed
+		# end
+	end
+
+	# get 'users/detailed' => 'users#detailed', as: :detailed_users
 
 	resources :feeds do
 		resources :permissions
@@ -21,14 +32,7 @@ Rails.application.routes.draw do
 	get 'scrape' => 'torrents#scrape'
 	get "tags/torrents" => "torrents#tags", as: :tags
 
-	get 'search' => 'torrents#search'
 	get 'announce' => 'torrents#announce', as: :announce
-
-	get 'manage' => 'users#manage'
-	post 'manage/:user_id/deny' => 'users#deny', as: :deny_user
-	post 'manage/:user_id/approve' => 'users#approve', as: :approve_user
-	put  'manage/:user_id' => 'users#update', as: :update_user
-	post 'manage/:user_id/transfer' => 'users#transfer', as: :transfer_ownership
 
 	get 'landing' => "welcome#landing",		as: :landing
 	get 'dashboard' => "welcome#dashboard",	as: :dashboard

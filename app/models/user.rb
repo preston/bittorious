@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   ADMIN_ROLE = 'admin'
 
-  has_many :torrents
+  has_many :torrents, :dependent => :destroy
   has_many :feeds, :dependent => :destroy
 
   has_many :permissions, :dependent => :destroy

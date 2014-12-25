@@ -19,6 +19,15 @@ class Feed < ActiveRecord::Base
 
   attr_accessor :can_manage
 
+  after_save :regenerate_torrent_files
+
+  def regenerate_torrent_files
+    self.torrents.each do |t|
+      t.reprocess_meta
+      t.save!
+    end
+  end
+
   def attributes
     super.merge({can_manage: can_manage})
   end

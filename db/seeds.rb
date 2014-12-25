@@ -1,12 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
 admin = nil
 begin
 	admin = User.create! do |u|
@@ -44,12 +35,23 @@ publisher = User.find_by_email('publisher@example.com') || User.create({
 	})
 publisher.confirm!
 
+(1..8).each do |i|
+	tmp = User.find_by_email("pending#{i}@example.com") || User.create({
+	name: "Pending #{i}",
+	email: "pending#{i}@example.com",
+	password: 'password',
+	password_confirmation: 'password',
+	approved: false
+	})
+	tmp.confirm!
+end
+
 begin
   # torrent = admin.torrents.find_or_create_by_name('Torrent Foo')
   # torrent.create_tracker
 end
 
-feed = Feed.create!(name: 'Sample Feed', user: admin)
+feed = Feed.create!(name: 'Sample Feed', description: 'A feed of random data torrents for demonstration, evaluation and testing purposes.', user: admin)
 Permission.create!(user: subscriber, feed: feed, role: Permission::SUBSCRIBER_ROLE)
 Permission.create!(user: publisher, feed: feed, role: Permission::PUBLISHER_ROLE)
 
