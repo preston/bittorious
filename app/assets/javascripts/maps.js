@@ -69,8 +69,8 @@ function refreshMap(peers) {
   }
   console.log('Refreshing map...');
   for(var i = 0; i < peers.length; i++)  {
-    // addMarker(peers[i]);
-    addMarker({'latitude' : '38.422', 'longitude' : '262.273', 'city' : 'Nowhere', 'country' : 'United States'});
+    addMarker(peers[i]);
+    // addMarker({'latitude' : '38.422', 'longitude' : '262.273', 'city' : 'Nowhere', 'country' : 'United States'});
 	};
 }
 
