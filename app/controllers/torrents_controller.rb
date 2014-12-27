@@ -25,16 +25,26 @@ class TorrentsController < InheritedResources::Base
 
   def announce
     authorize! :announce, resource
-    resource.register_peer(peer_params, current_user)
+    peer = resource.register_peer(peer_params, current_user)
 
+    # This part is standard BitTorrent.
     tracker_response = {
       'interval'    => Peer::UPDATE_PERIOD_MINUTES.minutes,
       'complete'   => resource.seed_count,
       'incomplete' => resource.peer_count,
-      'peers'      => resource.peers.active.map{|p|  {'ip' => p.ip, 'peer id' => p.peer_id, 'port' => p.port}} }
+      'peers'      => resource.peers.active.map{|p|  {'ip' => p.ip, 'peer id' => p.peer_id, 'port' => p.port}}
+    }
+
+    # BitTorious-specific extensions.
+    if peer.volunteer_enabled
+      tracker_response['volunteer'] = {
+        affinity_length: peer.affinity_length,
+        affinity_offset: peer.affinity_offset
+      }
+    end
+
     response.headers['Content-Type'] = 'text/plain; charset=ASCII'
-    #force US-ASCII
-    render :text => tracker_response.to_bencoding.encode('ASCII')
+    render :text => tracker_response.to_bencoding.encode('ASCII') # Force US-ASCII
   end
 
   def create

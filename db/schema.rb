@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141225182904) do
+ActiveRecord::Schema.define(version: 20141227003158) do
 
   create_table "feeds", force: :cascade do |t|
     t.string   "name"
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 20141225182904) do
     t.string   "country_name"
     t.string   "city_name"
     t.integer  "user_id"
+    t.boolean  "volunteer_enabled",            default: false
+    t.integer  "volunteer_disk_maximum_bytes", default: 0
+    t.integer  "volunteer_disk_used_bytes",    default: 0
+    t.integer  "volunteer_affinity_offset",    default: 0
+    t.integer  "volunteer_affinity_length",    default: 0
   end
 
   add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state"

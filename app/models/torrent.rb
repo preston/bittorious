@@ -51,6 +51,14 @@ class Torrent < ActiveRecord::Base
       peer.city_name = data.city_name
     end
     peer.user = user
+
+    if(!peer_params['volunteer'].nil? && peer_params['volunter']['enabled'] == '1')
+      peer.volunteer_enabled = true
+      peer.volunteer_disk_maximum_bytes = peer_params['volunter']['volunteer_disk_maximum_bytes'].to_i
+      peer.volunteer_disk_used_bytes = peer_params['volunter']['volunteer_disk_used_bytes'].to_i
+    else
+      peer.volunteer_enabled = false
+    end
     peer.save!
     peer
   end
