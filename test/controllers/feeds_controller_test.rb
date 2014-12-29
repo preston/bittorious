@@ -59,11 +59,29 @@ class FeedsControllerTest < ActionController::TestCase
       post :create, feed: VALID, format: :json
       assert_response :unauthorized 
     end
+  end
 
+  test "should not create feed as subscriber" do
+    log_in :subscriber
+    assert !@ability.can?(:create, Feed)
+    assert_no_difference('Feed.count') do
+      post :create, feed: VALID, format: :json
+      assert_response :redirect 
+    end
+  end
+
+  test "should not create feed as publisher" do
+    log_in :publisher
+    assert !@ability.can?(:create, Feed)
+    assert_no_difference('Feed.count') do
+      post :create, feed: VALID, format: :json
+      assert_response :redirect 
+    end
   end
 
   test "should create feed as admin" do
     log_in :admin
+    assert @ability.can?(:create, Feed)
     assert_difference('Feed.count', 1) do
       post :create, feed: VALID, format: :json
       assert_response :success
@@ -175,6 +193,7 @@ class FeedsControllerTest < ActionController::TestCase
 
   test "should not destroy feed as unassigned" do
     log_in :unassigned
+    assert !@ability.can?(:delete, Feed)
     assert_no_difference('Feed.count') do
       delete :destroy, id: @public, format: :json
     end
@@ -183,22 +202,25 @@ class FeedsControllerTest < ActionController::TestCase
 
   test "should not destroy feed as subscriber" do
     log_in :subscriber
+    assert !@ability.can?(:delete, Feed)
     assert_no_difference('Feed.count') do
       delete :destroy, id: @public, format: :json
     end
     assert_response :redirect
   end
 
-  test "should destroy feed as publisher" do
+  test "should not destroy feed as publisher" do
     log_in :publisher
-    assert_difference('Feed.count', -1) do
+    assert !@ability.can?(:delete, Feed)
+    assert_no_difference('Feed.count') do
       delete :destroy, id: @public, format: :json
     end
-    assert_response :success
+    assert_response :redirect
   end
 
   test "should destroy feed as admin" do
     log_in :admin
+    assert @ability.can?(:delete, Feed)
     assert_difference('Feed.count', -1) do
       delete :destroy, id: @public, format: :json
     end

@@ -20,7 +20,7 @@
 				b ng-bind="selectedFeed.replication_percentage" 
 				| % per peer per torrent.
 	.col-md-3
-		div ng-if="selectedFeed.can_manage"
+		div ng-if="selectedFeed.can_update"
 			h1 &nbsp;
 			button.btn.btn-primary href="#create_torrent_dialog" role="button" ng-click="newTorrentDialog()"
 				span.glyphicon.glyphicon-upload
@@ -149,15 +149,14 @@
 
 	.col-lg-6#torrent_details ng-show="selectedTorrent"
 		h3 ng-bind="selectedTorrent.name"
-		- if can? :manage, @feed
-			a.btn.btn-primary ng-click="updateTorrent()"
+		a.btn.btn-primary ng-click="updateTorrent()" ng-show="selectedTorrent.can_update"
 					= text_with_icon('Save', 'floppy-disk')
-			a.btn.btn-danger.pull-right ng-click="deleteTorrent(selectedTorrent)" ng-confirm-click="Are you sure?"
+		a.btn.btn-danger.pull-right ng-click="deleteTorrent(selectedTorrent)" ng-show="selectedTorrent.can_delete" ng-confirm-click="Are you sure?"
 					= text_with_icon('Delete', 'trash')
 		form#edit_torrent_form role="form" ng-submit="updateTorrent()"
 			.form-group
 				label for="name" Name
-				input#torrent_name.form-control type="text" ng-model="selectedTorrent.name" ng-readonly="!selectedFeed.can_manage"
+				input#torrent_name.form-control type="text" ng-model="selectedTorrent.name" ng-if="selectedFeed.can_update"
 		dl.dl-horizontal
 			dt Created
 			dd ng-bind="selectedTorrent.created_at | relativeDate"

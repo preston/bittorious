@@ -17,7 +17,7 @@ class Feed < ActiveRecord::Base
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: 100
 
-  attr_accessor :can_manage
+  attr_accessor :can_update, :can_delete
 
   after_save :regenerate_torrent_files
 
@@ -29,7 +29,10 @@ class Feed < ActiveRecord::Base
   end
 
   def attributes
-    super.merge({can_manage: can_manage})
+    super.merge({
+      can_update: can_update,
+      can_delete: can_delete
+    })
   end
 
 

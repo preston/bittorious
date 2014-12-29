@@ -1,6 +1,6 @@
 .row
 
-	.col-md-12 ng-if="selectedFeed.can_manage"
+	.col-md-12 ng-if="selectedFeed.can_update"
 		= render 'feeds/form'
 		hr
 
@@ -13,12 +13,12 @@
 						a ng-click="reverse = !reverse; predicate = 'user.name'; " Name
 					th
 						a ng-click="reverse = !reverse; predicate = 'role'; " Role
-					th ng-show="selectedFeed.can_manage" Actions
+					th ng-show="selectedFeed.can_update" Actions
 			tbody
 				tr ng-repeat="p in selectedFeed.permissions | orderBy:predicate:reverse"
 					td ng-bind="p.user.name"
 					td ng-bind="p.role"
-					td ng-show="selectedFeed.can_manage"
+					td ng-show="selectedFeed.can_update"
 						button.btn.btn-default ng-click="deletePermission(p)" = text_with_icon('Revoke', 'trash')
 
 	.col-md-6

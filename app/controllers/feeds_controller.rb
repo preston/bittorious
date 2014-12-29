@@ -22,7 +22,7 @@ class FeedsController < InheritedResources::Base
     respond_to do |format|
       format.json {
         if @feed.save
-          @feed.can_manage = can?(:manage, @feed)
+          set_abilities @feed
           render :json => @feed.to_json({include: INCLUDES})
         else
           render json: {errors: @feed.errors}, status: :unprocessable_entity
@@ -40,11 +40,10 @@ class FeedsController < InheritedResources::Base
 
   def index
     @feeds.each do |f|
-      f.can_manage = can?(:manage, f)
+      set_abilities f
     end
     respond_to do |format|
       format.json { render json: @feeds.to_json({include: INCLUDES}) }
-      # format.xml { render xml: @feeds.to_xml({include: INCLUDES}) }
     end
   end
 
@@ -65,6 +64,11 @@ class FeedsController < InheritedResources::Base
   end
 
   private
+
+  def set_abilities(f)
+    f.can_update = can?(:update, f)
+    f.can_delete = can?(:delete, f)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_feed

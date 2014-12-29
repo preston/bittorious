@@ -15,24 +15,18 @@ class Ability
 
 		# The "/scrape" operation filters the torrent list internally based on authorizations for every torrent.
 		can :scrape, Torrent
-	
-		if user.id.nil?
-		else # All logged in users
-			# can :manage, User, :id => user.id
-			# cannot :approve, User, :id => user.id
-			# cannot :deny, User, :id => user.id
-		end
 
 		if user.admin
-			can :manage,	:all # Can do every on every object!
+			can :manage,	:all # Admins can do everything on every object!
 		else
-			# Non-admins.
-			can :manage,  Feed,		permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
+			# Feed subscriber permissions.
 			can :read,    Feed,		permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
-			can :manage,  Torrent,	permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
-			can [:create, :destroy, :update, :show, :grant], Feed,	permissions: { user_id: user.id, role: Permission::PUBLISHER_ROLE }
+			can [:transfer, :read, :announce], Torrent,	permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
 
-			can [:transfer, :read, :scrape, :announce], Torrent,	permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
+			# Feed publisher permissions.
+			can [:read, :update, :grant], Feed,	permissions: { user_id: user.id, role: Permission::PUBLISHER_ROLE }
+			can :manage,  Torrent,	permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }
+
 		end
 	end
 end

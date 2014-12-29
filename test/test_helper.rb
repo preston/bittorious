@@ -18,7 +18,9 @@ class ActiveSupport::TestCase
 
   def log_in(type)
     @request.env["devise.mapping"] = Devise.mappings[type]
-    sign_in users(type)
+    user = users(type)
+    sign_in user
+    @ability = Ability.new(user)
   end
 
   def log_out(type)
