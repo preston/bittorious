@@ -1,0 +1,55 @@
+admin:
+  name: Test Administrator
+  admin: true
+  email: admin@example.com
+  approved: true
+  encrypted_password: $2a$10$pScTgBo2nHvKMwFFZF0oEeSVNliL6jO5v.T3xkDxxygq38LasUDae # password
+  reset_password_token: 95NujRsTNUoD13tVbfPb
+  created_at: <%= 1.week.ago.to_s :db %>
+  updated_at: <%= 1.week.ago.to_s :db %>
+  confirmed_at: <%= 1.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+
+unapproved:
+  name: Test Unapproved
+  email: unapproved@example.com
+  approved: false
+  encrypted_password: $2a$10$pScTgBo2nHvKMwFFZF0oEeSVNliL6jO5v.T3xkDxxygq38LasUDae # password
+  reset_password_token: 0
+  created_at: <%= 2.days.ago.to_s :db %>
+  updated_at: <%= 2.days.ago.to_s :db %>
+  confirmed_at: <%= 1.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+
+unassigned:
+  name: Test Unassigned
+  email: unassigned@example.com
+  approved: true
+  encrypted_password: $2a$10$pScTgBo2nHvKMwFFZF0oEeSVNliL6jO5v.T3xkDxxygq38LasUDae # password
+  reset_password_token: 1
+  created_at: <%= 2.days.ago.to_s :db %>
+  updated_at: <%= 2.days.ago.to_s :db %>
+  confirmed_at: <%= 1.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+
+subscriber:
+  name: Test Subscriber
+  email: subscriber@example.com
+  approved: true
+  encrypted_password: $2a$10$pScTgBo2nHvKMwFFZF0oEeSVNliL6jO5v.T3xkDxxygq38LasUDae # password
+  reset_password_token: 2
+  created_at: <%= 2.days.ago.to_s :db %>
+  updated_at: <%= 2.days.ago.to_s :db %>
+  confirmed_at: <%= 1.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+
+publisher:
+  name: Test Publisher
+  email: publisher@example.com
+  approved: true
+  encrypted_password: $2a$10$pScTgBo2nHvKMwFFZF0oEeSVNliL6jO5v.T3xkDxxygq38LasUDae # password
+  reset_password_token: 3
+  created_at: <%= 2.days.ago.to_s :db %>
+  updated_at: <%= 2.days.ago.to_s :db %>
+  confirmed_at: <%= 1.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 1.days.ago.to_s :db %>

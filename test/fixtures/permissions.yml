@@ -1,0 +1,20 @@
+subscriber_public:
+  user: :subscriber
+  feed: :public
+  role: <%= Permission::SUBSCRIBER_ROLE %>
+
+subscriber_private:
+  user: :subscriber
+  feed: :private
+  role: <%= Permission::SUBSCRIBER_ROLE %>
+
+
+publisher_public:
+  user: :publisher
+  feed: :public
+  role: <%= Permission::PUBLISHER_ROLE %>
+
+publisher_private:
+  user: :publisher
+  feed: :private
+  role: <%= Permission::PUBLISHER_ROLE %>
