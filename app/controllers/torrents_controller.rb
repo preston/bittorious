@@ -8,8 +8,8 @@ class TorrentsController < InheritedResources::Base
   prepend_before_filter :set_params_from_torrent, :only => [:create]
   prepend_before_filter :load_from_info_hash
 
-  load_and_authorize_resource :feed
-  load_and_authorize_resource :torrent, through: :feed
+  load_resource :feed # Need to load the feed before the torrent resource is authorized.
+  load_and_authorize_resource :torrent, except: [:create] # through: :feed, 
 
   skip_before_filter :authenticate_user!, only: [:announce, :scrape, :show, :index]
   # before_filter :authenticate_user!, only: [:]
@@ -45,7 +45,10 @@ class TorrentsController < InheritedResources::Base
     @torrent = Torrent.new(torrent_params)
     @torrent.user = current_user
     @torrent.data = request[:torrent][:file].read
-    @torrent.feed = Feed.friendly.find(params[:feed_id]) # Must be set prior to metadata reprocessing.
+    # @torrent.feed = @feed
+    @torrent.feed = Feed.friendly.find(request[:feed_id]) # Must be set prior to metadata reprocessing.
+    authorize! :create, @torrent
+
     @torrent.reprocess_meta
     respond_to do |format|
       format.json {
@@ -60,6 +63,7 @@ class TorrentsController < InheritedResources::Base
 
   def index
     # FIXME Shouldn't cancancan do this automatically???
+    authorize! :read, Feed.friendly.find(request[:feed_id])
     @torrents = Torrent.where(feed_id: params[:feed_id]).accessible_by(current_ability)
 
     respond_to do |f|
@@ -171,7 +175,7 @@ end
   # Never trust parameters from the scary internet, only allow the white list through.
   def torrent_params
     params.require(:torrent).permit(
-      :feed_id, :name) #:user_id, :info_hash, :size, :feed_id, :private_info_hash)
+      :feed_id, :name, :file) #:user_id, :info_hash, :size, :feed_id, :private_info_hash)
 
   end
 

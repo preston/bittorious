@@ -67,6 +67,8 @@ group :development do
   gem 'web-console', '~> 2.0'
 
   gem 'spring'
+
+  gem 'yaml_db' # For dumping production data.
 end
 
 group :production do

@@ -27,7 +27,8 @@ class Torrent < ActiveRecord::Base
   # Force slug regeneration every time the record is saved.
   def should_generate_new_friendly_id?() true end
 
-
+    attr_accessor :file # Temporary file upload.
+    
   # default_scope {order('created_at')}
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
   

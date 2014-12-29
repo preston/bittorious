@@ -1,6 +1,6 @@
 .row
 
-	.col-md-12 ng-if="selectedFeed.can_update"
+	.col-md-12 ng-show="selectedFeed.can_update"
 		= render 'feeds/form'
 		hr
 

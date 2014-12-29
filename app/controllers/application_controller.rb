@@ -17,11 +17,11 @@ class ApplicationController < ActionController::Base
 
   # CanCan w/Rails 4 compatibility workaround:
   # http://stackoverflow.com/questions/19273182/activemodelforbiddenattributeserror-cancan-rails-4-model-with-scoped-con/19504322#19504322
-  before_filter do
-    resource = controller_name.singularize.to_sym
-    method = "#{resource}_params"
-    params[resource] &&= send(method) if respond_to?(method, true)
-  end
+  # before_filter do
+  #   resource = controller_name.singularize.to_sym
+  #   method = "#{resource}_params"
+  #   params[resource] &&= send(method) if respond_to?(method, true)
+  # end
 
   def get_remote_ip
     e = request.env
