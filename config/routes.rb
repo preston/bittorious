@@ -8,9 +8,6 @@ Rails.application.routes.draw do
 			post :deny
 			post :approve
 		end
-		# collection do
-		# 	get :detailed
-		# end
 	end
 
 	# get 'users/detailed' => 'users#detailed', as: :detailed_users

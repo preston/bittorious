@@ -28,7 +28,7 @@ class Torrent < ActiveRecord::Base
   def should_generate_new_friendly_id?() true end
 
 
-  default_scope {order('created_at')}
+  # default_scope {order('created_at')}
   scope :managed_by_user, lambda{|user| joins(:permissions).where(permissions: {user_id: user.id, role: [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]})}
   
 
@@ -77,7 +77,10 @@ class Torrent < ActiveRecord::Base
 
   def data_for_user(user, announce_url)
     b = BEncode.load(self.data)
-    params = "?authentication_token=#{user.authentication_token}"
+    params = ""
+    if user && user.authentication_token
+      params = "?authentication_token=#{user.authentication_token}"
+    end
     url = announce_url + params
     b['announce'] = url
     b["announce-list"] = [[url]]

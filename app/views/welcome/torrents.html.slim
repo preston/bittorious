@@ -64,8 +64,8 @@
 
 	.col-lg-6#active_peers ng-if="selectedTorrent.active_peers.length > 0"
 		h3
-			span ng-bind="selectedTorrent.active_peers.length"
-			|  active peers for this torrent.
+			|  Authenticated Peers
+			span.badge ng-bind="selectedTorrent.active_peer_count(true)"
 		#table_container
 			table.table.table-condensed
 				thead
@@ -85,7 +85,7 @@
 					/ th
 						a ng-click="reverse = !reverse; predicate = 'updated_at'; " Last Registered
 				tbody
-					tr ng-repeat="peer in selectedTorrent.active_peers"
+					tr ng-repeat="peer in selectedTorrent.active_peers" ng-if="!peer.volunteer_enabled"
 						td ng-bind="peer.user.name"
 						td
 							span ng-bind="peer.ip"
@@ -103,8 +103,49 @@
 							span ng-if="peer.left == 0" Seeding
 						td ng-bind="peer.left | humanizeBytes"
 						td ng-bind="peer.uploaded | humanizeBytes"
-						/ td ng-bind="peer.updated_at | relativeDate"
 
+		h3
+			|  Volunteer Peers
+			span.badge ng-bind="selectedTorrent.active_peer_count(false)"
+		#table_container
+			table.table.table-condensed
+				thead
+				  tr
+					th
+						a ng-click="reverse = !reverse; predicate = 'ip'; " IP Address
+					th
+						a ng-click="reverse = !reverse; predicate = 'city_name'; " Location
+					th
+						a ng-click="reverse = !reverse; predicate = 'active_peers.length'; " Status
+					th
+						a ng-click="reverse = !reverse; predicate = 'pieces'; " Affinity Offset
+					th
+						a ng-click="reverse = !reverse; predicate = 'volunteer_disk_used_bytes'; " Total Usage
+				tbody
+					tr ng-repeat="peer in selectedTorrent.active_peers" ng-if="peer.volunteer_enabled"
+						td ng-bind="peer.user.name"
+						td
+							span ng-bind="peer.ip"
+							| :
+							span ng-bind="peer.port"
+							br
+							small#latitude ng-bind="peer.latitude" ng-show="peer.latitude"
+							small#longitude ng-bind="peer.longitude" ng-show="peer.longitude"
+						td
+							b#latitude ng-bind="peer.city_name" ng-show="peer.city_name"
+							br
+							small#longitude ng-bind="peer.country_name" ng-show="peer.country_name"
+						td
+							span ng-if="peer.left > 0" Leeching
+							span ng-if="peer.left == 0" Seeding
+						td
+							span ng-bind="peer.volunteer_disk_used_bytes | humanizeBytes"
+							| /
+							span ng-bind="peer.volunteer_disk_maximum_bytes | humanizeBytes"
+						td
+							span ng-bind="peer.volunteer_affinity_offset | humanizeBytes"
+							|  + 
+							span ng-bind="peer.volunteer_affinity_length | humanizeBytes"
 
 	.col-lg-6#torrent_details ng-show="selectedTorrent"
 		h3 ng-bind="selectedTorrent.name"

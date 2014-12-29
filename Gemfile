@@ -42,20 +42,12 @@ gem 'gravatar_image_tag'
 gem 'sass-rails' , '~> 4.0.5'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier' , '>= 2.5.3'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.0'
 
 
 group :test, :development do
   gem 'simplecov', :require => false
   gem 'sqlite3'
-  # gem 'debugger'
-  gem 'minitest'
-  gem 'rspec-rails'
-  gem 'cucumber-rails', :require => false
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
-  gem 'shoulda-matchers'
+  gem 'guard-minitest'
 end
 
 
@@ -69,8 +61,9 @@ group :development do
   gem 'capistrano-rails'
 
   gem 'byebug'
-  # gem 'binding_of_caller'
-  # gem 'better_errors'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
 
   gem 'spring'
 end

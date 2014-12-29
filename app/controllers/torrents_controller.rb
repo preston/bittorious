@@ -8,20 +8,14 @@ class TorrentsController < InheritedResources::Base
   prepend_before_filter :set_params_from_torrent, :only => [:create]
   prepend_before_filter :load_from_info_hash
 
-  skip_before_filter :authenticate_user!, only: [:announce, :scrape]
-  # before_filter :http_basic_authenticate, only: [:announce, :scrape]
+  load_and_authorize_resource :feed
+  load_and_authorize_resource :torrent, through: :feed
 
-  # load_and_authorize_resource
+  skip_before_filter :authenticate_user!, only: [:announce, :scrape, :show, :index]
+  # before_filter :authenticate_user!, only: [:]
 
   layout false
 
-  def http_basic_authenticate
-    authenticate_or_request_with_http_basic do |email, password|
-      u = User.where(email: email).first
-      ok = !u.nil? && u.valid_password?(password)
-      ok
-    end
-  end
 
   def announce
     authorize! :announce, resource
@@ -65,9 +59,9 @@ class TorrentsController < InheritedResources::Base
   end
 
   def index
-    @feed = Feed.find(params[:feed_id])
-    authorize! :read, @feed
-    @torrents = @feed.torrents
+    # FIXME Shouldn't cancancan do this automatically???
+    @torrents = Torrent.where(feed_id: params[:feed_id]).accessible_by(current_ability)
+
     respond_to do |f|
       f.json { render json: @torrents, include: [{user: {only: [:id, :name]}}], methods: [:seed_count, :peer_count], except: [:data] }
     end    
@@ -93,9 +87,10 @@ class TorrentsController < InheritedResources::Base
       authorize! :read, t
 			requested << t if t
 		else
-			Torrent.all.each do |t|
-        requested << t if can?(:read, t)
-      end
+      requested = Torrent.accessible_by current_ability
+			# Torrent.all.each do |t|
+   #      requested << t if can?(:read, t)
+   #    end
 		end
 		requested.each do |t|
 			torrents[t.info_hash] = {
@@ -109,6 +104,7 @@ class TorrentsController < InheritedResources::Base
 	end
 
   def show
+    authorize! :read, @torrent
     respond_to do |format|
       format.json { render json: resource, except: [:data], include: [{user: {only: [:id, :name]}}, :active_peers]}
       format.torrent { send_data(resource.data_for_user(current_user, announce_url))}
@@ -171,15 +167,6 @@ end
 
   private
 
-
-  def set_feed
-    @feed = Feed.friendly.find(params[:feed_id])  
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_torrent
-    @torrent = Torrent.find(params[:id])
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def torrent_params

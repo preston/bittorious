@@ -9,21 +9,18 @@ class Ability
 
 		# Anyone can read public (non-"private") torrents.
 		can :read,  Feed,		enable_public_archiving: true
-		can :read,  Torrent,	feed: {enable_public_archiving: true}
-		can :announce,  Torrent,	feed: {enable_public_archiving: true}
-		can :read,	Peer,	torrent: {feed: {enable_public_archiving: true}}
+		can [:read, :announce],  Torrent,	feed: {enable_public_archiving: true}
+		# can :announce,  Torrent,	feed: {enable_public_archiving: true}
+		can [:index, :read],	Peer,	torrent: {feed: {enable_public_archiving: true}}
 
 		# The "/scrape" operation filters the torrent list internally based on authorizations for every torrent.
 		can :scrape, Torrent
 	
 		if user.id.nil?
 		else # All logged in users
-
-			can :manage, User, :id => user.id
-			cannot :approve, User, :id => user.id
-			cannot :deny, User, :id => user.id
-
-			# can :manage, Peer
+			# can :manage, User, :id => user.id
+			# cannot :approve, User, :id => user.id
+			# cannot :deny, User, :id => user.id
 		end
 
 		if user.admin

@@ -37,7 +37,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			// angular.copy(torrents, $scope.selectedFeed.torrents);
 			$scope.selectedFeed.torrents = torrents;
 			if($scope.selectedFeed.torrents.length > 0) {
-				$scope.selectedTorrent = $scope.selectedFeed.torrents[0];
+				$scope.selectTorrent($scope.selectedFeed.torrents[0]);
 			} else {
 				$scope.selectedTorrent = null;
 			}

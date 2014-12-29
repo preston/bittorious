@@ -2,11 +2,11 @@ class FeedsController < InheritedResources::Base
 
   defaults resource_class: Feed.friendly
 
-  before_filter :authenticate_user!, except: [:index, :template]
+  before_filter :authenticate_user!, except: [:index, :show]
 
   load_and_authorize_resource
 
-  respond_to :html, :json, :rss, :xml
+  respond_to :html, :json, :rss #, :xml
   actions :update, :create, :destroy, :index, :edit
 
   INCLUDES = [
@@ -39,19 +39,12 @@ class FeedsController < InheritedResources::Base
 	end
 
   def index
-    @feeds = []
-    Feed.order('LOWER(name) ASC').each do |f|
-      if can? :read, f
-        f.can_manage = can?(:manage, f)
-        @feeds << f
-      end
+    @feeds.each do |f|
+      f.can_manage = can?(:manage, f)
     end
     respond_to do |format|
-      format.json {
-        json = @feeds.to_json({include: INCLUDES})
-        puts "JSON: #{json}"
-        render json: json
-      }
+      format.json { render json: @feeds.to_json({include: INCLUDES}) }
+      # format.xml { render xml: @feeds.to_xml({include: INCLUDES}) }
     end
   end
 
@@ -60,6 +53,7 @@ class FeedsController < InheritedResources::Base
   end
 
   def show
+    authorize! :read, @feed
     respond_to do |format|
       format.json {
         json = @feed.to_json({include: INCLUDES})
