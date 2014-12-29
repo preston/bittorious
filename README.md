@@ -2,7 +2,8 @@ BitTorious Server
 =====
 
  * **Live Demo**: <http://try.bittorious.com>
- * **Please deploy from a *release tag***. The _master_ branch is for active development and should be treated as _unstable_.
+ * **Recently published in _BMC Bioinformatics_**: <http://www.biomedcentral.com/1471-2105/15/424/abstract>
+ * **Please deploy from an official release tag**! The _master_ branch is for active development and should be treated as _unstable_.
 
 Have you ever wanted to run you own private BitTorrent tracker and user portal? Try BitTorious!
 
