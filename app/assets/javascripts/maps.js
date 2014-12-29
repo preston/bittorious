@@ -32,19 +32,21 @@ function coordinatesToLatLong(latitude, longitude) {
 function addMarker(peer) {
 	console.log('Adding marker...');
 	var ll = coordinatesToLatLong(peer.latitude, peer.longitude);
-	var marker = new google.maps.Marker({
-		position: ll,
-		map: map,
-		title: peer.city_name + ', ' + peer.country_name,
-		animation: google.maps.Animation.DROP
-	});
-	markers.push(marker);
-
-	var contentString = "<dl><dt>Location</dt><dd>" + city + ', ' + country + "</dd><dt>Coordinates</dt><dd>" + latitude + ', ' + longitude + "</dd></dl>";
-	var infowindow = new google.maps.InfoWindow({ content: contentString });
-	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.open(map,marker);
-	});
+	if(ll) {
+		var marker = new google.maps.Marker({
+			position: ll,
+			map: map,
+			title: peer.city_name + ', ' + peer.country_name,
+			animation: google.maps.Animation.DROP
+		});
+		markers.push(marker);
+	
+		var contentString = "<dl><dt>Location</dt><dd>" + peer.city_name + ', ' + peer.country_name + "</dd><dt>Coordinates</dt><dd>" + peer.latitude + ', ' + peer.longitude + "</dd></dl>";
+		var infowindow = new google.maps.InfoWindow({ content: contentString });
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(map,marker);
+		});
+	}
 }
 
 function removeMarkers() {
