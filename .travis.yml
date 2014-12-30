@@ -1,3 +1,4 @@
 language: ruby
 rvm:
   - 2.2.0
+script: cp config/travis/secrets.yml config/secrets.yml
