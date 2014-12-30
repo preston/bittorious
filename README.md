@@ -1,6 +1,8 @@
 BitTorious Server
 =====
 
+[![Build Status](https://travis-ci.org/preston/bittorious.svg?branch=master)](https://travis-ci.org/preston/bittorious)
+
  * **Live Demo**: <http://try.bittorious.com>
  * **Recently published in _BMC Bioinformatics_**: <http://www.biomedcentral.com/1471-2105/15/424/abstract>
  * **Please deploy from an official release tag**! The _master_ branch is for active development and should be treated as _unstable_.
