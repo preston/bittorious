@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
 	
-	before_filter :authenticate_user!, :only => [:dashboard, :status, :torrents]
+	before_filter :authenticate_user!, :only => [:dashboard, :status, :torrents, :settings, :feeds]
 	before_filter :set_selected_feed,	:only => [:dashboard]
 
 	def torrents
@@ -25,7 +25,7 @@ class WelcomeController < ApplicationController
 	end
 
 	def status
-		authorize! :manage, Peer
+		authorize! :manage, :all #Peer
 		respond_to do |format|
 			format.json { render json: Peer.active.to_json(include: {torrent: {only: [:id, :name]}, user: {only: [:id, :name]} })  }
 			format.html { render }

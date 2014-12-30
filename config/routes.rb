@@ -27,16 +27,16 @@ Rails.application.routes.draw do
 	end
 
 	get 'scrape' => 'tracker#scrape'
-	get 'announce' => 'tracker#announce', as: :announce
+	get 'announce' => 'tracker#announce'
 
-	get 'landing' => "welcome#landing",		as: :landing
-	get 'dashboard' => "welcome#dashboard",	as: :dashboard
-	get 'concepts' => "welcome#concepts",	as: :concepts
-	get 'history' => "welcome#history",	as: :history
-	get 'deployment' => "welcome#deployment",	as: :deployment
-	get 'status' => "welcome#status",		as: :status
-	get 'legal' => "welcome#legal",			as: :legal
-	get 'faq' => "welcome#faq",				as: :faq
+	get 'landing' => "welcome#landing"
+	get 'dashboard' => "welcome#dashboard"
+	get 'concepts' => "welcome#concepts"
+	get 'history' => "welcome#history"
+	get 'deployment' => "welcome#deployment"
+	get 'status' => "welcome#status"
+	get 'legal' => "welcome#legal"
+	get 'faq' => "welcome#faq"
 	get 'getting_started' => "welcome#getting_started",	as: :getting_started
 
 	root :to => 'welcome#landing'
