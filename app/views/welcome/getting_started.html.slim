@@ -3,7 +3,7 @@
 	.row
 		.col-md-12
 			h1 Getting Started
-			p BitTorious supports several popular BitTorrent client. More may work, but it's suuuuuuper important that you pick one that respects the "private" nature of BitTorious, as well as supports forced encryption of P2P file transfers. We recommend <a href=http://www.utorrent.com>uTorrent</a> with Vuze as a fall-back option, and we use uTorrent for Mac as the example in this guide. The Windows GUI similar, and the Linux version has the same functionality but a different web-based UI.
+			p BitTorious supports several popular BitTorrent client. More may work, but it's suuuuuuper important that you pick one that respects the "private" nature of BitTorious, as well as supports forced encryption of P2P file transfers. We recommend <a href=http://www.utorrent.com>uTorrent</a> with Vuze as a fall-back option, and we use uTorrent for Mac as the example in this guide. The Windows version of uTorrent similar. The Linux version has the same functionality, but a very different web-based UI.
 
 
 			ul
@@ -32,19 +32,23 @@
 			= image_tag 'rss.png', class: 'img-responsive img-thumbnail'
 			p In uTorrent, for example, click on the "Add Feed" button and paste the URL from the previous step into the "Feed URL" field, then click "Save".
 			= image_tag 'utorrent-feed.png', class: 'img-responsive img-thumbnail'
-			p The relevant BitTorious data feed should now be listed in the left-hand pane of uTorrent. The individual torrents are listed in the main pane. You can double click them to manually start each one, but they will not start automatically. If you would like all torrents published to the feed to start automatically, also add a "Smart Feed" rule configured to automatically add and start all new torrents.
+			p
+				| The relevant BitTorious data feed should now be listed in the left-hand pane of uTorrent. The individual torrents are listed in the main pane. 
+				b If you would like all torrents published to the feed to start automatically, also add a "Smart Feed" rule configured to automatically add and start all new torrents. 
+				| Otherwise, uTorrent will not automatically start them. 
 			= image_tag 'utorrent-smart.png', class: 'img-responsive img-thumbnail'
 
+	hr
 	.row
 		#publishing
 
 		section.col-md-6
 
 			h2 Creating A Torrent
-			p To publish data to a feed, you first need to create a .torrent metafile that describes the data. For smaller file uTorrent works fine, but for larger torrents -- generally over 1GB -- it's faster to use ctorrent at the command line.
+			p To publish data to a feed, you first need to create a .torrent metafile that describes the data. For smaller payloads you can use uTorrent to generate the file, but for larger torrents -- generally over 1GB -- uTorrent may hang on .torrent generation. We recommend sticking to cTorrent at the command line for this reason.
 
 			h3 cTorrent (Command Line, Recommended)
-			p Use "4194304" (4KB) as the piece size. Substitute your deployments domain name, file list, and torrent name, below.
+			p Use "4194304" (4MiB) as the piece size. Substitute your deployments domain name, file list, and torrent name, below. The portal will rewrite the URL per subscriber regardless of what you provide, so don't worry about getting it right.
 			pre preston$ ctorrent -t -l 4194304 -u https://try.bittorious.com/announce -p -s 1MiB.torrent 1MiB
 			p
 				| The 
@@ -54,11 +58,9 @@
 			p From the "File" drop-down menu, select "New Torrent".
 			= image_tag 'utorrent-new.png', class: 'img-responsive img-thumbnail'
 			p In the dialog, choose your files to publish. They will all be added to the same torrent. Enter the tracker URL plus "/announce" under the "Trackers". Use 4096KB as the piece size, which is needed for larger torrents. Also make sure the "Private torrent" box is checked, then click the "Create and save as...".
-			p.bg-info
-				i.icon.icon-star style='font-size: 32pt'
-				|  BitTorious will rewrite the .torrent to force the "private" flag on and only include the official tracker, so if you forget them it's no big deal. It's good practice, however, to always make sure they're set correctly from the start!
 			= image_tag 'utorrent-create.png', class: 'img-responsive img-thumbnail'
-			p This .torrent will NOT work to seed the network! You need to let the BitTorious portal rewrite it, next, to double-check the important settings and add your secret token. Just download the new .torrent from the portal, trash your original, and open the fresh version instead.
+			p
+				b This .torrent will NOT work to seed the network! You need to let the BitTorious portal rewrite it, next, to double-check the important settings and add your secret token. Just download the new .torrent from the portal, trash your original, and open the fresh version instead.
 
 		section.col-md-6#seeding
 
