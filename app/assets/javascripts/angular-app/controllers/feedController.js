@@ -3,15 +3,16 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 	console.log("Initializing AngularJS FeedController.");
 
 	// Administrators 
-	if($('#dashboard').attr('admin-controls') == 'true') {
-		console.log("Showing admin controls.");
+	// if($('#dashboard').attr('admin-controls') == 'true') {
+		// console.log("Showing admin controls.");
+		// TODO REFACTOR: This is needed for permission assignment. Change to a dynamic server-side search.
 		Restangular.all('users').getList().then(function(users) {
 			$scope.users = users;			
 		});
-	} else {
-		console.log('Not show admin controls.');
+	// } else {
+		// console.log('Not show admin controls.');
 
-	}
+	// }
 
 	var port = $location.port();
 	var proto = $location.protocol();

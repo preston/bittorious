@@ -5,11 +5,24 @@ class UsersController < InheritedResources::Base
 	respond_to :json
 
 	def index
-		authorize! :manage, User
 		@users = User.order(name: :asc).eager_load(:feeds, :torrents)
 		respond_to do |format|
-			format.json
-			format.html
+			format.json {
+				if can?(:manage, User)
+					render json: @users.as_json(only: [:id, :name, :feeds, :torrents] )
+				elsif can?(:index, User)
+					render json: @users.as_json(only: [:id, :name, :feeds, :torrents] )
+				else
+					render status: :unauthorized
+				end
+			}
+			format.html {
+				if can?(:manage, User)
+					render
+				else
+					render status: :unauthorized
+				end
+			}
 		end
 	end
 

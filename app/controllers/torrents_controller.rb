@@ -19,8 +19,9 @@ class TorrentsController < InheritedResources::Base
     @torrent.user = current_user
     @torrent.data = request[:torrent][:file].read
     # @torrent.feed = @feed
-    @torrent.feed = Feed.friendly.find(request[:feed_id]) # Must be set prior to metadata reprocessing.
-    authorize! :create, @torrent
+    @feed = Feed.friendly.find(request[:feed_id]) # Must be set prior to metadata reprocessing.
+    @torrent.feed = @feed
+    authorize! :create, @feed.torrents.build
 
     @torrent.reprocess_meta
     respond_to do |format|
@@ -36,20 +37,13 @@ class TorrentsController < InheritedResources::Base
 
   def index
     # FIXME Shouldn't cancancan do this automatically???
-    authorize! :read, Feed.friendly.find(request[:feed_id])
+    authorize! :index, Feed.friendly.find(request[:feed_id])
     @torrents = Torrent.where(feed_id: params[:feed_id]).accessible_by(current_ability)
 
     respond_to do |f|
       f.json { render json: @torrents, include: [{user: {only: [:id, :name]}}], methods: [:seed_count, :peer_count], except: [:data] }
     end    
   end
-
-  def peers
-    respond_to do |f|
-      f.json { render json: resource.active_peers, include: {user: {only: [:id, :name]}} }
-    end
-  end
-
 
 
   def show

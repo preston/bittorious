@@ -1,13 +1,8 @@
 class PermissionsController < InheritedResources::Base
 
-	# before_filter :authenticate_user!
-  # before_filter :set_feed
-  # load_and_authorize_resource :feed
-	# load_and_authorize_resource :permission, through: :feed
-
   respond_to :json
   load_resource :feed # Need to load the feed before the permission resource is authorized.
-  load_and_authorize_resource :torrent, except: [:show, :create] # through: :feed, 
+  load_and_authorize_resource :permission, through: :feed, only: [:index, :destroy] # through: :feed, 
 
   skip_before_filter :authenticate_user!, only: [:index]
 
@@ -16,7 +11,7 @@ class PermissionsController < InheritedResources::Base
 
   def index
     @feed = Feed.friendly.find(params[:feed_id])
-    authorize! :read, @feed
+    # authorize! :read, Permission
     @permissions = @feed.permissions.sort {|a,b| a.user.name <=> b.user.name}
     respond_to do |format|
       format.json { render json: @permissions, include: {user: {only: [:id, :name]}} }
@@ -24,15 +19,17 @@ class PermissionsController < InheritedResources::Base
   end
 
   def create
+    @feed = Feed.find(params[:feed_id])
     @permission = Permission.new(permission_params)
     @permission.feed = @feed
+    authorize! :create, @feed.permissions.build
     respond_to do |format|
       format.json {
         if @permission.save
           AdminMailer.permission_grant(@permission).deliver_later
           render json: @permission, include: {user: {only: [:id, :name]}}
         else
-          render json: {errors: @permission.errors}, status: :unprocessable_entity
+          render json: {errors: @permission.errors}, status: :unauthorized
         end
       } 
     end
@@ -52,9 +49,9 @@ class PermissionsController < InheritedResources::Base
 
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_permission
-    @permission = Permission.find(params[:id])
-  end
+  # def set_permission
+  #   @permission = Permission.find(params[:id])
+  # end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permission_params

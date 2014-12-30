@@ -12,14 +12,7 @@ Rails.application.routes.draw do
 	resources :feeds do
 		resources :permissions
 		resources :torrents do
-			member do
-				get :peers
-			end
-		end
-		member do
-			get :settings
-			# patch :grant
-			post :grant
+			resources :peers
 		end
 	end
 
@@ -34,7 +27,7 @@ Rails.application.routes.draw do
 	get 'status' => "welcome#status"
 	get 'legal' => "welcome#legal"
 	get 'faq' => "welcome#faq"
-	get 'getting_started' => "welcome#getting_started",	as: :getting_started
+	get 'getting_started' => "welcome#getting_started"
 
 	root :to => 'welcome#landing'
 	get 'dashboard/feeds' => 'welcome#feeds'

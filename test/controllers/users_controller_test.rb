@@ -114,26 +114,34 @@ class UsersControllerTest < ActionController::TestCase
   test 'should not render user index as unauthenticated' do
     get :index
     assert_response :redirect
+    get :index, format: :json
+    assert_response :unauthorized
   end
 
   test 'should not render user index as unassigned' do
     log_in :unassigned
+    get :index, format: :json
+    assert_response :success
     get :index
-    assert_response :redirect
+    assert_response :unauthorized
   end
 
 
   test 'should not render user index as subscriber' do
     log_in :subscriber
+    get :index, format: :json
+    assert_response :success
     get :index
-    assert_response :redirect
+    assert_response :unauthorized
   end
 
 
   test 'should not render user index as publisher' do
     log_in :publisher
+    get :index, format: :json
+    assert_response :success
     get :index
-    assert_response :redirect
+    assert_response :unauthorized
   end
 
   test 'should render index as admin' do
