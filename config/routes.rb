@@ -26,10 +26,8 @@ Rails.application.routes.draw do
 		end
 	end
 
-	get 'scrape' => 'torrents#scrape'
-	get "tags/torrents" => "torrents#tags", as: :tags
-
-	get 'announce' => 'torrents#announce', as: :announce
+	get 'scrape' => 'tracker#scrape'
+	get 'announce' => 'tracker#announce', as: :announce
 
 	get 'landing' => "welcome#landing",		as: :landing
 	get 'dashboard' => "welcome#dashboard",	as: :dashboard

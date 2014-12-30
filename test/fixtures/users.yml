@@ -9,6 +9,7 @@ admin:
   updated_at: <%= 1.week.ago.to_s :db %>
   confirmed_at: <%= 1.days.ago.to_s :db %>
   confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+  authentication_token: 'testAdmin'
 
 unapproved:
   name: Test Unapproved
@@ -20,6 +21,7 @@ unapproved:
   updated_at: <%= 2.days.ago.to_s :db %>
   confirmed_at: <%= 1.days.ago.to_s :db %>
   confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+  authentication_token: 'testUnapproved'
 
 unassigned:
   name: Test Unassigned
@@ -31,6 +33,7 @@ unassigned:
   updated_at: <%= 2.days.ago.to_s :db %>
   confirmed_at: <%= 1.days.ago.to_s :db %>
   confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+  authentication_token: 'testUnassigned'
 
 subscriber:
   name: Test Subscriber
@@ -42,6 +45,7 @@ subscriber:
   updated_at: <%= 2.days.ago.to_s :db %>
   confirmed_at: <%= 1.days.ago.to_s :db %>
   confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+  authentication_token: 'testSubscriber'
 
 publisher:
   name: Test Publisher
@@ -53,3 +57,4 @@ publisher:
   updated_at: <%= 2.days.ago.to_s :db %>
   confirmed_at: <%= 1.days.ago.to_s :db %>
   confirmation_sent_at: <%= 1.days.ago.to_s :db %>
+  authentication_token: 'testPublisher'
