@@ -2,17 +2,19 @@ class Ability
 	include CanCan::Ability
 
 	def initialize(user)
-		user ||= User.new # guest user (not logged in)
+		user ||= User.new # Unauthenticated
 		cannot :manage, :all
-
-		# Anyone can read public (non-"private") torrents.
-		can :read,  Feed,		enable_public_archiving: true
-		can [:read, :announce],  Torrent,	feed: {enable_public_archiving: true}
-		# can :announce,  Torrent,	feed: {enable_public_archiving: true}
-		can [:index, :read],	Peer,	torrent: {feed: {enable_public_archiving: true}}
 
 		# The "/scrape" operation filters the torrent list internally based on authorizations for every torrent.
 		can :scrape, Torrent
+
+
+		# Anyone can read public public feeds.
+		can :read,  Feed,		enable_public_archiving: true
+		can [:index, :show, :announce],  Torrent, feed: {enable_public_archiving: true}
+		# can [:index, :announce],  Torrent, feed: {enable_public_archiving: true}
+		can [:index, :read],	Peer,	torrent: {feed: {enable_public_archiving: true}}
+
 
 		if user.id.nil?
 			# Nada!

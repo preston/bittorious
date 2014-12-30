@@ -12,9 +12,6 @@ class Torrent < ActiveRecord::Base
   has_many :peers, :foreign_key => 'info_hash', :primary_key => 'info_hash', :dependent => :destroy
 
   has_many :permissions, :through => :feed
-  # has_many :managed_by_users, :through => :permissions, :source => :user, :conditions => {:permissions => {:role => [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]}}
-  # has_many :managed_by_users, :through => :permissions, :source => :user, -> {where :permissions => {:role => [Permission::SUBSCRIBER_ROLE, Permission::PUBLISHER_ROLE]}}
-
 
   validates_presence_of :user, :name, :info_hash, :feed
   validates_uniqueness_of :info_hash, :message => 'This torrent has already been uploaded.'

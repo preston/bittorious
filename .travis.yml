@@ -1,4 +1,7 @@
 language: ruby
 rvm:
+  - ruby-head
   - 2.2.0
+  - 2.1.5
+cache: bundler
 script: cp config/travis/secrets.yml config/secrets.yml

@@ -6,10 +6,9 @@ class TorrentsController < InheritedResources::Base
   prepend_before_filter :set_params_from_torrent, :only => [:create]
 
   load_resource :feed # Need to load the feed before the torrent resource is authorized.
-  load_and_authorize_resource :torrent, except: [:create] # through: :feed, 
+  load_and_authorize_resource :torrent, except: [:show, :create] # through: :feed, 
 
   skip_before_filter :authenticate_user!, only: [:show, :index]
-  # before_filter :authenticate_user!, only: [:]
 
   layout false
 
@@ -54,7 +53,13 @@ class TorrentsController < InheritedResources::Base
 
 
   def show
-    authorize! :read, @torrent
+    @torrent = Torrent.where(id: params[:id], feed_id: params[:feed_id]).first
+    # This is kinda weird, because it depends on the public/private nature of the feed.
+    if(@torrent.feed.enable_public_archiving)
+      # Go for it.
+    else
+      authorize! :show, @torrent
+    end
     respond_to do |format|
       format.json { render json: resource, except: [:data], include: [{user: {only: [:id, :name]}}, :active_peers]}
       format.torrent { send_data(resource.data_for_user(current_user, announce_url))}

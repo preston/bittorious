@@ -146,8 +146,8 @@ class TorrentsControllerTest < ActionController::TestCase
 	# READ
 
 	test 'should not read private torrents as unauthenticated' do
-		validate_can_read @mib1, :unassigned
-		validate_cannot_read @mib10, :unassigned
+		validate_can_read @mib1
+		validate_cannot_read @mib10
 	end
 
 	test 'should not read private torrents as unassigned' do
@@ -170,17 +170,17 @@ class TorrentsControllerTest < ActionController::TestCase
 		validate_can_read @mib10, :admin
 	end
 
-	def validate_can_read(torrent, user)
+	def validate_can_read(torrent, user = nil)
 		log_in user if(user)
-		get :show, id: torrent, feed_id: torrent.feed, format: :json
-		get :show, id: torrent, feed_id: torrent.feed, format: :torrent
+		get :show, id: torrent, feed_id: torrent.feed.id, format: :json
+		get :show, id: torrent, feed_id: torrent.feed.id, format: :torrent
 		assert_response :success
 	end
 
-	def validate_cannot_read(torrent, user)
+	def validate_cannot_read(torrent, user = nil)
 		log_in user if(user)
-		get :show, id: torrent, feed_id: torrent.feed, format: :json
-		get :show, id: torrent, feed_id: torrent.feed, format: :torrent
+		get :show, id: torrent, feed_id: torrent.feed.id, format: :json
+		get :show, id: torrent, feed_id: torrent.feed.id, format: :torrent
 		assert_response :redirect
 	end
 

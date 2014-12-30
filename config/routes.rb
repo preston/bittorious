@@ -2,15 +2,12 @@ Rails.application.routes.draw do
 
 	devise_for :users, :controllers => { registrations: :registrations } 
 
-	# get 'users' => 'users#index', as: :users
 	resources :users do
 		member do
 			post :deny
 			post :approve
 		end
 	end
-
-	# get 'users/detailed' => 'users#detailed', as: :detailed_users
 
 	resources :feeds do
 		resources :permissions
