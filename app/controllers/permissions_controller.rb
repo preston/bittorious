@@ -1,12 +1,22 @@
 class PermissionsController < InheritedResources::Base
 
-	before_filter :authenticate_user!
-  before_filter :set_feed
-  load_and_authorize_resource :feed
-	load_and_authorize_resource :permission, through: :feed
+	# before_filter :authenticate_user!
+  # before_filter :set_feed
+  # load_and_authorize_resource :feed
+	# load_and_authorize_resource :permission, through: :feed
+
+  respond_to :json
+  load_resource :feed # Need to load the feed before the permission resource is authorized.
+  load_and_authorize_resource :torrent, except: [:show, :create] # through: :feed, 
+
+  skip_before_filter :authenticate_user!, only: [:index]
+
   layout false
 
+
   def index
+    @feed = Feed.friendly.find(params[:feed_id])
+    authorize! :read, @feed
     @permissions = @feed.permissions.sort {|a,b| a.user.name <=> b.user.name}
     respond_to do |format|
       format.json { render json: @permissions, include: {user: {only: [:id, :name]}} }
@@ -40,10 +50,6 @@ class PermissionsController < InheritedResources::Base
 
 	private 
 
-
-  def set_feed
-    @feed = Feed.friendly.find(params[:feed_id])  
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_permission

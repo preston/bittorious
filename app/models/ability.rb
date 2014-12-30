@@ -12,7 +12,7 @@ class Ability
 		# Anyone can read public public feeds.
 		can :read,  Feed,		enable_public_archiving: true
 		can [:index, :show, :announce],  Torrent, feed: {enable_public_archiving: true}
-		# can [:index, :announce],  Torrent, feed: {enable_public_archiving: true}
+		can [:read],  Permission, feed: {enable_public_archiving: true}
 		can [:index, :read],	Peer,	torrent: {feed: {enable_public_archiving: true}}
 
 
@@ -24,6 +24,7 @@ class Ability
 			# Feed subscriber permissions.
 			can :read,    Feed,		permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
 			can [:index, :transfer, :read, :announce], Torrent,	permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
+			can [:read], Permission,	feed: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
 
 			# Feed publisher permissions.
 			can [:read, :update, :grant], Feed,	permissions: { user_id: user.id, role: Permission::PUBLISHER_ROLE }

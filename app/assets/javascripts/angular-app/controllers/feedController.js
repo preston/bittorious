@@ -34,10 +34,12 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 		console.log("Selected feed: " + f.slug);
 		$scope.selectedFeed = f;
 		// Fetch permissions.
-		f.getList('permissions').then(function(permissions) {
-			console.log("Loaded " + permissions.length + " permissions.");
-			$scope.selectedFeed.permissions = permissions;
-		});
+		if($scope.selectedFeed.can_update) {
+			f.getList('permissions').then(function(permissions) {
+				console.log("Loaded " + permissions.length + " permissions.");
+				$scope.selectedFeed.permissions = permissions;
+			});			
+		}
 		f.getList('torrents').then(function(torrents) {
 			console.log("Loaded " + torrents.length + " torrents.");
 			// angular.copy(torrents, $scope.selectedFeed.torrents);

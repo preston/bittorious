@@ -53,7 +53,7 @@ class TorrentsController < InheritedResources::Base
 
 
   def show
-    @torrent = Torrent.where(id: params[:id], feed_id: params[:feed_id]).first
+    @torrent = Torrent.friendly.find(params[:id])
     # This is kinda weird, because it depends on the public/private nature of the feed.
     if(@torrent.feed.enable_public_archiving)
       # Go for it.
