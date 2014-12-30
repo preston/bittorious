@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'rails', '4.2.0'
+# gem 'rails-html-sanitizer' # New in Rails 4.2
 
 gem 'devise'
 gem 'devise-bootstrap-views'

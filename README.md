@@ -2,6 +2,8 @@ BitTorious Server
 =====
 
 [![Build Status](https://travis-ci.org/preston/bittorious.svg?branch=master)](https://travis-ci.org/preston/bittorious)
+[![GitHub version](https://badge.fury.io/gh/preston%2Fbittorious.svg)](http://badge.fury.io/gh/preston%2Fbittorious)
+[![Code Climate](https://codeclimate.com/github/preston/bittorious/badges/gpa.svg)](https://codeclimate.com/github/preston/bittorious)
 
  * **Live Demo**: <http://try.bittorious.com>
  * **Recently published in _BMC Bioinformatics_**: <http://www.biomedcentral.com/1471-2105/15/424/abstract>
