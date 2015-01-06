@@ -7,7 +7,10 @@ header.navbar.navbar-default role="banner"
       span.icon-bar
       span.icon-bar
   
-    = link_to "BitTorious", root_url, class: 'navbar-brand'
+    / =
+    a.navbar-brand href="#{root_url}"
+      = image_tag('logo/icon-inverse-128x128.png', width: 16, style: 'display: inline')
+      |  BitTorious
   
   
   nav.collapse.navbar-collapse#navbar-collapse-1

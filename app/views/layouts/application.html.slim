@@ -6,7 +6,8 @@ html ng-app="BitToriousApp"
     title
       = content_for?(:title) ? yield(:title) : "BitTorious"
     meta name="description" content=""
-    meta name="author" content=""
+    meta name="author" content="Preston Lee"
+    = render partial: 'layouts/icons'
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
 
@@ -15,6 +16,7 @@ html ng-app="BitToriousApp"
     = csrf_meta_tags
     = yield(:head)
     = yield(:javascripts)
+
 
   body class="#{yield(:body_class)}"
     / header
