@@ -38,8 +38,8 @@
 						td
 							input.form-control type="checkbox" ng-model="u.admin" ng-disabled="u.id == #{current_user.id}"
 						td ng-bind="u.email"
-						td ng-bind="u.created_at | relativeDate"
-						td ng-bind="u.last_sign_in_at | relativeDate"
+						td ng-bind="u.created_at | relativeDate" ng-show="u.created_at"
+						td ng-bind="u.last_sign_in_at | relativeDate" ng-show="u.last_sign_in_at"
 						td ng-bind="feedNames(u)"
 						td ng-bind="torrentNames(u)"
 						td
@@ -62,8 +62,8 @@
 					tbody
 						tr ng-repeat="u in users" ng-show="!u.approved"
 							td ng-bind="u.email"
-							td ng-bind="u.confirmed_at | relativeDate"
-							td ng-bind="u.created_at | relativeDate"
+							td ng-bind="u.confirmed_at | relativeDate" ng-show="u.confirmed_at"
+							td ng-bind="u.created_at | relativeDate" ng-show="u.created_at"
 							td
 								.btn-group
 									button.btn.btn-default ng-click="approve(u)"

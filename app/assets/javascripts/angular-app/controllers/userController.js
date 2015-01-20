@@ -31,12 +31,14 @@ angular.module('BitToriousApp').controller('UserController', ['$scope', '$locati
 
 	$scope.approve = function(user) {
 		user.approved = true;
-		user.post('approve').then(function(u) {
+		user.post('approve', { 'id' : user.id }).then(function(u) {
 			growl.success(u.name + ' has been approved!');
 			var i = $scope.users.indexOf(u);
 			if(i > -1) {
 				$scope.users.splice(i, 1);
 			}
+		}, function(e) {
+			console.log(e);
 		});
 	}
 
@@ -51,12 +53,14 @@ angular.module('BitToriousApp').controller('UserController', ['$scope', '$locati
 	}
 
 	$scope.deny = function(user) {
-		user.post('deny').then(function(u) {
+		user.post('deny', { 'id' : user.id }).then(function(u) {
 			growl.success(user.name + ' has been denied and removed from the system.');
 			var i = $scope.users.indexOf(user);
 			if(i > -1) {
 				$scope.users.splice(i, 1);
 			}
+		}, function(e) {
+			console.log(e);
 		});
 	}
 

@@ -19,6 +19,8 @@ class Ability
 			# Nada!
 		elsif user.admin
 			can :manage,	:all # Admins can do everything on every object!
+			# can :approve, User
+			# can :deny, User
 		else
 			# TODO REFACTOR: Needed for client-side role assignement.
 			can :index, User

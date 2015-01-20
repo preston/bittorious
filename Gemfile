@@ -48,6 +48,7 @@ gem 'uglifier' , '>= 2.5.3'
 group :test, :development do
   gem 'simplecov', :require => false
   gem 'sqlite3'
+  gem 'guard'
   gem 'guard-minitest'
 end
 
