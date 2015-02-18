@@ -1,0 +1,26 @@
+{
+	"name":	"bittorious-volunteer",
+	"repo":	"preston/bittorious-volunteer",
+	"version":	"0.0.1",
+	"private": true,
+	"main":	"./app.js",
+	"ignore":	[
+		"**/.*",
+		"node_modules",
+		"components"
+	],
+	"dependencies": {
+		"console-polyfill": "latest",
+		"bootstrap": "latest",
+		"angular": "latest",
+		"angular-resource": "latest",
+		"angular-cookies": "latest",
+		"angular-sanitize": "latest",
+		"angular-ui-router": "latest",
+		"angular-bootstrap": "latest",
+		"angular-dialog-service": "latest",
+		"angular-fontawesome": "latest",
+		"angular-mocks": "latest",
+		"restangular": "latest"
+	}
+}

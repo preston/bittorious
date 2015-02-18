@@ -28,3 +28,10 @@ config/initializers/smtp.rb
 
 # Large data files
 public/data/*
+
+
+# Volunteer client
+volunteer/bower_components
+volunteer/node_modules
+volunteer/public/*
+volunteer/*.bak

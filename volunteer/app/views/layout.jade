@@ -1,0 +1,49 @@
+doctype html
+html(lang="en", ng-app="BitToriousVolunteer")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+		meta(name="viewport", content="width=device-width" initial-scale="1.0")
+		meta(name="description", content="BitT")
+		meta(name="author", content="Preston Lee")
+		title BitTorious Volunteer
+		link(rel="stylesheet", href="stylesheets/vendor.css")
+		link(rel="stylesheet", href="stylesheets/theme.css")
+		link(rel="stylesheet", href="stylesheets/app.css")
+		script(src="javascripts/vendor.js")
+		script(src="javascripts/app.js")
+		include icons
+		script.
+			window.brunch = window.brunch || {};
+			window.brunch['auto-reload'] = {
+				enabled: true
+			};
+	body
+		#wrapper.toggled
+			.overlay
+			nav.navbar.navbar-inverse.navbar-fixed-top#sidebar-wrapper(role="navigation")
+				ul.nav.sidebar-nav
+					li.sidebar-brand
+						img#logo(src='/images/logo/icon-inverse-128x128.png')
+						span BitTorious Volunteer
+					li
+						a(ui-sref="status")
+							i.fa.fa-bar-chart-o.fa-fw Status
+					li
+						a(ui-href="settings")
+							i.fa.fa-gear.fa-fw Settings
+
+
+			#page-content-wrapper
+				button.hamburger.is-open(type="button", data-toggle="offcanvas")
+					span.hamb-top
+					span.hamb-middle
+					span.hamb-bottom
+			
+				block content
+
+			footer.footer
+				hr
+				p.text-center
+					span.icon.icon-legal Copyright &copy; 2015 Preston Lee. All right reserved.
+

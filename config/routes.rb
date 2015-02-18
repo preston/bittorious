@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 		end
 	end
 
+	get '/volunteers' => 'volunteers#index' #, as: volunteers
+
 	get 'scrape' => 'tracker#scrape'
 	get 'announce' => 'tracker#announce'
 
