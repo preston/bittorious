@@ -4,12 +4,26 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var partials = require('./routes/partials');
+// fs.exist
+// fs.createReadStream('test.log').pipe(fs.createWriteStream('newLog.log'));
+var settingsFile = './settings.json';
+var settingsDefaultFile = './settings-default.json';
+fs.open(settingsFile, 'r', function(err, fd) {
+    if(err) {
+        fs.createReadStream(settingsDefaultFile).pipe(fs.createWriteStream(settingsFile));
+        console.log("Created settings file.");
+    }
+});
 
 var app = express();
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -25,10 +39,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.get('/partials/:filename', partials);
-// app.use(partials.index);
+var welcome = require('./routes/welcome');
+app.use('/', welcome);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -38,6 +38,12 @@ class ApplicationController < ActionController::Base
     dashboard_path
   end
 
+  def allow_cors
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    headers['Access-Control-Allow-Headers'] = '*'
+    headers['Access-Control-Max-Age'] = "1728000"
+  end
 
  
   private

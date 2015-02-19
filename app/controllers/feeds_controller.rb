@@ -2,6 +2,7 @@ class FeedsController < InheritedResources::Base
 
   defaults resource_class: Feed.friendly
 
+  before_filter :allow_cors, only: [:index, :show]
   before_filter :authenticate_user!, except: [:index, :show]
 
   load_and_authorize_resource
