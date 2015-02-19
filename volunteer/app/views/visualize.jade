@@ -1,0 +1,13 @@
+.row
+	.col-md-4
+		h2 Space Used (GiB)
+		.progress
+			.progress-bar(role="progressbar", aria-valuenow="60" aria-valuemin="0", aria-valuemax="100", style="width: {{status.disk_used_percent}}%;")
+				span(ng-bind="status.disk_used_percent")
+	.col-md-4
+		h2 Space Available (GiB)
+	.col-md-4
+		h2 Feed Total (GiB)
+
+p.help-block You are donating to
+h1(ng-bind="settings.feed.name")

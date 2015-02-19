@@ -1,0 +1,7 @@
+{
+    "url": "https://try.bittorious.com",
+    "enabled": true,
+    "disk_maximum_gigabytes": 3,
+    "authentication_token": "",
+    "feed": {}
+}

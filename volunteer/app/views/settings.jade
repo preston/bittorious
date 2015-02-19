@@ -1,0 +1,30 @@
+.row
+	.col-sm-12
+		h1
+			i.fa.fa-cogs
+			|  Settings
+		p.help-block You need a valid GP account with permissions to use web service. to use this application.
+	form(name="settingsForm")
+		.col-sm-7
+			.form-group
+				label(for="url") URL
+				input#url.form-control(type="url", required, ng-model="settings.url")
+				p.help-block The BitTorious server to use. Leave as the default unless you've been instructed to do otherwise.
+			.checkbox
+				label(for="enabled")
+					input#enabled(type="checkbox", ng-model="settings.enabled")
+					| Enabled
+				//- p.help-block Whether or not we're allow to connect to the BitTorious network!
+			.form-group
+				button.btn.btn-lg.btn-primary(ng-click="saveSettings()", ng-disabled="settingsForm.$invalid")
+					i.fa.fa-floppy-o
+					|  Save
+		.col-sm-5
+			.form-group
+				label(for="authentication_token") Authentication Token
+				input#authentication_token.form-control(type="text", ng-model="settings.authentication_token")
+				p.help-block Leave this blank unless you have an approved account on a BitTorious tracker.
+			.form-group
+				label(for="disk_maximum_gigabytes") Maximum Donation
+				input#disk_maximum_gigabytes.form-control(type="number", min="1", default="1", required, ng-model="settings.disk_maximum_gigabytes")
+				p.help-block The amount of storage (in gigabytes) BitTorious will be allowed to use of this computer.
