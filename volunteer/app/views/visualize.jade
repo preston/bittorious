@@ -1,13 +1,56 @@
+.text-center
+	h1(ng-bind="settings.feed.name")
+	p is graciously receiving your ongoing donation
 .row
-	.col-md-4
-		h2 Space Used (GiB)
-		.progress
-			.progress-bar(role="progressbar", aria-valuenow="60" aria-valuemin="0", aria-valuemax="100", style="width: {{status.disk_used_percent}}%;")
-				span(ng-bind="status.disk_used_percent")
-	.col-md-4
-		h2 Space Available (GiB)
-	.col-md-4
-		h2 Feed Total (GiB)
+	.well
+		.col-md-2
+			h4.text-center Space Used
+			.lead.text-center(ng-bind="status.disk_used_percent")
+			.progress
+				.progress-bar(role="progressbar", aria-valuenow="60" aria-valuemin="0", aria-valuemax="100", style="width: {{status.disk_used_percent}}%;")
+					span(ng-bind="status.disk_used_percent")
+		.col-md-2
+			h4.text-center Space Available
+		.col-md-2
+			h4.text-center Torrents
+			.lead.text-center(ng-bind="selectedFeed.torrents.length")
+		.col-md-2
+			h4.text-center Target
+			.lead.text-center
+				span(ng-bind="status.target_replication_percent")
+				| %
+			p.help-block The data publishers would like volunteers to replicate up to this percentage of their data. Publishers are allowed to configure this based on their needs.
+		.col-md-2
+			h4 Affinity Offset
+			.lead(ng-bind="status.affinity_offset")
+			p.help-block
+		.col-md-2
+			h4 Running?
+			.lead(ng-bind="status.running")
+			p.help-block Whether or not you're an active participant, or just observing.
+		.clearfix
 
-p.help-block You are donating to
-h1(ng-bind="settings.feed.name")
+button.btn.btn-default(ng-click="loadStatus()")
+	i.fa.fa-refresh
+	|  Refresh Status
+
+#map_canvas
+script.
+	initMap();
+
+select(ng-model="selectedTorrent", ng-options="t.id as t.name for t in torrents")
+table.table.table-condensed.table-striped
+	thead
+		tr
+			th Name
+			th Location
+			th Uploaded
+			th Status
+	tbody
+		tr(ng-repeat="p in peers")
+			td(ng-bind="p.name")
+			td
+				span(ng-bind="p.city_name"), 
+				span(ng-bind="p.country_name")
+			td(ng-bind="p.uploaded")
+			td(ng-bind="p.left == 0 ? 'Seeding' : 'Leeching' ")

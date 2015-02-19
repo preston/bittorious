@@ -17,6 +17,16 @@ router.get('/settings.html', function(req, res, next) {
 	res.render('settings');
 });
 
+
+router.get('/status.json', function(req, res, next) {
+	res.json({
+		running: false,
+		disk_used_bytes: 1000,
+		affinity_offset: 2,
+		target_replication_percent: 20
+	});
+});
+
 router.post('/settings', function(req, res, next) {
 	var settings = req.body;
 	// console.log(settings);

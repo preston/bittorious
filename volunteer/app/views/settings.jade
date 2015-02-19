@@ -10,15 +10,23 @@
 				label(for="url") URL
 				input#url.form-control(type="url", required, ng-model="settings.url")
 				p.help-block The BitTorious server to use. Leave as the default unless you've been instructed to do otherwise.
+			.form-group
+				label(for="feed") Donate To
+				select#feed.form-control(required, ng-model="settings.feed", ng-options="f as f.name for f in feeds")
+				p.help-block The project you'd like to donate to. Your entire donation will be made available to it.
 			.checkbox
 				label(for="enabled")
 					input#enabled(type="checkbox", ng-model="settings.enabled")
 					| Enabled
 				//- p.help-block Whether or not we're allow to connect to the BitTorious network!
 			.form-group
-				button.btn.btn-lg.btn-primary(ng-click="saveSettings()", ng-disabled="settingsForm.$invalid")
-					i.fa.fa-floppy-o
-					|  Save
+				.btn-group
+					button.btn.btn-lg.btn-primary(ng-click="loadSettings()")
+						i.fa.fa-undo
+						|  Reset
+					button.btn.btn-lg.btn-primary(ng-click="saveSettings()", ng-disabled="settingsForm.$invalid")
+						i.fa.fa-floppy-o
+						|  Save
 		.col-sm-5
 			.form-group
 				label(for="authentication_token") Authentication Token
