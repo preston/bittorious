@@ -9,7 +9,7 @@ BitTorious Server
  * **Recently published in _BMC Bioinformatics_**: <http://www.biomedcentral.com/1471-2105/15/424/abstract>
  * **Please deploy from an official release tag**! The _master_ branch is for active development and should be treated as _unstable_.
 
-Have you ever wanted to run you own private BitTorrent tracker and user portal? Try BitTorious!
+Have you ever wanted to distribute data by run you own private BitTorrent tracker and user management portal? Try BitTorious!
 
 BitTorious is a sweet BitTorrent tracker and management portal for private groups. This project is a full fledged web application that allows for RSS feed grouping, user management, and role assignment into "publishers" and "subscriber" roles. All registrations must be approved by an adminstrator before being granted access to the system. Additionally, published torrents are re-written with the "private" flag set, by default, which prevents well-behaved clients from transmitting content to peers not authorized by your BitTorious tracker.
 

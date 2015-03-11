@@ -21,8 +21,8 @@ class TrackerController < ApplicationController
 		# BitTorious-specific extensions.
 		if peer.volunteer_enabled
 			tracker_response['volunteer'] = {
-				affinity_length: peer.affinity_length,
-				affinity_offset: peer.affinity_offset
+				affinity_length: peer.volunteer_affinity_length,
+				affinity_offset: peer.volunteer_affinity_offset
 			}
 		end
 
