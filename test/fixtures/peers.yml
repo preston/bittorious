@@ -1,0 +1,35 @@
+admin_1MiB:
+  peer_id: 42
+  info_hash: e0136c8c4e875f5089963591029bc6540bf16b59
+  user: :admin
+
+admin_10MiB:
+  peer_id: 43
+  info_hash: 17c22e881d2abdcc56a35f8c619fe254be6b1a92
+  user: :admin
+
+subscriber_1MiB:
+  peer_id: 44
+  info_hash: e0136c8c4e875f5089963591029bc6540bf16b59
+  user: :subscriber
+
+subscriber_10MiB:
+  peer_id: 45
+  info_hash: 17c22e881d2abdcc56a35f8c619fe254be6b1a92
+  user: :subscriber
+
+anonymous_1MiB:
+  peer_id: 44
+  info_hash: e0136c8c4e875f5089963591029bc6540bf16b59
+  user: :anonymous
+  volunteer_enabled: true
+  volunteer_disk_maximum_bytes: 1073741824 # 1GiB
+  volunteer_disk_used_bytes: 0
+
+anonymous_10MiB:
+  peer_id: 45
+  info_hash: 17c22e881d2abdcc56a35f8c619fe254be6b1a92
+  user: :anonymous
+  volunteer_enabled: true
+  volunteer_disk_maximum_bytes: 1073741824 # 1GiB
+  volunteer_disk_used_bytes: 0
