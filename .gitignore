@@ -35,3 +35,5 @@ volunteer/bower_components
 volunteer/node_modules
 volunteer/public/*
 volunteer/*.bak
+
+affinity/affinity
