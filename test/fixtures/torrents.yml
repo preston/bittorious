@@ -4,6 +4,7 @@
   feed: :public
   data: !!binary "<%= Base64.encode64(File.read(File.join(Rails.root, 'test', 'fixtures', '1MiB.torrent'))) %>"
   info_hash: e0136c8c4e875f5089963591029bc6540bf16b59
+  pieces: 1
 
 10MiB:
   name: 10MiB of Random Data
@@ -11,4 +12,5 @@
   feed: :private
   data: !!binary "<%= Base64.encode64(File.read(File.join(Rails.root, 'test', 'fixtures', '10MiB.torrent'))) %>"
   info_hash: 17c22e881d2abdcc56a35f8c619fe254be6b1a92
+  pieces: 3
 

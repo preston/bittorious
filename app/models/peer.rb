@@ -5,10 +5,11 @@ class Peer < ActiveRecord::Base
 
 	UPDATE_PERIOD_MINUTES = 5
 
-	belongs_to :torrent, :foreign_key => 'info_hash', :primary_key => 'info_hash'
+	belongs_to :torrent
 	belongs_to :user # For authenticated peers.
 
-	# attr_accessible :downloaded, :info_hash, :ip, :left, :peer_id, :port, :state, :uploaded
+	# We'll allow tracking of non-registered torrents, for now.
+	# validates_presence_of	:torrent
 
 	scope :seeds,	-> {where(:left => 0)}
 	scope :peers,	-> {where('peers.left > 0')}
@@ -21,13 +22,18 @@ class Peer < ActiveRecord::Base
 
 	def recalculate_affinity
 		if self.volunteer_enabled
-			self.volunteer_affinity_offset = Digest::SHA1.hexdigest(self.torrent.info_hash) % self.torrent.pieces
-			self.volunteer_affinity_length = (torrent.pieces * torrent.feed.replication_percentage / 100.0).ceil
+			if self.torrent.pieces <= 1
+				self.volunteer_affinity_offset = 0
+			else
+				self.volunteer_affinity_offset = Digest::SHA256.hexdigest(self.peer_id).to_i(16) % (self.torrent.pieces - 1)
+			end
+			self.volunteer_affinity_length = (self.torrent.pieces * self.torrent.feed.replication_percentage / 100.0).ceil
 		else
 			self.volunteer_affinity_offset = 0
 			self.volunteer_affinity_length = 0
 	    	self.volunteer_disk_maximum_bytes = 0
     		self.volunteer_disk_used_bytes = 0
 		end
+		self
 	end
 end

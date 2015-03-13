@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141227003158) do
+ActiveRecord::Schema.define(version: 20150313044915) do
 
   create_table "feeds", force: :cascade do |t|
     t.string   "name"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20141227003158) do
 
   create_table "peers", force: :cascade do |t|
     t.string   "peer_id"
-    t.string   "info_hash"
     t.string   "ip"
     t.integer  "port"
     t.integer  "uploaded"
@@ -43,16 +42,17 @@ ActiveRecord::Schema.define(version: 20141227003158) do
     t.string   "country_name"
     t.string   "city_name"
     t.integer  "user_id"
-    t.boolean  "volunteer_enabled",            default: false
-    t.integer  "volunteer_disk_maximum_bytes", default: 0
-    t.integer  "volunteer_disk_used_bytes",    default: 0
-    t.integer  "volunteer_affinity_offset",    default: 0
-    t.integer  "volunteer_affinity_length",    default: 0
+    t.boolean  "volunteer_enabled",                      default: false
+    t.integer  "volunteer_disk_maximum_bytes", limit: 8, default: 0
+    t.integer  "volunteer_disk_used_bytes",    limit: 8, default: 0
+    t.integer  "volunteer_affinity_offset",              default: 0
+    t.integer  "volunteer_affinity_length",              default: 0
+    t.integer  "torrent_id"
   end
 
-  add_index "peers", ["info_hash", "state"], name: "index_peers_on_info_hash_and_state"
   add_index "peers", ["ip"], name: "index_peers_on_ip"
   add_index "peers", ["peer_id"], name: "index_peers_on_peer_id"
+  add_index "peers", ["state"], name: "index_peers_on_info_hash_and_state"
   add_index "peers", ["user_id"], name: "index_peers_on_user_id"
 
   create_table "permissions", force: :cascade do |t|

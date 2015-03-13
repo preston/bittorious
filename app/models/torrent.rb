@@ -9,7 +9,7 @@ class Torrent < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :feed, touch: true
-  has_many :peers, :foreign_key => 'info_hash', :primary_key => 'info_hash', :dependent => :destroy
+  has_many :peers, :dependent => :destroy
 
   has_many :permissions, :through => :feed
 
@@ -31,7 +31,9 @@ class Torrent < ActiveRecord::Base
   
 
   def register_peer(peer_params, user = nil)
-    peer = Peer.find_or_create_by!(info_hash: peer_params[:info_hash], peer_id: peer_params[:peer_id])
+    torrent = Torrent.where(info_hash: peer_params[:info_hash]).first
+    peer = Peer.find_or_create_by!(torrent_id: torrent, peer_id: peer_params[:peer_id])
+    peer.torrent = torrent
     peer.update_attributes(
       downloaded:   peer_params['downloaded'],
       uploaded:     peer_params[:uploaded],
@@ -50,12 +52,15 @@ class Torrent < ActiveRecord::Base
     end
     peer.user = user
 
-    if(!peer_params['volunteer'].nil? && peer_params['volunter']['enabled'] == '1')
+    # puts "VOL: #{peer_params[:volunteer]}"
+    if(!peer_params[:volunteer].nil? && peer_params[:volunteer]['enabled'] == '1')
       peer.volunteer_enabled = true
-      peer.volunteer_disk_maximum_bytes = peer_params['volunter']['volunteer_disk_maximum_bytes'].to_i
-      peer.volunteer_disk_used_bytes = peer_params['volunter']['volunteer_disk_used_bytes'].to_i
+      peer.volunteer_disk_maximum_bytes = peer_params[:volunteer]['disk_maximum_bytes'].to_i
+      peer.volunteer_disk_used_bytes = peer_params[:volunteer]['disk_used_bytes'].to_i
     else
       peer.volunteer_enabled = false
+      peer.volunteer_disk_maximum_bytes = 0
+      peer.volunteer_disk_used_bytes = 0
     end
     peer.save!
     peer
@@ -105,6 +110,6 @@ class Torrent < ActiveRecord::Base
 
     b = BEncode.load(self.data)
     self.info_hash = Digest::SHA1.hexdigest(b["info"].bencode)
-    true
+    self
   end
 end

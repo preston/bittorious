@@ -51,7 +51,12 @@ begin
   # torrent.create_tracker
 end
 
-feed = Feed.create!(name: 'Sample Feed', description: 'A feed of random data torrents for demonstration, evaluation and testing purposes.', user: admin)
+feed = Feed.create!(
+	name: 'Sample Feed',
+	description: 'A feed of random data torrents for demonstration, evaluation and testing purposes.',
+	user: admin,
+	enable_public_archiving: true,
+	replication_percentage: 20)
 Permission.create!(user: subscriber, feed: feed, role: Permission::SUBSCRIBER_ROLE)
 Permission.create!(user: publisher, feed: feed, role: Permission::PUBLISHER_ROLE)
 

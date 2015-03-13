@@ -16,3 +16,4 @@ private:
   created_at: Time.now
   updated_at: Time.now
   enable_public_archiving: false
+  replication_percentage: 50
