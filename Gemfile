@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.2.1'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 # gem 'rails-html-sanitizer' # New in Rails 4.2
 
 gem 'devise'
@@ -32,7 +32,7 @@ gem 'geoip'
 
 # gem 'paperclip'
 gem 'friendly_id'
-gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2'
+gem 'inherited_resources' #, github: 'josevalim/inherited_resources', branch: 'rails-4-2'
 # gem 'acts-as-taggable-on'
 gem 'bencode' # BitTorrent data serialation format support.
 gem 'formtastic'
