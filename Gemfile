@@ -8,6 +8,8 @@ gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'cancancan'
 
+gem 'therubyracer' # Google v8 JavaScript runtime.
+
 # AngularJS
 # http://www.intridea.com/blog/2014/9/25/how-to-set-up-angular-with-rails
 gem 'angular-rails-templates'
