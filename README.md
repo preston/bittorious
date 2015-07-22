@@ -48,3 +48,8 @@ BitTorious is written in Ruby, Rails, and AngularJS. It is primarily tested on P
     rake db:migrate
     rake db:seed
     open http://localhost:3000 # Yay!
+
+To continually rerun regression tests as needed in the background as you develop, run guard in a separate terminal:
+
+	bundle exec guard
+

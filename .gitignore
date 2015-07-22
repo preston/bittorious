@@ -6,6 +6,8 @@
 .DS_Store
 *.log
 
+# JetBrains IDE products.
+.idea
 
 # Ignore bundler config
 /.bundle

@@ -1,7 +1,7 @@
 /**
- * angular-growl-v2 - v0.7.2 - 2014-11-20
+ * angular-growl-v2 - v0.7.4 - 2015-05-26
  * http://janstevens.github.io/angular-growl-2
- * Copyright (c) 2014 Marco Rinck,Jan Stevens; Licensed MIT
+ * Copyright (c) 2015 Marco Rinck,Jan Stevens; Licensed MIT
  */
 /*
  *  growl-container styles
@@ -32,12 +32,12 @@
 .growl-container.growl-fixed.top-center {
   top: 10px;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -200px;
 }
 .growl-container.growl-fixed.bottom-center {
   bottom: 10px;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -200px;
 }
 
 /*
