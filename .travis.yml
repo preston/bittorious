@@ -3,3 +3,4 @@ rvm:
   - 2.2.3
 cache: bundler
 script: cp config/database.travis.yml config/database.yml
+sudo: false
