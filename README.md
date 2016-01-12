@@ -43,6 +43,7 @@ Development Quick Start
 
 BitTorious is written in Ruby, Rails, and AngularJS. It is primarily tested on PostgreSQL, but should work fine on most popular databases.
 
+	cp db/database.yml.sample db/database.yml
     bundle install
     rake bittorious:cache_geolocation # The geolocation data file is not included.
     rake db:migrate

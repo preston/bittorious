@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.3.0'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 # gem 'rails-html-sanitizer' # New in Rails 4.2
 
 gem 'devise'
@@ -44,7 +44,7 @@ gem 'gravatar_image_tag'
 # Use SCSS for stylesheets
 gem 'sass-rails' , '~> 4.0.5'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier' , '>= 2.5.3'
+gem 'uglifier' #, '>= 2.5.3'
 
 
 group :test, :development do
