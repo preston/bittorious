@@ -1,5 +1,5 @@
 set :stage, :production
-set :rvm_ruby_version, '2.2.3'
+set :rvm_ruby_version, '2.3.0'
 
 set :deploy_to, "/var/www/try.bittorious.com"
 
