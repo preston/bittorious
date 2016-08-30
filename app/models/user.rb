@@ -28,26 +28,26 @@ class User < ActiveRecord::Base
     name || email
   end
 
-  def as_json(options={})
-    super(:methods =>[:auth_token])
+  # def as_json(options={})
+  #   super(:methods =>[:authentication_token])
+  # end
+  #
+  # def to_xml(options={})
+  #   super(:methods =>[:authentication_token])
+  # end
+
+  def active_for_authentication?
+    super && approved?
   end
 
-  def to_xml(options={})
-    super(:methods =>[:auth_token])
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
   end
 
-  def active_for_authentication? 
-    super && approved? 
-  end 
-
-  def inactive_message 
-    if !approved? 
-      :not_approved 
-    else 
-      super # Use whatever other message 
-    end 
-  end
-  
   def send_admin_mail
     AdminMailer.new_user_waiting_for_approval(self).deliver_later
   end
@@ -91,15 +91,15 @@ class User < ActiveRecord::Base
 
   # You likely have this before callback set up for the token.
   before_save :ensure_authentication_token
- 
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
     end
   end
- 
+
   private
-  
+
   def generate_authentication_token
     loop do
       token = Devise.friendly_token

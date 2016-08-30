@@ -7,7 +7,7 @@ begin
 	 	u.password_confirmation = 'password'
 		u.admin = true
 	end
-	admin.confirm!
+	admin.confirm
 	admin.approve!
 rescue
 	# Already exists!
@@ -24,7 +24,7 @@ subscriber = User.find_by_email('subscriber@example.com') || User.create({
 	password_confirmation: 'password',
 	approved: true
 	})
-subscriber.confirm!
+subscriber.confirm
 
 publisher = User.find_by_email('publisher@example.com') || User.create({
 	name: 'Test Publisher',
@@ -33,7 +33,7 @@ publisher = User.find_by_email('publisher@example.com') || User.create({
 	password_confirmation: 'password',
 	approved: true
 	})
-publisher.confirm!
+publisher.confirm
 
 (1..8).each do |i|
 	tmp = User.find_by_email("pending#{i}@example.com") || User.create({
@@ -43,7 +43,7 @@ publisher.confirm!
 	password_confirmation: 'password',
 	approved: false
 	})
-	tmp.confirm!
+	tmp.confirm
 end
 
 begin
@@ -52,11 +52,10 @@ begin
 end
 
 feed = Feed.create!(
-	name: 'Sample Feed',
+	name: 'Sample',
 	description: 'A feed of random data torrents for demonstration, evaluation and testing purposes.',
 	user: admin,
 	enable_public_archiving: true,
 	replication_percentage: 20)
 Permission.create!(user: subscriber, feed: feed, role: Permission::SUBSCRIBER_ROLE)
 Permission.create!(user: publisher, feed: feed, role: Permission::PUBLISHER_ROLE)
-

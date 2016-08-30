@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0.1'
 # gem 'rails-html-sanitizer' # New in Rails 4.2
 
 gem 'devise'
@@ -23,26 +23,20 @@ gem 'chosen-rails'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
-# JSON output customization
-gem 'jbuilder'
+gem 'jbuilder'		# JSON output customization
+gem 'slim-rails'	# Better templating.
+gem 'geoip'			# Local IP address -> coordinate geocoding.
 
-# Better templating.
-gem 'slim-rails'
-
-# Local IP address -> coordinate geocoding.
-gem 'geoip'
-
-# gem 'paperclip'
 gem 'friendly_id'
-gem 'inherited_resources' #, github: 'josevalim/inherited_resources', branch: 'rails-4-2'
-# gem 'acts-as-taggable-on'
-gem 'bencode' # BitTorrent data serialation format support.
+gem 'bencode'		# BitTorrent data serialation format support.
 gem 'formtastic'
 gem 'geocoder'
 gem 'gravatar_image_tag'
 
+gem	'puma'			# Better web server.
+
 # Use SCSS for stylesheets
-gem 'sass-rails' , '~> 4.0.5'
+gem 'sass-rails' #, '~> 4.0.5'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier' #, '>= 2.5.3'
 
@@ -51,27 +45,23 @@ group :test, :development do
   gem 'simplecov', :require => false
   gem 'sqlite3'
   gem 'guard'
-  gem 'guard-minitest'
+  gem 'guard-minitest', '2.4.5'
 end
 
 
 group :development do
   gem 'railroady'
-
-  gem 'capistrano'
-  gem 'capistrano-rvm'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
+  # gem 'capistrano'
+  # gem 'capistrano-rvm'
+  # gem 'capistrano-rails-console'
+  # gem 'capistrano-bundler'
+  # gem 'capistrano-rails'
   # gem 'capistrano-passenger'
 
-  gem 'byebug'
-
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
+  gem 'byebug'			# CLI debugging.
+  gem 'web-console'		# Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'binding_of_caller'
   gem 'spring'
-
   gem 'yaml_db' # For dumping production data.
 end
 

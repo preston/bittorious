@@ -2,9 +2,13 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
-require "minitest/autorun"
-# require "minitest/rails"
-require "minitest/pride"
+require 'minitest/autorun'
+# require 'minitest/pride'
+
+require 'simplecov'
+SimpleCov.start 'rails' do
+	add_filter '/lib/'
+ end
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

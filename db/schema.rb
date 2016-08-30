@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -22,10 +21,9 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.datetime "updated_at"
     t.boolean  "enable_public_archiving", default: false
     t.integer  "replication_percentage",  default: 20
+    t.index ["slug"], name: "index_feeds_on_slug", unique: true
+    t.index ["user_id"], name: "index_feeds_on_user_id"
   end
-
-  add_index "feeds", ["slug"], name: "index_feeds_on_slug", unique: true
-  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id"
 
   create_table "peers", force: :cascade do |t|
     t.string   "peer_id"
@@ -48,12 +46,11 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.integer  "volunteer_affinity_offset",              default: 0
     t.integer  "volunteer_affinity_length",              default: 0
     t.integer  "torrent_id"
+    t.index ["ip"], name: "index_peers_on_ip"
+    t.index ["peer_id"], name: "index_peers_on_peer_id"
+    t.index ["state"], name: "index_peers_on_info_hash_and_state"
+    t.index ["user_id"], name: "index_peers_on_user_id"
   end
-
-  add_index "peers", ["ip"], name: "index_peers_on_ip"
-  add_index "peers", ["peer_id"], name: "index_peers_on_peer_id"
-  add_index "peers", ["state"], name: "index_peers_on_info_hash_and_state"
-  add_index "peers", ["user_id"], name: "index_peers_on_user_id"
 
   create_table "permissions", force: :cascade do |t|
     t.integer  "user_id"
@@ -61,10 +58,9 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["feed_id"], name: "index_permissions_on_feed_id"
+    t.index ["user_id"], name: "index_permissions_on_user_id"
   end
-
-  add_index "permissions", ["feed_id"], name: "index_permissions_on_feed_id"
-  add_index "permissions", ["user_id"], name: "index_permissions_on_user_id"
 
   create_table "torrents", force: :cascade do |t|
     t.string   "name"
@@ -79,12 +75,11 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.integer  "pieces"
     t.integer  "piece_length"
     t.string   "file_created_by"
+    t.index ["feed_id"], name: "index_torrents_on_feed_id"
+    t.index ["info_hash"], name: "index_torrents_on_info_hash", unique: true
+    t.index ["slug"], name: "index_torrents_on_slug", unique: true
+    t.index ["user_id"], name: "index_torrents_on_user_id"
   end
-
-  add_index "torrents", ["feed_id"], name: "index_torrents_on_feed_id"
-  add_index "torrents", ["info_hash"], name: "index_torrents_on_info_hash", unique: true
-  add_index "torrents", ["slug"], name: "index_torrents_on_slug", unique: true
-  add_index "torrents", ["user_id"], name: "index_torrents_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -110,12 +105,11 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.string   "name",                   default: "",    null: false
     t.string   "authentication_token"
     t.boolean  "approved"
+    t.index ["approved"], name: "index_users_on_approved"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
-
-  add_index "users", ["approved"], name: "index_users_on_approved"
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
 
 end

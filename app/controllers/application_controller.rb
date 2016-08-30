@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
 
   # This is our new function that comes before Devise's one
-  before_filter :authenticate_user_from_token!
+  before_action :authenticate_user_from_token!
   
   # This is Devise's authentication
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   # CanCan w/Rails 4 compatibility workaround:
   # http://stackoverflow.com/questions/19273182/activemodelforbiddenattributeserror-cancan-rails-4-model-with-scoped-con/19504322#19504322
-  # before_filter do
+  # before_action do
   #   resource = controller_name.singularize.to_sym
   #   method = "#{resource}_params"
   #   params[resource] &&= send(method) if respond_to?(method, true)

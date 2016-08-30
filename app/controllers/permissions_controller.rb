@@ -1,10 +1,10 @@
-class PermissionsController < InheritedResources::Base
+class PermissionsController < ApplicationController
 
   respond_to :json
   load_resource :feed # Need to load the feed before the permission resource is authorized.
-  load_and_authorize_resource :permission, through: :feed, only: [:index, :destroy] # through: :feed, 
+  load_and_authorize_resource :permission, through: :feed, only: [:index, :destroy] # through: :feed,
 
-  skip_before_filter :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:index]
 
   layout false
 
@@ -16,6 +16,13 @@ class PermissionsController < InheritedResources::Base
     respond_to do |format|
       format.json { render json: @permissions, include: {user: {only: [:id, :name]}} }
     end
+  end
+
+  def show
+	#   puts @permission
+	respond_to do |format|
+        format.json { render json: @permission }
+	end
   end
 
   def create
@@ -31,7 +38,7 @@ class PermissionsController < InheritedResources::Base
         else
           render json: {errors: @permission.errors}, status: :unauthorized
         end
-      } 
+      }
     end
   end
 
@@ -45,13 +52,7 @@ class PermissionsController < InheritedResources::Base
     end
   end
 
-	private 
-
-
-  # Use callbacks to share common setup or constraints between actions.
-  # def set_permission
-  #   @permission = Permission.find(params[:id])
-  # end
+	private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permission_params

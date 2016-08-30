@@ -23,7 +23,7 @@ class Ability
 			# can :deny, User
 		else
 			# TODO REFACTOR: Needed for client-side role assignement.
-			can :index, User
+			# can :index, User,	user.admin
 
 			# Feed subscriber permissions.
 			can :read,    Feed,		permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }
@@ -36,6 +36,9 @@ class Ability
 			can :manage,  Permission,	feed: {permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }}
 			can :manage,  Peer,	torrent: {feed: {permissions: { :user_id => user.id, role: Permission::PUBLISHER_ROLE }}}
 
+			# Public feeds
+			can [:read],  Permission,	feed: {enable_public_archiving: true}
+			can [:read],  Permission,	feed: {enable_public_archiving: false, permissions: { :user_id => user.id, role: Permission::SUBSCRIBER_ROLE }}
 		end
 	end
 end

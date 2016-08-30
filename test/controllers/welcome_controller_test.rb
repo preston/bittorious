@@ -2,7 +2,7 @@ require 'test_helper'
 
 class WelcomeControllerTest < ActionController::TestCase
 
-	include Devise::TestHelpers
+	include Devise::Test::ControllerHelpers
 	include Warden::Test::Helpers
 
 
@@ -72,13 +72,13 @@ class WelcomeControllerTest < ActionController::TestCase
 
 	test 'should allow visiting landing when unauthenticated' do
 		get :landing
-		assert_response :success		
+		assert_response :success
 	end
 
 	test 'should allow visiting landing when authenticated' do
 		log_in :subscriber
 		get :landing
-		assert_response :success		
+		assert_response :success
 	end
 
 end

@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
 	
-	before_filter :authenticate_user!, :only => [:dashboard, :status, :torrents, :settings, :feeds]
-	before_filter :set_selected_feed,	:only => [:dashboard]
+	before_action :authenticate_user!, :only => [:dashboard, :status, :torrents, :settings, :feeds]
+	before_action :set_selected_feed,	:only => [:dashboard]
 
 	def torrents
 		render layout: false

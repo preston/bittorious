@@ -1,10 +1,10 @@
-class PeersController < InheritedResources::Base
+class PeersController < ApplicationController
 
 	respond_to :json
 	# load_resource :feed
 	# load_resource :torrent, through: :feed
 
-	skip_before_filter :authenticate_user!, only: [:index]
+	skip_before_action :authenticate_user!, only: [:index]
 	layout false
 
 	def index

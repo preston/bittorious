@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TrackerControllerTest < ActionController::TestCase
 
-	include Devise::TestHelpers
+	include Devise::Test::ControllerHelpers
 	include Warden::Test::Helpers
 
 	setup do
@@ -42,35 +42,35 @@ class TrackerControllerTest < ActionController::TestCase
 	def validate_can_announce_as(feed, user = nil)
 		log_in user if(user)
 		# puts "AT: #{users(user).authentication_token}" if user
-		get :announce, info_hash: [feed.torrents[0].info_hash].pack('H*'), peer_id: PEER_ID_PACKED
+		get :announce, params: { info_hash: [feed.torrents[0].info_hash].pack('H*'), peer_id: PEER_ID_PACKED }
 		assert_response :success
 	end
 
 	def validate_cannot_announce_as(feed, user = nil)
 		log_in user if(user)
 		# puts "AT: #{users(user).authentication_token}" if user
-		get :announce, info_hash: [feed.torrents[0].info_hash].pack('H*'), peer_id: PEER_ID_PACKED
+		get :announce, params: { info_hash: [feed.torrents[0].info_hash].pack('H*'), peer_id: PEER_ID_PACKED }
 		assert_response :redirect
 	end
 
 	# VOLUNTEER
 
 	test 'should not return volunteer fields normally' do
-		get :announce, info_hash: [@public.torrents[0].info_hash].pack('H*'), peer_id: PEER_ID_PACKED
+		get :announce, params: { info_hash: [@public.torrents[0].info_hash].pack('H*'), peer_id: PEER_ID_PACKED }
 		data = BEncode.load(response.body)
 		assert_nil data['volunteer']
 		assert_response :success
 	end
 
 	test 'should return volunteer fields when enabled' do
-		get :announce,
+		get :announce, params: {
 			info_hash: [@public.torrents[0].info_hash].pack('H*'),
 			peer_id: PEER_ID_PACKED,
 			volunteer: {
 				enabled: 1,
 				disk_maximum_bytes: 1024 ** 4,
 				disk_available_bytes: 1024 ** 3
-			}
+			}}
 		data = BEncode.load(response.body)
 		# puts data
 		assert_not_nil data['volunteer']

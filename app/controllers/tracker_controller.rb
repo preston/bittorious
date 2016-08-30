@@ -1,7 +1,7 @@
 class TrackerController < ApplicationController
 
-	prepend_before_filter :load_from_info_hash
-	skip_before_filter :authenticate_user!
+	prepend_before_action :load_from_info_hash
+	skip_before_action :authenticate_user!
 	layout false
 
 	def announce
@@ -57,10 +57,11 @@ class TrackerController < ApplicationController
 				name: t.name
 			}
 		end
-		render text: {files: torrents}.bencode
+		# render text: {files: torrents}.bencode
+		render html: {files: torrents}.bencode
 	end
 
-	
+
 	private
 
 	def load_from_info_hash
@@ -68,7 +69,7 @@ class TrackerController < ApplicationController
 	end
 
 
-	
+
 	def rsize
 		rsize = 50
 		['num want', 'numwant', 'num_want'].each do |k|
@@ -84,7 +85,7 @@ class TrackerController < ApplicationController
 		return {
 			info_hash:   params[:info_hash].unpack('H*').first,
 			peer_id:     params[:peer_id].unpack('H*').first,
-			remote_ip:   get_remote_ip, 
+			remote_ip:   get_remote_ip,
 			uploaded:    params[:uploaded].to_i,
 			downloaded:  params[:downloaded].to_i,
 			left:        params[:left].to_i,
