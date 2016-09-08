@@ -43,7 +43,7 @@ GEM
       sprockets (>= 3.0, < 5)
       tilt
     arel (7.1.1)
-    autoprefixer-rails (6.4.0.3)
+    autoprefixer-rails (6.4.1)
       execjs
     bcrypt (3.1.11)
     bencode (0.8.2)
@@ -86,7 +86,7 @@ GEM
       actionpack (>= 3.2.13)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    geocoder (1.3.7)
+    geocoder (1.4.0)
     geoip (1.6.2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -213,7 +213,7 @@ GEM
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.1.1)
+    sprockets-rails (3.2.0)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
