@@ -3,8 +3,8 @@ public:
   description: Blah blah blah.
   slug: public
   user: admin
-  created_at: Time.now
-  updated_at: Time.now
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
   enable_public_archiving: true
   replication_percentage: 20
 
@@ -13,7 +13,7 @@ private:
   description: Privacy is golden.
   slug: private
   user: admin
-  created_at: Time.now
-  updated_at: Time.now
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
   enable_public_archiving: false
   replication_percentage: 50

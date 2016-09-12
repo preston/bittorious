@@ -9,4 +9,11 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-BitTorious::Application.config.secret_key_base = '3a14bede61ac4274302df5aa5adbff12c74Vfb091a73d1621b14bc5b3e42e1d73dc156502d5b1654745426b2e8163ec6badbd49Vb35a302d2c9e1'
+key_base_name = 'BITTORIOUS_SECRET_KEY_BASE'
+Rails.application.config.secret_key_base = ENV[key_base_name]
+if Rails.application.config.secret_key_base.nil?
+	tmp = 'not-for-production-use'
+	Rails.logger.error "A #{key_base_name} environment MUST be set, but wasn't found. Setting to '#{tmp}'"
+	Rails.application.config.secret_key_base = tmp
+	# exit 1
+end

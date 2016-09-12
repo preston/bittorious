@@ -40,10 +40,10 @@ gem 'sass-rails' #, '~> 4.0.5'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier' #, '>= 2.5.3'
 
+gem 'pg'
 
 group :test, :development do
   gem 'simplecov', :require => false
-  gem 'sqlite3'
   gem 'guard'
   gem 'guard-minitest', '2.4.5'
 end
@@ -51,13 +51,6 @@ end
 
 group :development do
   gem 'railroady'
-  # gem 'capistrano'
-  # gem 'capistrano-rvm'
-  # gem 'capistrano-rails-console'
-  # gem 'capistrano-bundler'
-  # gem 'capistrano-rails'
-  # gem 'capistrano-passenger'
-
   gem 'byebug'			# CLI debugging.
   gem 'web-console'		# Access an IRB console on exception pages or by using <%= console %> in views
   gem 'binding_of_caller'
@@ -66,7 +59,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
 end
 
 group :doc do

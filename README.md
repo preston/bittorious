@@ -33,24 +33,60 @@ Features
  * Token-based tracker authentication.
  * Real-time upload/download tracking.
  * Integration peer geolocation via Google Maps.
- * TLS/SSL-compatible. (Just bring your own certificate.) 
+ * TLS/SSL-compatible. (Just bring your own certificate.)
  * RESTful JSON API
  * RSS feeds are a first-class citizen
  * One-page dashboard for most users.
 
+Deployment Using Docker
+--------
+
+As of v3.1, BitTorious is distributed on [Docker Hub](https://hub.docker.com/r/p3000/bittorious/). To download the "latest" tag:
+
+	docker pull bittorious:latest
+
+The BitTorious application is designed in [12factor](http://12factor.net) style and uses environment variables to inject your local configuration. You may optionally set these in your ~/.bash_profile, and reload your terminal.
+
+	export BITTORIOUS_SECRET_KEY_BASE="used\_for\_cookie\_security"
+	export BITTORIOUS_DATABASE_URL="postgres://bittorious:password@db.example.com:5432/bittorious_production" # Only used in "production" mode!
+	export BITTORIOUS_DATABASE_URL_TEST="postgres://bittorious:password@db.example.com:5432/bittorious_test" # Only used in "test" mode!
+
+  The following additional environment variables are optional, but potentially useful in a production context. Note that the database connection pool is adjusted automatically based on these values. If in doubt, do NOT set these.
+
+	export BITTORIOUS_SERVER_PROCESSES=16 # To override the number of pre-forked workers.
+	export BITTORIOUS_SERVER_THREAD=8 # To override the number of threads per process.
+
+An example of running the container in production might look like:
+
+	docker run -it --rm -p 3000:3000 \
+		-e "BITTORIOUS_DATABASE_URL=postgres://bittorious:password@192.168.110:5432/bittorious_development" \
+		-e "BITTORIOUS_SECRET_KEY_BASE=development_only" \
+		p3000/bittorious:latest
+
+To build your own container with local changes:
+
+	docker build -t p3000/bittorious:latest .
+
+Validate it against a separate test database like so:
+
+	docker run -it --rm -p 3000:3000 \
+		-e "RAILS_ENV=test" \
+		-e "BITTORIOUS_DATABASE_URL_TEST=postgres://bittorious:password@192.168.110:5432/bittorious_test" \
+		-e "BITTORIOUS_SECRET_KEY_BASE=development_only" \
+		p3000/bittorious:latest rake test
+
+
 Development Quick Start
 --------
 
-BitTorious is written in Ruby, Rails, and AngularJS. It is primarily tested on PostgreSQL, but should work fine on most popular databases.
+BitTorious is written in Ruby, Rails, and AngularJS. It is run and tested on PostgreSQL, but should work fine on most popular databases. It is built and deployed using Docker, and requires several environment variables to run. For developers running _outside_ of Docker:
 
-	cp db/database.yml.sample db/database.yml
-    bundle install
-    rake bittorious:cache_geolocation # The geolocation data file is not included.
-    rake db:migrate
-    rake db:seed
-    open http://localhost:3000 # Yay!
+	bundle install
+	rake bittorious:cache_geolocation # The geolocation data file is not included.
+	rake db:migrate
+	rake db:seed
+	open http://localhost:3000 # Yay!
 
 To continually rerun regression tests as needed in the background as you develop, run guard in a separate terminal:
 
-	bundle exec guard
-
+	guard
