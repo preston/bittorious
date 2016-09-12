@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= (ENV['BITTORIOUS_SERVER_THREADS'].to_i + 2) || 4 %>
+
+development:
+  <<: *default
+  database: bittorious_development
+  username: bittorious
+  password: password
+
+test:
+  <<: *default
+  url:  <%= ENV["BITTORIOUS_DATABASE_URL_TEST"] %>
+
+production:
+  <<: *default
+  url:  <%= ENV["BITTORIOUS_DATABASE_URL"] %>
+
+# benchmark:
+#   <<: *default
+#   url:  <%= ENV["EFS_DATABASE_URL"] %>

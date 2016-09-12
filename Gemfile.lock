@@ -43,7 +43,7 @@ GEM
       sprockets (>= 3.0, < 5)
       tilt
     arel (7.1.1)
-    autoprefixer-rails (6.4.1)
+    autoprefixer-rails (6.4.1.1)
       execjs
     bcrypt (3.1.11)
     bencode (0.8.2)
@@ -287,4 +287,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.0
