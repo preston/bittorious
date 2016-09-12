@@ -18,6 +18,9 @@
 
 .DS_Store
 
+# Data files
+/public/data/*.dat
+
 # Volunteer client
 volunteer/bower_components
 volunteer/node_modules

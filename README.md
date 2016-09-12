@@ -82,7 +82,7 @@ Development Quick Start
 BitTorious is written in Ruby, Rails, and AngularJS. It is run and tested on PostgreSQL, but should work fine on most popular databases. It is built and deployed using Docker, and requires several environment variables to run. For developers running _outside_ of Docker:
 
 	bundle install
-	rake bittorious:cache_geolocation # The geolocation data file is not included.
+	rake bittorious:cache_geolocation # Since a current geolocation data file is not included.
 	rake db:migrate
 	rake db:seed
 	open http://localhost:3000 # Yay!
