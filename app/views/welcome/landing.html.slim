@@ -4,76 +4,77 @@
 
 .container#landing
 
-	.jumbotron
-		.row#splash
-		
-			.col-md-8#overview_carousel
-				h1 Big Data Collaboration
-				p.lead
-					|  Securely exchange massive data sets amongst private communities over the Internet. 
-					= image_tag('logo/icon-128x128.png', width: 32, style: 'display: inline')
-				= render partial: 'welcome/carousel'
-				/ = image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
-				p.text-center
-					span = text_with_icon('cloud data publishing ', 'cloud-upload')
-					span = text_with_icon('data downloads ', 'cloud-download')
-					br
-					span = text_with_icon('account management ', 'user')
-					span = text_with_icon('platform neutral ', 'globe')
-					br
-					span = text_with_icon('completely free ', 'usd')
-					span = text_with_icon('secured access ', 'lock')
-			
-			.col-md-4#login_box
-				hr
-				- if user_signed_in?
-					h3 Welcome
-					p To get started using BitTorious, use the navigation bar at the top of the page.
-					= link_to 'Go To Dashboard', dashboard_path, class: 'btn btn-primary'
-				-else
-					h3 Sign in!
-					= form_for(resource, :as => resource_name, :url => session_path(resource_name, class: :form), 	role: :form) do |f|
-						.form-group
-							= f.label :email
-							= f.email_field :email, class: 'form-control'
-					
-							= f.label :password
-							= f.password_field :password, class: 'form-control'
-					
-						- if devise_mapping.rememberable?
-							.checkbox
-								= f.label :remember_me
-									= f.check_box :remember_me
-									| Remember me!
-						div
-							= f.submit "Sign in", class: 'btn btn-default'
-	
-					- if devise_mapping.registerable? && controller_name != 'registrations'
-						/ link_to "Sign up", new_registration_path(resource_name)
-						/ Button to trigger modal
-						= link_to('Request an account.', new_user_registration_path)
-						br
-					
-					- if devise_mapping.recoverable? && controller_name != 'passwords'
-						= link_to "Forgot your password?", new_password_path(resource_name)
-						br
-					- if devise_mapping.confirmable? && controller_name != 'confirmations'
-						= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
-						br
-					- if devise_mapping.lockable? && User.unlock_strategy_enabled?(:email) && controller_name != '	unlocks'
-						= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
-						br
-					- if devise_mapping.omniauthable?
-						- resource_class.omniauth_providers.each do |provider|
-							= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(	resource_name, provider)
-							br
-				hr
+	/ .jumbotron
+	section.row#splash
 
-				p.lead BitTorious is a holistic solution to collaborative, private data transfer for 	organizations needing to share epic payloads across the Internet in a cost-scalable, 	manageable, automated, and easy-to-use platform.
-				- if !user_signed_in?
-					p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary')
+		.col-md-4#login_box
+			- if user_signed_in?
+				h1 Welcome
+				hr
+				p To get started using BitTorious, use the navigation bar at the top of the page.
+				= link_to 'Go To Dashboard', dashboard_path, class: 'btn btn-primary'
+			-else
+				h1 Sign in!
+				hr
+				= form_for(resource, :as => resource_name, :url => session_path(resource_name, class: :form), 	role: :form) do |f|
+					.form-group
+						= f.label :email
+						= f.email_field :email, class: 'form-control'
 				
+						= f.label :password
+						= f.password_field :password, class: 'form-control'
+				
+					- if devise_mapping.rememberable?
+						.checkbox
+							= f.label :remember_me
+								= f.check_box :remember_me
+								| Remember me!
+					div
+						= f.submit "Sign in", class: 'btn btn-default'
 
+				- if devise_mapping.registerable? && controller_name != 'registrations'
+					/ link_to "Sign up", new_registration_path(resource_name)
+					/ Button to trigger modal
+					= link_to('Request an account.', new_user_registration_path)
+					br
+				
+				- if devise_mapping.recoverable? && controller_name != 'passwords'
+					= link_to "Forgot your password?", new_password_path(resource_name)
+					br
+				- if devise_mapping.confirmable? && controller_name != 'confirmations'
+					= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+					br
+				- if devise_mapping.lockable? && User.unlock_strategy_enabled?(:email) && controller_name != '	unlocks'
+					= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
+					br
+				- if devise_mapping.omniauthable?
+					- resource_class.omniauth_providers.each do |provider|
+						= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(	resource_name, provider)
+						br
+			hr
+
+			p.lead BitTorious is a holistic solution to collaborative, private data transfer for organizations needing to share epic payloads across the Internet in a cost-scalable, 	manageable, automated, and easy-to-use platform.
+			- if !user_signed_in?
+				p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary')
+				
+		.col-md-8#overview_carousel
+			hr
+			h3 Big Data Collaboration
+			p.lead
+				|  Securely exchange massive data sets amongst private communities over the Internet. 
+				= image_tag('logo/icon-128x128.png', width: 32, style: 'display: inline')
+			= render partial: 'welcome/carousel'
+			/ = image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
+			p.text-center
+				span = text_with_icon('cloud data publishing ', 'cloud-upload')
+				span = text_with_icon('data downloads ', 'cloud-download')
+				br
+				span = text_with_icon('account management ', 'user')
+				span = text_with_icon('platform neutral ', 'globe')
+				br
+				span = text_with_icon('completely free ', 'usd')
+				span = text_with_icon('secured access ', 'lock')
+				
 	section.row
 		/ hr
 		.col-md-4

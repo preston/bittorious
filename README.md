@@ -59,7 +59,7 @@ The BitTorious application is designed in [12factor](http://12factor.net) style 
 An example of running the container in production might look like:
 
 	docker run -it --rm -p 3000:3000 \
-		-e "BITTORIOUS_DATABASE_URL=postgres://bittorious:password@192.168.110:5432/bittorious_development" \
+		-e "BITTORIOUS_DATABASE_URL=postgres://bittorious:password@192.168.1.110:5432/bittorious_development" \
 		-e "BITTORIOUS_SECRET_KEY_BASE=development_only" \
 		p3000/bittorious:latest
 
@@ -82,7 +82,7 @@ Development Quick Start
 BitTorious is written in Ruby, Rails, and AngularJS. It is run and tested on PostgreSQL, but should work fine on most popular databases. It is built and deployed using Docker, and requires several environment variables to run. For developers running _outside_ of Docker:
 
 	bundle install
-	rake bittorious:cache_geolocation # Since a current geolocation data file is not included.
+	rake bittorious:cache_geolocation # The geolocation data file is not included.
 	rake db:migrate
 	rake db:seed
 	open http://localhost:3000 # Yay!

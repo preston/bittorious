@@ -7,12 +7,12 @@ begin
 	 	u.password_confirmation = 'password'
 		u.admin = true
 	end
-	admin.confirm
-	admin.approve!
 rescue
 	# Already exists!
 	admin = User.find_by_email('admin@example.com')
 ensure
+	admin.confirm
+	admin.approve!
 	# admin.update_attribute(:approved, true)
 	# admin.update_attribute(:super_user, true)
 end
