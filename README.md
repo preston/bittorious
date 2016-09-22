@@ -51,6 +51,10 @@ The BitTorious application is designed in [12factor](http://12factor.net) style 
 	export BITTORIOUS_SECRET_KEY_BASE="used\_for\_cookie\_security"
 	export BITTORIOUS_DATABASE_URL="postgres://bittorious:password@db.example.com:5432/bittorious_production" # Only used in "production" mode!
 	export BITTORIOUS_DATABASE_URL_TEST="postgres://bittorious:password@db.example.com:5432/bittorious_test" # Only used in "test" mode!
+	export BITTORIOUS_SMTP_HOST="smtp.example.com"
+	export BITTORIOUS_SMTP_PORT="587"
+	export BITTORIOUS_SMTP_USERNAME="jdoe"
+	export BITTORIOUS_SMTP_PASSWORD="a_great_password"
 
   The following additional environment variables are optional, but potentially useful in a production context. Note that the database connection pool is adjusted automatically based on these values. If in doubt, do NOT set these.
 
@@ -62,6 +66,10 @@ An example of running the container in production might look like:
 	docker run -it --rm -p 3000:3000 \
 		-e "BITTORIOUS_DATABASE_URL=postgres://bittorious:password@192.168.1.110:5432/bittorious_development" \
 		-e "BITTORIOUS_SECRET_KEY_BASE=development_only" \
+		-e "BITTORIOUS_SMTP_HOST=smtp.example.com" \
+		-e "BITTORIOUS_SMTP_PORT=587" \
+		-e "BITTORIOUS_SMTP_USERNAME=jdoe" \
+		-e "BITTORIOUS_SMTP_PASSWORD=a_great_password" \
 		p3000/bittorious:latest
 
 To build your own container with local changes:
