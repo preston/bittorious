@@ -1,5 +1,6 @@
-BitTorious Server
-=====
+# BitTorious Server
+
+_Note: Due to abuse of the public evaluation server, trial accounts on https://try.bittorious.com are no longer offered; however, The Cancer Imaging Archiving is evaluating a dedicated BitTorious instance at https://nih.bittorious.com that may be of interest. Pre-built Docker containers of versions v3.1.0 and later are available on [Docker Hub](https://hub.docker.com/r/p3000/bittorious), which is now the officially supported release method._
 
 [![Build Status](https://travis-ci.org/preston/bittorious.svg?branch=master)](https://travis-ci.org/preston/bittorious)
 [![GitHub version](https://badge.fury.io/gh/preston%2Fbittorious.svg)](http://badge.fury.io/gh/preston%2Fbittorious)

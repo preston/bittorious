@@ -42,7 +42,7 @@ GEM
       railties (>= 4.2, < 6)
       sprockets (>= 3.0, < 5)
       tilt
-    arel (7.1.1)
+    arel (7.1.2)
     autoprefixer-rails (6.4.1.1)
       execjs
     bcrypt (3.1.11)
@@ -52,7 +52,7 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bower-rails (0.10.0)
+    bower-rails (0.11.0)
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)

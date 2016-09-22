@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20150313044915) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "feeds", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.datetime "updated_at"
     t.boolean  "enable_public_archiving", default: false
     t.integer  "replication_percentage",  default: 20
-    t.index ["slug"], name: "index_feeds_on_slug", unique: true
-    t.index ["user_id"], name: "index_feeds_on_user_id"
+    t.index ["slug"], name: "index_feeds_on_slug", unique: true, using: :btree
+    t.index ["user_id"], name: "index_feeds_on_user_id", using: :btree
   end
 
   create_table "peers", force: :cascade do |t|
@@ -40,16 +43,15 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.string   "country_name"
     t.string   "city_name"
     t.integer  "user_id"
-    t.boolean  "volunteer_enabled",                      default: false
-    t.integer  "volunteer_disk_maximum_bytes", limit: 8, default: 0
-    t.integer  "volunteer_disk_used_bytes",    limit: 8, default: 0
-    t.integer  "volunteer_affinity_offset",              default: 0
-    t.integer  "volunteer_affinity_length",              default: 0
+    t.boolean  "volunteer_enabled",            default: false
+    t.bigint   "volunteer_disk_maximum_bytes", default: 0
+    t.bigint   "volunteer_disk_used_bytes",    default: 0
+    t.integer  "volunteer_affinity_offset",    default: 0
+    t.integer  "volunteer_affinity_length",    default: 0
     t.integer  "torrent_id"
-    t.index ["ip"], name: "index_peers_on_ip"
-    t.index ["peer_id"], name: "index_peers_on_peer_id"
-    t.index ["state"], name: "index_peers_on_info_hash_and_state"
-    t.index ["user_id"], name: "index_peers_on_user_id"
+    t.index ["ip"], name: "index_peers_on_ip", using: :btree
+    t.index ["peer_id"], name: "index_peers_on_peer_id", using: :btree
+    t.index ["user_id"], name: "index_peers_on_user_id", using: :btree
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -58,8 +60,8 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["feed_id"], name: "index_permissions_on_feed_id"
-    t.index ["user_id"], name: "index_permissions_on_user_id"
+    t.index ["feed_id"], name: "index_permissions_on_feed_id", using: :btree
+    t.index ["user_id"], name: "index_permissions_on_user_id", using: :btree
   end
 
   create_table "torrents", force: :cascade do |t|
@@ -68,17 +70,17 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "size",            limit: 8
-    t.string   "info_hash",                 null: false
-    t.binary   "data",                      null: false
+    t.bigint   "size"
+    t.string   "info_hash",       null: false
+    t.binary   "data",            null: false
     t.integer  "feed_id"
     t.integer  "pieces"
     t.integer  "piece_length"
     t.string   "file_created_by"
-    t.index ["feed_id"], name: "index_torrents_on_feed_id"
-    t.index ["info_hash"], name: "index_torrents_on_info_hash", unique: true
-    t.index ["slug"], name: "index_torrents_on_slug", unique: true
-    t.index ["user_id"], name: "index_torrents_on_user_id"
+    t.index ["feed_id"], name: "index_torrents_on_feed_id", using: :btree
+    t.index ["info_hash"], name: "index_torrents_on_info_hash", unique: true, using: :btree
+    t.index ["slug"], name: "index_torrents_on_slug", unique: true, using: :btree
+    t.index ["user_id"], name: "index_torrents_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,11 +107,11 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.string   "name",                   default: "",    null: false
     t.string   "authentication_token"
     t.boolean  "approved"
-    t.index ["approved"], name: "index_users_on_approved"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+    t.index ["approved"], name: "index_users_on_approved", using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
 end
