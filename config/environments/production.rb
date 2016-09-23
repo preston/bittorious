@@ -70,8 +70,7 @@ Rails.application.configure do
 	  address: ENV['BITTORIOUS_SMTP_HOST'],
 	  port: ENV['BITTORIOUS_SMTP_PORT'],
 	  user_name: ENV['BITTORIOUS_SMTP_USERNAME'],
-	  password: ENV['BITTORIOUS_SMTP_PASSWORD'],
-	  tls: true
+	  password: ENV['BITTORIOUS_SMTP_PASSWORD']
    }
   config.action_mailer.delivery_method = :smtp
 

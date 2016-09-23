@@ -21,13 +21,9 @@ Rails.application.configure do
     }
     config.action_mailer.smtp_settings = {
         address: ENV['BITTORIOUS_SMTP_HOST'],
-        port: ENV['BITTORIOUS_SMTP_PORT'].to_i,
-        #   domain: ENV['BITTORIOUS_DOMAIN'],
+        port: ENV['BITTORIOUS_SMTP_PORT'],
         user_name: ENV['BITTORIOUS_SMTP_USERNAME'],
-        password: ENV['BITTORIOUS_SMTP_PASSWORD'],
-        authentication: :login,
-        enable_starttls_auto: false,
-        tls: true
+        password: ENV['BITTORIOUS_SMTP_PASSWORD']
     }
 	config.action_mailer.delivery_method = :smtp
 	# config.action_mailer.delivery_method = :sendmail
