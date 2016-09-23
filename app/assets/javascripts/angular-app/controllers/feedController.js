@@ -2,12 +2,12 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 
 	console.log("Initializing AngularJS FeedController.");
 
-	// Administrators 
+	// Administrators
 	// if($('#dashboard').attr('admin-controls') == 'true') {
 		// console.log("Showing admin controls.");
 		// TODO REFACTOR: This is needed for permission assignment. Change to a dynamic server-side search.
 		Restangular.all('users').getList().then(function(users) {
-			$scope.users = users;			
+			$scope.users = users;
 		});
 	// } else {
 		// console.log('Not show admin controls.');
@@ -32,14 +32,14 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 	});
 
 	$scope.selectFeed = function(f) {
-		console.log("Selected feed: " + f.slug);
+		console.log("Selected feed: " + f.id);
 		$scope.selectedFeed = f;
 		// Fetch permissions.
 		if($scope.selectedFeed.can_update) {
 			f.getList('permissions').then(function(permissions) {
 				console.log("Loaded " + permissions.length + " permissions.");
 				$scope.selectedFeed.permissions = permissions;
-			});			
+			});
 		}
 		f.getList('torrents').then(function(torrents) {
 			console.log("Loaded " + torrents.length + " torrents.");
@@ -51,7 +51,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 				$scope.selectedTorrent = null;
 			}
 		});
-		
+
 	};
 
 	$scope.templateUrl = function(name) {
@@ -143,7 +143,7 @@ angular.module('BitToriousApp').controller('FeedController', ['$scope', '$locati
 			t.getList('peers').then(function(actives) {
 				t.active_peers = actives;
 				refreshMap(actives);
-			});;	
+			});;
 		}
 		// refreshMap(t.active_peers);
 	};

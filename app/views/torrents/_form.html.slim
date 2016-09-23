@@ -6,7 +6,9 @@ form#torrent_form name="torrent_form"
 			span.text-muted ng-show='torrent_form.name.$error.required'
 				|  (Required)
 		input#torrent_name.form-control type="text" name="name" placeholder="My Sweet Torrent" required="true" ng-model="newTorrent.torrent.name"
-		p.help-block Human-readable name for the torrent, which will also be shown within the BitTorrent clients of peers. Any changes to this field in the future will be treated by existing peers as a different torrent, so try to get this right the first time!
+		p.help-block
+			b Important: 
+			| Clients will save data to this directory of this name by default. Pick something unique and descriptive avoid changing it to avoid needless re-replication. This human-readable name will also be shown within the BitTorrent clients of peers. Any changes to this field in the future will be treated by existing peers as a different torrent, so try to get this right the first time!
 	.form-group
 		label for="torrent_file"
 		input#torrent_file.form-control type="file" name="file" ng-model="newTorrent.torrent.file" accept="application/x-bittorrent, *.torrent"

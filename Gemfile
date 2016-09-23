@@ -27,7 +27,6 @@ gem 'jbuilder'		# JSON output customization
 gem 'slim-rails'	# Better templating.
 gem 'geoip'			# Local IP address -> coordinate geocoding.
 
-gem 'friendly_id'
 gem 'bencode'		# BitTorrent data serialation format support.
 gem 'formtastic'
 gem 'geocoder'
@@ -43,7 +42,7 @@ gem 'uglifier' #, '>= 2.5.3'
 gem 'pg'
 
 group :test, :development do
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
   gem 'guard'
   gem 'guard-minitest', '2.4.5'
 end

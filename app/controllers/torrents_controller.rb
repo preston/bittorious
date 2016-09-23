@@ -5,8 +5,8 @@ class TorrentsController < ApplicationController
     # respond_to :json, :html, :xml, :rss
     before_action :set_params_from_torrent, only: [:create]
 
-    load_resource :feed, find_by: :slug # Need to load the feed before the torrent resource is authorized.
-    load_and_authorize_resource :torrent, except: [:show, :create], find_by: :slug # through: :feed,
+    load_resource :feed # Need to load the feed before the torrent resource is authorized.
+    load_and_authorize_resource :torrent, except: [:show, :create] # through: :feed,
 
     skip_before_action :authenticate_user!, only: [:show, :index]
 
@@ -17,7 +17,7 @@ class TorrentsController < ApplicationController
         @torrent.user = current_user
         @torrent.data = request[:torrent][:file].read
         # @torrent.feed = @feed
-        @feed = Feed.friendly.find(request[:feed_id]) # Must be set prior to metadata reprocessing.
+        @feed = Feed.find(request[:feed_id]) # Must be set prior to metadata reprocessing.
         @torrent.feed = @feed
         authorize! :create, @feed.torrents.build
 
@@ -35,7 +35,7 @@ class TorrentsController < ApplicationController
 
     def index
         # FIXME: Shouldn't cancancan do this automatically???
-        authorize! :index, Feed.friendly.find(request[:feed_id])
+        authorize! :index, Feed.find(request[:feed_id])
         @torrents = Torrent.where(feed_id: params[:feed_id]).accessible_by(current_ability)
 
         respond_to do |f|
@@ -44,7 +44,7 @@ class TorrentsController < ApplicationController
     end
 
     def show
-        @torrent = Torrent.friendly.find(params[:id])
+        @torrent = Torrent.find(params[:id])
         # This is kinda weird, because it depends on the public/private nature of the feed.
         if @torrent.feed.enable_public_archiving
         # Go for it.
@@ -52,8 +52,8 @@ class TorrentsController < ApplicationController
           authorize! :show, @torrent
         end
         respond_to do |format|
-            format.json { render json: resource, except: [:data], include: [{ user: { only: [:id, :name] } }, :active_peers] }
-            format.torrent { send_data(resource.data_for_user(current_user, announce_url)) }
+            format.json { render json: @torrent, except: [:data], include: [{ user: { only: [:id, :name] } }, :active_peers] }
+            format.torrent { send_data(@torrent.data_for_user(current_user, announce_url), type: :torrent, filename: "#{@torrent.name}.torrent") }
             # format.json { render :json => {:id => resource.id, :name => resource.name, :meta_html => render_to_string('_meta_data', :formats => :html, :layout => false, :locals => {:meta_data => resource.tracker.meta_data})}}
         end
     end
@@ -71,7 +71,7 @@ class TorrentsController < ApplicationController
     def destroy
         @torrent.destroy
         respond_to do |format|
-            format.json { render :show }
+            format.json { render json: @torrent.to_json }
         end
     end
 

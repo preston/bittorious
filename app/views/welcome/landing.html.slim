@@ -9,12 +9,12 @@
 
 		.col-md-4#login_box
 			- if user_signed_in?
-				h1 Welcome
+				h3 Welcome
 				hr
 				p To get started using BitTorious, use the navigation bar at the top of the page.
 				= link_to 'Go To Dashboard', dashboard_path, class: 'btn btn-primary'
 			-else
-				h1 Sign in!
+				h3 Sign in!
 				hr
 				= form_for(resource, :as => resource_name, :url => session_path(resource_name, class: :form), 	role: :form) do |f|
 					.form-group
@@ -58,8 +58,8 @@
 				p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary')
 				
 		.col-md-8#overview_carousel
+			h1 Big Data Collaboration
 			hr
-			h3 Big Data Collaboration
 			p.lead
 				|  Securely exchange massive data sets amongst private communities over the Internet. 
 				= image_tag('logo/icon-128x128.png', width: 32, style: 'display: inline')

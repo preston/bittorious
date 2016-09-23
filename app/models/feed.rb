@@ -1,12 +1,8 @@
-class Feed < ActiveRecord::Base
-
-  extend FriendlyId
-  friendly_id :name, use: :slugged
+class Feed < ApplicationRecord
 
   validates_presence_of :name
   validates_presence_of :user_id
   validates_uniqueness_of :name
-  validates_uniqueness_of :slug
 
   belongs_to :user
   has_many :torrents, dependent: :destroy

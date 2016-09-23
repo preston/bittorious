@@ -1,6 +1,6 @@
 require 'digest/sha1'
 
-class Peer < ActiveRecord::Base
+class Peer < ApplicationRecord
 
 
 	UPDATE_PERIOD_MINUTES = 5

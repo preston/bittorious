@@ -3,10 +3,7 @@ class FeedsController < ApplicationController
     before_action :allow_cors, only: [:index, :show]
     before_action :authenticate_user!, except: [:index, :show]
 
-    load_and_authorize_resource	find_by: :slug
-
-    # respond_to :html, :json, :rss
-    # actions :update, :create, :destroy, :index, :edit
+    load_and_authorize_resource
 
     INCLUDES = [
         { torrents: { only: [:id, :name] } } # ,
@@ -31,7 +28,6 @@ class FeedsController < ApplicationController
     end
 
     def destroy
-        Feed.friendly.find(params[:id]).destroy!
         respond_to do |format|
             format.json { render json: @feed.to_json }
         end
@@ -85,11 +81,11 @@ class FeedsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_feed
-        @feed = Feed.friendly.find(params[:id])
+        @feed = Feed.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feed_params
-        params.require(:feed).permit(:name, :description, :slug, :permissions, :enable_public_archiving, :replication_percentage)
+        params.require(:feed).permit(:name, :description, :permissions, :enable_public_archiving, :replication_percentage)
     end
 end

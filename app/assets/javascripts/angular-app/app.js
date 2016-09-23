@@ -15,9 +15,6 @@ app.config(
 	['$httpProvider', 'RestangularProvider', function($httpProvider, RestangularProvider) {
 		$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 		RestangularProvider.setRequestSuffix('.json');
-		// RestangularProvider.setRestangularFields({
-		// 	id: "slug"
-		// });
 	}]);
 
 app.config(['growlProvider', function(growlProvider) {

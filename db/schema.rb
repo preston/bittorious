@@ -10,25 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313044915) do
+ActiveRecord::Schema.define(version: 1) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "feeds", force: :cascade do |t|
+  create_table "feeds", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
-    t.string   "slug"
     t.text     "description"
-    t.integer  "user_id"
+    t.uuid     "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "enable_public_archiving", default: false
     t.integer  "replication_percentage",  default: 20
-    t.index ["slug"], name: "index_feeds_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_feeds_on_user_id", using: :btree
   end
 
-  create_table "peers", force: :cascade do |t|
+  create_table "peers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "peer_id"
     t.string   "ip"
     t.integer  "port"
@@ -42,21 +41,21 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.float    "longitude"
     t.string   "country_name"
     t.string   "city_name"
-    t.integer  "user_id"
+    t.uuid     "user_id"
     t.boolean  "volunteer_enabled",            default: false
     t.bigint   "volunteer_disk_maximum_bytes", default: 0
     t.bigint   "volunteer_disk_used_bytes",    default: 0
     t.integer  "volunteer_affinity_offset",    default: 0
     t.integer  "volunteer_affinity_length",    default: 0
-    t.integer  "torrent_id"
+    t.uuid     "torrent_id"
     t.index ["ip"], name: "index_peers_on_ip", using: :btree
     t.index ["peer_id"], name: "index_peers_on_peer_id", using: :btree
     t.index ["user_id"], name: "index_peers_on_user_id", using: :btree
   end
 
-  create_table "permissions", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "feed_id"
+  create_table "permissions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "user_id"
+    t.uuid     "feed_id"
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -64,26 +63,24 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.index ["user_id"], name: "index_permissions_on_user_id", using: :btree
   end
 
-  create_table "torrents", force: :cascade do |t|
+  create_table "torrents", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
-    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.uuid     "user_id"
     t.bigint   "size"
     t.string   "info_hash",       null: false
     t.binary   "data",            null: false
-    t.integer  "feed_id"
+    t.uuid     "feed_id"
     t.integer  "pieces"
     t.integer  "piece_length"
     t.string   "file_created_by"
     t.index ["feed_id"], name: "index_torrents_on_feed_id", using: :btree
     t.index ["info_hash"], name: "index_torrents_on_info_hash", unique: true, using: :btree
-    t.index ["slug"], name: "index_torrents_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_torrents_on_user_id", using: :btree
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -103,10 +100,10 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved"
     t.boolean  "admin",                  default: false
     t.string   "name",                   default: "",    null: false
     t.string   "authentication_token"
-    t.boolean  "approved"
     t.index ["approved"], name: "index_users_on_approved", using: :btree
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -114,4 +111,11 @@ ActiveRecord::Schema.define(version: 20150313044915) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "feeds", "users"
+  add_foreign_key "peers", "torrents"
+  add_foreign_key "peers", "users"
+  add_foreign_key "permissions", "feeds"
+  add_foreign_key "permissions", "users"
+  add_foreign_key "torrents", "feeds"
+  add_foreign_key "torrents", "users"
 end

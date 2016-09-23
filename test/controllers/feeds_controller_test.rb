@@ -6,7 +6,7 @@ class FeedsControllerTest < ActionController::TestCase
   include Warden::Test::Helpers
 
 
-  VALID = { name: :bad, description: :bad, slug: :bad, enable_public_archiving: true, replication_percentage: 20 }
+  VALID = { name: :bad, description: :bad, enable_public_archiving: true, replication_percentage: 20 }
 
   setup do
     @public = feeds(:public)

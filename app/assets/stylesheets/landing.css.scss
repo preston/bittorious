@@ -10,7 +10,6 @@
 
 			-webkit-transition:	all .3s ease-out;
 			-moz-transition:		all .3s ease-out;
-			-o-transition:			all .3s ease-out;
 			transition:					all .3s ease-out;
 		}
 	}
@@ -37,17 +36,15 @@
 			padding: 40px;
 			-webkit-transition:	all .5s linear;
 			-moz-transition:		all .5s linear;
-			-o-transition:			all .5s linear;
 			transition:					all .5s linear;
 		}
 		.col-md-4:hover {
-			box-shadow: 0 60px 40px rgba(0,0,0,1), 0 0px 40px #eee inset;
+			// box-shadow: 0 60px 40px rgba(0,0,0,1), 0 0px 40px #eee inset;
 			background: #eee;
 			color: #555;
 			border: 1px solid #ccc;
 			-webkit-transition:	all .5s linear;
 			-moz-transition:		all .5s linear;
-			-o-transition:			all .5s linear;
 			transition:					all .5s linear;
 		}
 

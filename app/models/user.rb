@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -27,14 +27,6 @@ class User < ActiveRecord::Base
   def to_s
     name || email
   end
-
-  # def as_json(options={})
-  #   super(:methods =>[:authentication_token])
-  # end
-  #
-  # def to_xml(options={})
-  #   super(:methods =>[:authentication_token])
-  # end
 
   def active_for_authentication?
     super && approved?

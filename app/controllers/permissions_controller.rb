@@ -10,7 +10,7 @@ class PermissionsController < ApplicationController
 
 
   def index
-    @feed = Feed.friendly.find(params[:feed_id])
+    @feed = Feed.find(params[:feed_id])
     # authorize! :read, Permission
     @permissions = @feed.permissions.sort {|a,b| a.user.name <=> b.user.name}
     respond_to do |format|

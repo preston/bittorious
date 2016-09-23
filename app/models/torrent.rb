@@ -1,9 +1,7 @@
 require 'digest/sha1'
 require 'bencode'
 
-class Torrent < ActiveRecord::Base
-    extend FriendlyId
-    friendly_id :name, use: :slugged
+class Torrent < ApplicationRecord
 
     belongs_to :user
     belongs_to :feed, touch: true
@@ -13,16 +11,10 @@ class Torrent < ActiveRecord::Base
 
     validates_presence_of :user, :name, :info_hash, :feed
     validates_uniqueness_of :info_hash, message: 'This torrent has already been uploaded.'
-    validates_uniqueness_of :slug
 
     # Freely available geocoding data file.
     GEOIP_DATA = File.join(Rails.root, 'public', 'data', 'GeoLiteCity.dat')
     GEOIP = GeoIP.new(GEOIP_DATA)
-
-    # Force slug regeneration every time the record is saved.
-    def should_generate_new_friendly_id?
-        true
-    end
 
     attr_accessor :file # Temporary file upload.
 

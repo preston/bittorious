@@ -15,7 +15,7 @@ form#update_feed_form role="form" name="update_feed_form"
 					b Enable Public Archiving
 					br
 					| All feed data will replicate to anonymous volunteer peers, which is roughly equivalent to granting #{Permission::SUBSCRIBER_ROLE} permissions to all anonymous users. 
-					b When changing this settings, users may have to reimport the torrent files into their client(s) to receive the new settings
+					b When changing these settings, users may have to reimport the torrent files into their client(s) to receive the new settings
 					| , depending on if they're subscribed to the RSS feed and have their client configured to automatically apply torrent updates.
 
 	.form-group ng-show="selectedFeed.enable_public_archiving"
@@ -30,4 +30,3 @@ form#update_feed_form role="form" name="update_feed_form"
 	.col-md-3
 		button.btn.btn-lg.btn-danger ng-click="deleteFeed(selectedFeed)" ng-confirm-click="This will permanently delete the feed and all torrents from the system. Existing subscribers will no longer receive data. This cannot be undone. Are you completely 100% sure you want to delete this feed?" ng-show="selectedFeed.can_delete"
 			= text_with_icon('Delete this feed forever!', 'trash')
-

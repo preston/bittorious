@@ -41,14 +41,14 @@ app.controller(moduleName, function($scope, $http, growl, Restangular) {
 		$http.get($scope.settings.url + '/feeds.json').success(function(feeds, status, headers, config) {
 			console.log('Loaded ' + feeds.length + ' feeds.');
 			$scope.feeds = feeds;
-			if($scope.settings.feed.slug == null) {
+			if($scope.settings.feed.id == null) {
 				$scope.settings.feed = $scope.feeds[0];
 				$scope.saveSettings();
-				$scope.selectFeed($scope.settings.feed);				
+				$scope.selectFeed($scope.settings.feed);
 			} else {
 				$scope.selectFeed($scope.settings.feed);
 			}
-		});	
+		});
 	};
 
 	$scope.loadStatus = function() {
@@ -60,11 +60,7 @@ app.controller(moduleName, function($scope, $http, growl, Restangular) {
 
 
 	$scope.selectFeed = function(f) {
-		// console.log("Selected feed: " + f.slug);
-		// $scope.settings.feed = f;
-		// if($scope.settings.feed.slug == null) {
-		// }
-		$http.get($scope.settings.url + '/feeds/' + f.slug + '.json').success(function(feed, status, headers, config) {
+		$http.get($scope.settings.url + '/feeds/' + f.id + '.json').success(function(feed, status, headers, config) {
 			$scope.torrents = feed.torrents;
 			console.log("Loaded " + $scope.torrents.length + " torrents.");
 			if($scope.torrents.length > 0) {
@@ -74,7 +70,7 @@ app.controller(moduleName, function($scope, $http, growl, Restangular) {
 				$scope.selectedTorrent = null;
 			}
 		});
-		
+
 	};
 
 	// $scope.$watch("selectedTorrent", function() {
@@ -83,10 +79,10 @@ app.controller(moduleName, function($scope, $http, growl, Restangular) {
 
 	$scope.loadPeers = function() {
 		// $scope.selectedTorrent = t;s
-		var url = $scope.settings.url + '/feeds/' + $scope.settings.feed.slug + '/torrents/' + $scope.selectedTorrent.id + '.json';
+		var url = $scope.settings.url + '/feeds/' + $scope.settings.feed.id + '/torrents/' + $scope.selectedTorrent.id + '.json';
 		$http.get(url).success(function(torrent, status, headers, config) {
 			$scope.peers = torrent.active_peers;
-		});;	
+		});;
 	};
 
 	$scope.loadSettings();

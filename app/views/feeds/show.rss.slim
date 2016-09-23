@@ -3,7 +3,7 @@ rss version="2.0"
   channel
     title = @feed.name
     description RSS 2.0 for #{@feed.name} data.
-    link = link_to @feed.slug
+    link = link_to @feed
     lastBuildDate = @feed.updated_at.to_formatted_s(:rfc822)
     pubDate = @feed.created_at.to_formatted_s(:rfc822)
     ttl 1800

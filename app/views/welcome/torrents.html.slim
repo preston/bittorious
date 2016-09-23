@@ -7,18 +7,23 @@
 			h4
 			  i.icon.icon-rss
 			  |  Data RSS Feed
-			a href="{{$location.host}}/feeds/{{selectedFeed.slug}}.rss?authentication_token=#{current_user.authentication_token}"
-				| {{urlRoot}}/feeds/{{selectedFeed.slug}}.rss?authentication_token=#{current_user.authentication_token}
+			a href="{{$location.host}}/feeds/{{selectedFeed.id}}.rss?authentication_token=#{current_user.authentication_token}"
+				| {{urlRoot}}/feeds/{{selectedFeed.id}}.rss?authentication_token=#{current_user.authentication_token}
+
 		p.help-block If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)
 		i
 			span
 				| Public volunteer archiving is 
 				b
-					| {{selectedFeed.enable_public_archiving ? 'enabled' : 'disabled'}}
+					| {{selectedFeed.enable_public_archiving ? 'enabled' : 'disabled'}}.
 			span ng-show="selectedFeed.enable_public_archiving"
 				| , with a target replication percentage of  
 				b ng-bind="selectedFeed.replication_percentage" 
 				| % per peer per torrent.
+			br
+			span The feed ID is: 
+		  	b ng-bind="selectedFeed.id"
+
 	.col-md-3
 		div ng-show="selectedFeed.can_update"
 			h1 &nbsp;
@@ -47,7 +52,7 @@
 					a ng-click="reverse = !reverse; predicate = 'size'; " Size
 				th Download
 		  tbody
-			tr.torrent_link ng-repeat="torrent in selectedFeed.torrents | orderBy:predicate:reverse" ng-click="selectTorrent(torrent)" ng-class="{selected: torrent.slug === selectedTorrent.	slug}"
+			tr.torrent_link ng-repeat="torrent in selectedFeed.torrents | orderBy:predicate:reverse" ng-click="selectTorrent(torrent)" ng-class="{selected: torrent.id === selectedTorrent.id}"
 			  td
 				b ng-bind="torrent.name"
 				small ng-bind="torrent.description"
@@ -56,7 +61,7 @@
 			  td ng-bind="torrent.peer_count"
 			  td ng-bind="torrent.size | humanizeBytes"
 			  td
-			  	a.btn.btn-primary href="/feeds/{{selectedFeed.slug}}/torrents/{{torrent.slug}}.torrent" = text_with_icon('Download', 'download')
+			  	a.btn.btn-primary href="/feeds/{{selectedFeed.id}}/torrents/{{torrent.id}}.torrent" = text_with_icon('Download', 'download')
 
 	.col-md-6 ng-show="selectedTorrent.active_peers.length == 0"
 		h1 No peers for this torrent.

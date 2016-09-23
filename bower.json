@@ -1,6 +1,6 @@
 {
   "lib": {
-    "name": "bower-rails generated lib assets",
+    "name": "bittorious-assets",
     "dependencies": {
       "angularjs" : "latest",
       "angular-route" : "latest",

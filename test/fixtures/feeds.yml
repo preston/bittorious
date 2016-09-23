@@ -1,7 +1,6 @@
 public:
   name: Public Feed
   description: Blah blah blah.
-  slug: public
   user: admin
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
@@ -11,7 +10,6 @@ public:
 private:
   name: Private Feed
   description: Privacy is golden.
-  slug: private
   user: admin
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>

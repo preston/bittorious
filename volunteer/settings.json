@@ -6,7 +6,6 @@
     "feed": {
         "id": 6,
         "name": "DinuLab",
-        "slug": "dinulab",
         "description": "A feed for open access data published by the Dinu lab in the College of Health Solutions at Arizona State University. Contact preston@asu.edu for access.",
         "user_id": 18,
         "created_at": "2014-12-24T02:39:21.218Z",
