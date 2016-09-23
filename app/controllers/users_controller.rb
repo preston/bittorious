@@ -7,13 +7,14 @@ class UsersController < ApplicationController
         @users = User.order(name: :asc).eager_load(:feeds, :torrents)
         respond_to do |format|
             format.json do
-                if can?(:manage, User)
-                    render json: @users.as_json(only: [:id, :name, :feeds, :torrents])
-                elsif can?(:index, User)
-                    render json: @users.as_json(only: [:id, :name, :feeds, :torrents])
-                else
-                    render status: :unauthorized
-                end
+                # if can?(:manage, User)
+                #     render json: @users.as_json(only: [:id, :name, :feeds, :torrents, :approved])
+                # elsif can?(:index, User)
+                #     render json: @users.as_json(only: [:id, :name, :feeds, :torrents])
+                # else
+                #     render status: :unauthorized
+                # end
+				render :index
             end
             format.html do
                 if can?(:manage, User)

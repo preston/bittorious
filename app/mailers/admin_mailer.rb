@@ -1,6 +1,6 @@
 class AdminMailer < ActionMailer::Base
 
-  default from: 'noreply@bittorious.com'
+  default from: 'noreply@' + ENV['BITTORIOUS_DOMAIN']
 
   def new_user_waiting_for_approval(user)
     @user = user

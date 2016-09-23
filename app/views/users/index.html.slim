@@ -33,20 +33,22 @@
 						th Actions
 				tbody
 					tr ng-repeat="u in users | orderBy:predicate:reverse" ng-show="u.approved"
+						td ng-bind='u.name'
+							/ input.form-control type="text" ng-model="u.name" readonly='true'
 						td
-							input.form-control type="text" ng-model="u.name"
-						td
-							input.form-control type="checkbox" ng-model="u.admin" ng-disabled="u.id == #{current_user.id}"
+							input.form-control type="checkbox" ng-model="u.admin" ng-disabled="'#{current_user.id}' == u.id"
 						td ng-bind="u.email"
-						td ng-bind="u.created_at | relativeDate" ng-show="u.created_at"
-						td ng-bind="u.last_sign_in_at | relativeDate" ng-show="u.last_sign_in_at"
-						td ng-bind="feedNames(u)"
-						td ng-bind="torrentNames(u)"
+						td ng-bind="u.created_at | relativeDate"
+						td ng-bind="u.last_sign_in_at | relativeDate"
+						/ td ng-bind="feedNames(u)"
+						/ td ng-bind="torrentNames(u)"
+						td ng-bind="u.feeds_count"
+						td ng-bind="u.torrents_count"
 						td
 							.btn-group
 								button.btn.btn-default ng-click="update(u)"
 									= text_with_icon('Save', 'floppy-disk')
-								button.btn.btn-default ng-click="delete(u)" ng-disabled="u.id == #{current_user.id} || u.torrents.length > 0 || u.torrents.length > 0"
+								button.btn.btn-default ng-click="delete(u)" ng-disabled="'#{current_user.id}' == u.id || u.torrents.length > 0 || u.torrents.length > 0"
 									= text_with_icon('Delete', 'trash')
 
 
@@ -62,8 +64,10 @@
 					tbody
 						tr ng-repeat="u in users" ng-show="!u.approved"
 							td ng-bind="u.email"
-							td ng-bind="u.confirmed_at | relativeDate" ng-show="u.confirmed_at"
-							td ng-bind="u.created_at | relativeDate" ng-show="u.created_at"
+							td
+								span ng-bind="u.confirmed_at | relativeDate" ng-show="u.confirmed_at"
+							td
+								span ng-bind="u.created_at | relativeDate" ng-show="u.created_at"
 							td
 								.btn-group
 									button.btn.btn-default ng-click="approve(u)"

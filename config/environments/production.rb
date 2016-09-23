@@ -65,11 +65,13 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = {
-	  host: ENV['BITTORIOUS_SMTP_HOST'],
+  config.action_mailer.default_url_options = { host: ENV['BITTORIOUS_DOMAIN'] }
+  config.action_mailer.smtp_settings = {
+	  address: ENV['BITTORIOUS_SMTP_HOST'],
 	  port: ENV['BITTORIOUS_SMTP_PORT'],
 	  user_name: ENV['BITTORIOUS_SMTP_USERNAME'],
-	  password: ENV['BITTORIOUS_SMTP_PASSWORD']
+	  password: ENV['BITTORIOUS_SMTP_PASSWORD'],
+	  tls: true
    }
   config.action_mailer.delivery_method = :smtp
 

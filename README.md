@@ -65,6 +65,7 @@ An example of running the container in production might look like:
 	docker run -it --rm -p 3000:3000 \
 		-e "BITTORIOUS_DATABASE_URL=postgres://bittorious:password@192.168.1.110:5432/bittorious_development" \
 		-e "BITTORIOUS_SECRET_KEY_BASE=development_only" \
+		-e "BITTORIOUS_DOMAIN=localhost" \
 		-e "BITTORIOUS_SMTP_HOST=smtp.example.com" \
 		-e "BITTORIOUS_SMTP_PORT=587" \
 		-e "BITTORIOUS_SMTP_USERNAME=jdoe" \
@@ -81,6 +82,7 @@ Validate it against a separate test database like so:
 		-e "RAILS_ENV=test" \
 		-e "BITTORIOUS_DATABASE_URL_TEST=postgres://bittorious:password@192.168.110:5432/bittorious_test" \
 		-e "BITTORIOUS_SECRET_KEY_BASE=development_only" \
+		-e "BITTORIOUS_DOMAIN=localhost" \
 		p3000/bittorious:latest rake test
 
 
