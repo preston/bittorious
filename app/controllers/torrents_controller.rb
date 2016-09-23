@@ -60,7 +60,7 @@ class TorrentsController < ApplicationController
 
     def update
         respond_to do |format|
-            if @torrent.update(product_params)
+            if @torrent.update(torrent_params)
                 format.json { render json: @torrent.to_json }
             else
                 format.json { render json: @torrent.errors.full_messages, status: :unprocessable_entity }

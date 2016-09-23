@@ -6,8 +6,7 @@ class FeedsController < ApplicationController
     load_and_authorize_resource
 
     INCLUDES = [
-        { torrents: { only: [:id, :name] } } # ,
-        # {permissions: { include: {user: { only: [:id, :name]}}}}
+        { torrents: { only: [:id, :name] } }
     ].freeze
 
     def create

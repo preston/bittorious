@@ -1,12 +1,11 @@
-# BitTorious Server
+# BitTorious Server v4
 
-_Note: Due to abuse of the public evaluation server, trial accounts on https://try.bittorious.com are no longer offered; however, The Cancer Imaging Archiving is evaluating a dedicated BitTorious instance at https://nih.bittorious.com that may be of interest. Pre-built Docker containers of versions v3.1.0 and later are available on [Docker Hub](https://hub.docker.com/r/p3000/bittorious), which is now the officially supported release method._
+_Note: Due to abuse of the public evaluation server, trial accounts on https://try.bittorious.com are no longer offered; however, The Cancer Imaging Archiving is evaluating a dedicated BitTorious instance at https://nih.bittorious.com that may be of interest. Pre-built Docker containers of versions v4 and later are available on [Docker Hub](https://hub.docker.com/r/p3000/bittorious), which is now the officially supported release method. Prior versions are tagged for posterity, but not available as images._
 
-[![Build Status](https://travis-ci.org/preston/bittorious.svg?branch=master)](https://travis-ci.org/preston/bittorious)
+[![Build Status](https://travis-ci.org/preston/bittorious.svg?branch=master)](https://travis-ci.org/preston/bittorious) (Will be fixed ASAP!)
 [![GitHub version](https://badge.fury.io/gh/preston%2Fbittorious.svg)](http://badge.fury.io/gh/preston%2Fbittorious)
 [![Code Climate](https://codeclimate.com/github/preston/bittorious/badges/gpa.svg)](https://codeclimate.com/github/preston/bittorious)
 
- * **Live Demo**: <http://try.bittorious.com>
  * **Recently published in _BMC Bioinformatics_**: <http://www.biomedcentral.com/1471-2105/15/424/abstract>
  * **Please deploy from an official release tag**! The _master_ branch is for active development and should be treated as _unstable_.
 
@@ -92,9 +91,10 @@ BitTorious is written in Ruby, Rails, and AngularJS. It is run and tested on Pos
 
 	bundle install
 	rake bittorious:cache_geolocation # The geolocation data file is not included.
+	rake db:create
 	rake db:migrate
 	rake db:seed
-	open http://localhost:3000 # Yay!
+	open http://localhost:3000 # Yay! See db/seeds.rb for default account information.
 
 To continually rerun regression tests as needed in the background as you develop, run guard in a separate terminal:
 
