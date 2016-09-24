@@ -92,6 +92,7 @@ class Torrent < ApplicationRecord
         b['info']['name'] = name
         # Shameless plug. :)
         b['comment'] = 'Powered by BitTorious!'
+		b['creation date'] = self.created_at.to_i
 
         self.file_created_by = b['created by']
         self.size = b['info']['length']
