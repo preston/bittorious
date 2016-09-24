@@ -37,7 +37,8 @@ class FeedsController < ApplicationController
             set_abilities f
         end
         respond_to do |format|
-            format.json { render json: @feeds.to_json(include: INCLUDES) }
+			# format.json { render json: @feeds.to_json(include: INCLUDES) }
+			format.json { render }
         end
     end
 

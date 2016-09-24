@@ -55,6 +55,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'spring'
   gem 'yaml_db' # For dumping production data.
+  gem 'bullet'				# N+1 and detector of other smells.
 end
 
 group :production do

@@ -4,7 +4,8 @@ class UsersController < ApplicationController
     load_and_authorize_resource
 
     def index
-        @users = User.order(name: :asc).eager_load(:feeds, :torrents)
+		# @users = User.order(name: :asc).eager_load(:feeds, :torrents)
+		@users = User.order(name: :asc)
         respond_to do |format|
             format.json do
                 # if can?(:manage, User)

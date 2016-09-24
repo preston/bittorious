@@ -33,8 +33,8 @@
 						th Actions
 				tbody
 					tr ng-repeat="u in users | orderBy:predicate:reverse" ng-show="u.approved"
-						td ng-bind='u.name'
-							/ input.form-control type="text" ng-model="u.name" readonly='true'
+						td
+							input.form-control type="text" ng-model="u.name"
 						td
 							input.form-control type="checkbox" ng-model="u.admin" ng-disabled="'#{current_user.id}' == u.id"
 						td ng-bind="u.email"

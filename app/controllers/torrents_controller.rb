@@ -39,7 +39,8 @@ class TorrentsController < ApplicationController
         @torrents = Torrent.where(feed_id: params[:feed_id]).accessible_by(current_ability)
 
         respond_to do |f|
-            f.json { render json: @torrents, include: [{ user: { only: [:id, :name] } }], methods: [:seed_count, :peer_count], except: [:data] }
+			# f.json { render json: @torrents, include: [{ user: { only: [:id, :name] } }], methods: [:seed_count, :peer_count], except: [:data] }
+			f.json { render }
         end
     end
 

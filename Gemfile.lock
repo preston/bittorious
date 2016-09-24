@@ -54,6 +54,9 @@ GEM
       sass (>= 3.3.4)
     bower-rails (0.11.0)
     builder (3.2.2)
+    bullet (5.4.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.5)
     cancancan (1.15.0)
     chosen-rails (1.5.2)
@@ -226,6 +229,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (3.3.1)
@@ -250,6 +254,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bower-rails
+  bullet
   byebug
   cancancan
   chosen-rails

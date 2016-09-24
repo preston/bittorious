@@ -27,6 +27,7 @@ do
 		-F "authentication_token=$BITTORIOUS_AUTHENTICATION_TOKEN" \
 		-F "torrent[name]=$NAME" \
 		-F "torrent[file]=@$FILE"
+	echo ''
 done
 
 echo -ne "Done!"

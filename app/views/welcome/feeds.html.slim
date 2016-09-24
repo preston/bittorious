@@ -14,7 +14,7 @@
 				tr.feed_link ng-repeat="feed in feeds | orderBy:predicate:reverse" ng-click="selectFeed(feed)" ng-class="{selected: feed === selectedFeed}"
 						td
 							b ng-bind="feed.name"
-						td ng-bind="feed.torrents.length"
+						td ng-bind="feed.torrents_count"
 						td
 							small ng-bind="feed.updated_at | relativeDate"
 
