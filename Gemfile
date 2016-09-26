@@ -33,7 +33,7 @@ gem 'formtastic'
 gem 'geocoder'
 gem 'gravatar_image_tag'
 
-# gem	'puma'			# Better web server.
+gem	'puma'			# Better web server.
 
 # Use SCSS for stylesheets
 gem 'sass-rails' #, '~> 4.0.5'

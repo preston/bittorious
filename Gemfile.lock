@@ -131,7 +131,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.9.1)
     multi_json (1.12.1)
     nenv (0.3.0)
     nio4r (1.2.1)
@@ -148,6 +148,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.6.0)
     rack (2.0.1)
     rack-rewrite (1.5.1)
     rack-test (0.6.3)
@@ -270,6 +271,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
+  puma
   rack-rewrite
   railroady
   rails (= 5.0.0.1)
