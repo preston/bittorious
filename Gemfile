@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
-# gem 'rails-html-sanitizer' # New in Rails 4.2
+gem 'rack-rewrite'# Needed to rewrite data in query string values due to retarded BitTorrent /announce and /scrape behavior.
+
 
 gem 'devise'
 gem 'devise-bootstrap-views'
@@ -32,7 +33,7 @@ gem 'formtastic'
 gem 'geocoder'
 gem 'gravatar_image_tag'
 
-gem	'puma'			# Better web server.
+# gem	'puma'			# Better web server.
 
 # Use SCSS for stylesheets
 gem 'sass-rails' #, '~> 4.0.5'

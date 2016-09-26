@@ -6,6 +6,7 @@ class TrackerController < ApplicationController
 
 	def announce
 		authorize! :announce, @torrent
+# byebug
 		data = peer_params
 		# puts "ANNOUNCE DATA: #{data}"
 		peer = @torrent.register_peer(data, current_user)
@@ -65,7 +66,7 @@ class TrackerController < ApplicationController
 	private
 
 	def load_from_info_hash
-		@torrent = Torrent.find_by_info_hash(params[:info_hash].unpack('H*').first) if params[:info_hash]
+		@torrent = Torrent.find_by_info_hash(params[:info_hash]) if params[:info_hash]
 	end
 
 
@@ -83,8 +84,8 @@ class TrackerController < ApplicationController
 	def peer_params
 		# @peer_params ||=
 		return {
-			info_hash:   params[:info_hash].unpack('H*').first,
-			peer_id:     params[:peer_id].unpack('H*').first,
+			info_hash:   params[:info_hash],
+			peer_id:     params[:peer_id],
 			remote_ip:   get_remote_ip,
 			uploaded:    params[:uploaded].to_i,
 			downloaded:  params[:downloaded].to_i,

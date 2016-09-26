@@ -148,8 +148,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puma (3.6.0)
     rack (2.0.1)
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     railroady (1.5.2)
@@ -270,7 +270,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
-  puma
+  rack-rewrite
   railroady
   rails (= 5.0.0.1)
   sass-rails
