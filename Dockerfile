@@ -10,7 +10,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
-RUN mkdir -p /app
+RUN mkdir -p /app/public/data
 WORKDIR /app
 
 # Copy the Gemfile as well as the Gemfile.lock and install
@@ -20,16 +20,8 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock Rakefile config.ru ./
 RUN gem install -N bundler && bundle install --jobs 16
 
-# Copy the main application.
-# COPY app app
-# COPY bin bin
-# COPY config config
-# COPY db db
-# COPY lib lib
-# COPY log log
-# COPY public public
-# COPY test test
-# COPY vendor vendor
+# Copy any large, slow-moving data file(s).
+COPY public/data public/data
 COPY . .
 
 # We'll run in production mode by default.

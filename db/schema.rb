@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 20160926024950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 1) do
     t.string   "peer_id"
     t.string   "ip"
     t.integer  "port"
-    t.integer  "uploaded"
-    t.integer  "downloaded"
-    t.integer  "left"
+    t.bigint   "uploaded"
+    t.bigint   "downloaded"
+    t.bigint   "left"
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.boolean  "volunteer_enabled",            default: false
     t.bigint   "volunteer_disk_maximum_bytes", default: 0
     t.bigint   "volunteer_disk_used_bytes",    default: 0
-    t.integer  "volunteer_affinity_offset",    default: 0
-    t.integer  "volunteer_affinity_length",    default: 0
+    t.bigint   "volunteer_affinity_offset",    default: 0
+    t.bigint   "volunteer_affinity_length",    default: 0
     t.uuid     "torrent_id"
     t.index ["ip"], name: "index_peers_on_ip", using: :btree
     t.index ["peer_id"], name: "index_peers_on_peer_id", using: :btree
