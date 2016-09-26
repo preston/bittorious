@@ -10,21 +10,31 @@ Rails.application.configure do
 		rewrite /^\/(announce|scrape)\?(.*)/, lambda { |match, rack_env|
 			# byebug
 			query = Rack::Utils.parse_nested_query(rack_env['QUERY_STRING'])
-			if query['info_hash']
-				hex = query['info_hash'].unpack('H*')
-				puts "info_hash rewrite: #{} -> #{hex}"
-				query['info_hash'] = hex
+			# puts "IH #{query['info_hash'].size}"
+			if query['info_hash'] #&& query['info_hash'] !~ /^[a-z0-9]{40}$/
+				hex = query['info_hash'].unpack('H*')[0]
+				puts hex.length
+				# if hex.length == 40
+					puts "info_hash rewrite: #{query['info_hash']} -> #{hex}"
+					query['info_hash'] = hex
+				# else
+				# 	puts "info_hash rewrite skipped"
+				# end
 				# byebug
 			end
-			if query['peer_id']
-				hex = query['peer_id'].unpack('H*')
-				puts "peer_id rewrite: #{hex}"
-				query['peer_id'] = hex
+			# puts "PI #{query['peer_id'].size}"
+			if query['peer_id'] #&& query['peer_id'] !~ /^[a-z0-9]{40}$/
+				hex = query['peer_id'].unpack('H*')[0]
+				# if hex.length == 40
+					puts "peer_id rewrite: #{query['peer_id']} -> #{hex}"
+					query['peer_id'] = hex
+				# else
+				# 	puts "peer_id rewrite skipped"
+				# end
 			end
 			rack_env['QUERY_STRING'] = URI.encode_www_form(query)
 			puts "Rewrote query string to #{rack_env['QUERY_STRING']}"
 			r = "/#{match[1]}?#{rack_env['QUERY_STRING']}"
-
 		}
     end
 end

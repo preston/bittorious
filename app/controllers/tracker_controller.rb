@@ -29,7 +29,7 @@ class TrackerController < ApplicationController
 		end
 
 		response.headers['Content-Type'] = 'text/plain; charset=ASCII'
-		render :text => tracker_response.to_bencoding.encode('ASCII') # Force US-ASCII
+		render plain: tracker_response.to_bencoding.encode('ASCII') # Force US-ASCII
 	end
 
 	def scrape
