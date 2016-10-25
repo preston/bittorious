@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20160926024950) do
     t.string   "name"
     t.text     "description"
     t.uuid     "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "enable_public_archiving", default: false
-    t.integer  "replication_percentage",  default: 20
+    t.datetime "created_at",              precision: 6
+    t.datetime "updated_at",              precision: 6
+    t.boolean  "enable_public_archiving",               default: false
+    t.integer  "replication_percentage",                default: 20
     t.index ["user_id"], name: "index_feeds_on_user_id", using: :btree
   end
 
@@ -35,18 +35,18 @@ ActiveRecord::Schema.define(version: 20160926024950) do
     t.bigint   "downloaded"
     t.bigint   "left"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   precision: 6
+    t.datetime "updated_at",                   precision: 6
     t.float    "latitude"
     t.float    "longitude"
     t.string   "country_name"
     t.string   "city_name"
     t.uuid     "user_id"
-    t.boolean  "volunteer_enabled",            default: false
-    t.bigint   "volunteer_disk_maximum_bytes", default: 0
-    t.bigint   "volunteer_disk_used_bytes",    default: 0
-    t.bigint   "volunteer_affinity_offset",    default: 0
-    t.bigint   "volunteer_affinity_length",    default: 0
+    t.boolean  "volunteer_enabled",                          default: false
+    t.bigint   "volunteer_disk_maximum_bytes",               default: 0
+    t.bigint   "volunteer_disk_used_bytes",                  default: 0
+    t.bigint   "volunteer_affinity_offset",                  default: 0
+    t.bigint   "volunteer_affinity_length",                  default: 0
     t.uuid     "torrent_id"
     t.index ["ip"], name: "index_peers_on_ip", using: :btree
     t.index ["peer_id"], name: "index_peers_on_peer_id", using: :btree
@@ -57,20 +57,20 @@ ActiveRecord::Schema.define(version: 20160926024950) do
     t.uuid     "user_id"
     t.uuid     "feed_id"
     t.string   "role"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
     t.index ["feed_id"], name: "index_permissions_on_feed_id", using: :btree
     t.index ["user_id"], name: "index_permissions_on_user_id", using: :btree
   end
 
   create_table "torrents", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      precision: 6
+    t.datetime "updated_at",      precision: 6
     t.uuid     "user_id"
     t.bigint   "size"
-    t.string   "info_hash",       null: false
-    t.binary   "data",            null: false
+    t.string   "info_hash",                     null: false
+    t.binary   "data",                          null: false
     t.uuid     "feed_id"
     t.integer  "pieces"
     t.integer  "piece_length"
@@ -81,28 +81,28 @@ ActiveRecord::Schema.define(version: 20160926024950) do
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                                default: "",    null: false
+    t.string   "encrypted_password",                   default: "",    null: false
     t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "reset_password_sent_at", precision: 6
+    t.datetime "remember_created_at",    precision: 6
+    t.integer  "sign_in_count",                        default: 0,     null: false
+    t.datetime "current_sign_in_at",     precision: 6
+    t.datetime "last_sign_in_at",        precision: 6
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at",           precision: 6
+    t.datetime "confirmation_sent_at",   precision: 6
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,     null: false
+    t.integer  "failed_attempts",                      default: 0,     null: false
     t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "locked_at",              precision: 6
+    t.datetime "created_at",             precision: 6
+    t.datetime "updated_at",             precision: 6
     t.boolean  "approved"
-    t.boolean  "admin",                  default: false
-    t.string   "name",                   default: "",    null: false
+    t.boolean  "admin",                                default: false
+    t.string   "name",                                 default: "",    null: false
     t.string   "authentication_token"
     t.index ["approved"], name: "index_users_on_approved", using: :btree
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
