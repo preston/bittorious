@@ -57,6 +57,7 @@ The BitTorious application is designed in [12factor](http://12factor.net) style 
 
   The following additional environment variables are optional, but potentially useful in a production context. Note that the database connection pool is adjusted automatically based on these values. If in doubt, do NOT set these.
 
+	export BITTORIOUS_LANDING_IFRAME="https://example.com/landing" # If present, replacing the screenshot carousel on the landing page. 
 	export BITTORIOUS_SERVER_PROCESSES=16 # To override the number of pre-forked workers.
 	export BITTORIOUS_SERVER_THREAD=8 # To override the number of threads per process.
 

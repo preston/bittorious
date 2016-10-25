@@ -57,23 +57,27 @@
 			- if !user_signed_in?
 				p.text-center = link_to('Request an account, right this second.', new_user_registration_path, class: 'btn btn-primary')
 				
-		.col-md-8#overview_carousel
-			h1 Big Data Collaboration
-			hr
-			p.lead
-				|  Securely exchange massive data sets amongst private communities over the Internet. 
-				= image_tag('logo/icon-128x128.png', width: 32, style: 'display: inline')
-			= render partial: 'welcome/carousel'
-			/ = image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
-			p.text-center
-				span = text_with_icon('cloud data publishing ', 'cloud-upload')
-				span = text_with_icon('data downloads ', 'cloud-download')
-				br
-				span = text_with_icon('account management ', 'user')
-				span = text_with_icon('platform neutral ', 'globe')
-				br
-				span = text_with_icon('completely free ', 'usd')
-				span = text_with_icon('secured access ', 'lock')
+		.col-md-8
+			- if ENV['BITTORIOUS_LANDING_IFRAME']
+				iframe#landing_iframe src="#{ENV['BITTORIOUS_LANDING_IFRAME']}"
+			- else
+				#overview_carousel
+					h1 Big Data Collaboration
+					hr
+					p.lead
+						|  Securely exchange massive data sets amongst private communities over the Internet. 
+						= image_tag('logo/icon-128x128.png', width: 32, style: 'display: inline')
+						= render partial: 'welcome/carousel'
+						/ = image_tag 'dashboard.png', class: 'img-responsive img-thumbnail'
+						p.text-center
+						span = text_with_icon('cloud data publishing ', 'cloud-upload')
+						span = text_with_icon('data downloads ', 'cloud-download')
+						br
+						span = text_with_icon('account management ', 'user')
+						span = text_with_icon('platform neutral ', 'globe')
+						br
+						span = text_with_icon('completely free ', 'usd')
+						span = text_with_icon('secured access ', 'lock')
 				
 	section.row
 		/ hr
