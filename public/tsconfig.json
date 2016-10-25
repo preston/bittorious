@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": false,
+        "noImplicitAny": false
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "filesGlob": [
+        "app/**/*.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    },
+    "files": [
+        "app/app.module.ts",
+        "app/components/api.component.ts",
+        "app/components/client.component.ts",
+        "app/components/conditions.component.ts",
+        "app/components/dashboard.component.ts",
+        "app/components/feeds.component.ts",
+        "app/components/settings.component.ts",
+        "app/components/torrents.component.ts",
+        "app/directives/auto-grow.directive.ts",
+        "app/directives/highlight.directive.ts",
+        "app/main.ts",
+        "app/models/feed.model.ts",
+        "app/models/peer.model.ts",
+        "app/models/torrent.model.ts",
+        "app/pipes/humanizeBytes.pipe.ts",
+        "app/services/client.service.ts",
+        "app/services/condition.service.ts",
+        "app/services/encounter.service.ts",
+        "app/services/feeds.service.ts",
+        "app/services/search.service.ts",
+        "app/services/server.service.ts",
+        "app/services/torrents.service.ts"
+    ]
+}

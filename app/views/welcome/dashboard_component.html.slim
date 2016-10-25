@@ -1,0 +1,26 @@
+/ = render partial: 'welcome/dialogs'
+
+.row
+	.col-sm-3
+		feeds
+	.col-sm-9
+		.container-fluid
+			#feed_details
+				/ *ngIf="selectedFeed"
+				div
+					ul.nav.nav-tabs
+						li.active
+							a href="#torrents" data-toggle="tab"
+								h3 = text_with_icon('Torrents', 'file')
+						li
+							/ ng-show="selectedFeed.can_update"
+							a href="#settings" data-toggle="tab"
+								h3 = text_with_icon('Settings', 'wrench')
+					.tab-content
+						.tab-pane.active#torrents
+							/ torrents
+							/ ng-include src="'/dashboard/torrents'"
+						.tab-pane#settings
+							/ ng-show="selectedFeed.can_update"
+							/ settings
+							/ ng-include src="'/dashboard/settings'"

@@ -1,0 +1,25 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3">
+			<h2><span class="glyphicon glyphicon-transfer"></span> Developer API</h2>
+			<p>HealthCreek supports a RESTful JSON API for building applications and integrating with existing systems.</p>
+		</div>
+		<div class="col-sm-9">
+			<div class="well" id="todo">
+				<h4><small>GET </small> a global list of stuff</h4>
+				<p>
+					<a [href]="healthCreekService.getUrl() + '/things.json'">
+						TODO
+						<!-- {{healthCreekService.getUrl()}}/things.json -->
+					</a>
+				</p>
+				<button aria-controls="things_result" aria-expanded="false" class="btn btn-primary" data-target="#things_result" data-toggle="collapse" type="button">
+					<span class="glyphicon glyphicon-eye-open"></span> Show Result
+				</button>
+				<pre class="collapse" id="things_result">
+					<small></small>
+				</pre>
+			</div>
+		</div>
+	</div>
+</div>

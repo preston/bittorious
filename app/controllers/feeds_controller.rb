@@ -38,6 +38,7 @@ class FeedsController < ApplicationController
         end
         respond_to do |format|
 			# format.json { render json: @feeds.to_json(include: INCLUDES) }
+			# format.html { render layout: false }
 			format.json { render }
         end
     end

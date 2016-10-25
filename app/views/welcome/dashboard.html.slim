@@ -1,28 +1,4 @@
 - content_for :title do 'Dashboard' end
 - content_for :body_class do 'dashboard' end
 
-
-#dashboard ng-controller="FeedController" admin-controls="#{current_user.admin}"
-	= render partial: 'welcome/dialogs'
-
-	#sidebar-wrapper ng-include="'/dashboard/feeds'"
-
-	#page-content-wrapper
-		.container-fluid
-
-			#feed_details ng-show="selectedFeed"
-				div
-					ul.nav.nav-tabs
-						li.active
-							a href="#torrents" data-toggle="tab"
-								h3 = text_with_icon('Torrents', 'file')
-						li ng-show="selectedFeed.can_update"
-							a href="#settings" data-toggle="tab"
-								h3 = text_with_icon('Settings', 'wrench')
-					
-					
-					.tab-content
-						.tab-pane.active#torrents
-							ng-include src="'/dashboard/torrents'"
-						.tab-pane#settings ng-show="selectedFeed.can_update"
-							ng-include src="'/dashboard/settings'"
+dashboard#dashboard

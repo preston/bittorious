@@ -17,6 +17,17 @@ html ng-app="BitToriousApp"
     = yield(:head)
     = yield(:javascripts)
 
+	/ Initialize all our AngularJS stuff for the dashboard.
+
+	/ Polyfill(s) for older browsers
+	script src="node_modules/core-js/client/shim.min.js"
+	script src="node_modules/zone.js/dist/zone.js"
+	script src="node_modules/reflect-metadata/Reflect.js"
+	script src="node_modules/systemjs/dist/system.src.js"
+	/ Configure SystemJS
+	script src="systemjs.config.js"
+	javascript:
+		System.import('app').catch(function(err) { console.error(err); });
 
   body class="#{yield(:body_class)}"
     / header

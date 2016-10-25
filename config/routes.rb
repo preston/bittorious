@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-	devise_for :users, :controllers => { registrations: :registrations } 
+	devise_for :users, :controllers => { registrations: :registrations }
 
 	resources :users do
 		member do
@@ -22,7 +22,6 @@ Rails.application.routes.draw do
 	get 'announce' => 'tracker#announce'
 
 	get 'landing' => "welcome#landing"
-	get 'dashboard' => "welcome#dashboard"
 	get 'concepts' => "welcome#concepts"
 	get 'history' => "welcome#history"
 	get 'deployment' => "welcome#deployment"
@@ -32,8 +31,7 @@ Rails.application.routes.draw do
 	get 'getting_started' => "welcome#getting_started"
 
 	root :to => 'welcome#landing'
-	get 'dashboard/feeds' => 'welcome#feeds'
-	get 'dashboard/torrents' => 'welcome#torrents'
-	get 'dashboard/settings' => 'welcome#settings'
+	get 'dashboard' => "welcome#dashboard"
+	get 'dashboard_component' => "welcome#dashboard_component"
 
 end

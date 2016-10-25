@@ -1,0 +1,24 @@
+<div id="feeds">
+	<div>
+		<h2> <span class="glyphicon glyphicon-wrench"></span> Data Feeds</h2>
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Torrents</th>
+					<th>Updated</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- <h1>{{feeds.length}}</h1> -->
+				<tr *ngFor="let feed of feeds" (click)="select(feed.id)" class="feed_link">
+					<td><b>{{feed.name}}</b></td>
+					<td>{{feed.torrents_count}}</td>
+					<td><small>{{feed.updated_at | amTimeAgo}}</small></td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="muted">Select a feed to show torrents that have been published to it. Confused? See link_to "Getting Started", 'getting_started'.</p>
+		<div>if can? :create, Feed .btn-group button.btn.btn-default ng-click="newFeedDialog()" role="button" span.glyphicon.glyphicon-plus-sign | Create a feed.</div>
+	</div>
+</div>

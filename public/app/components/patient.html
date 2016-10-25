@@ -1,0 +1,76 @@
+<div>
+	<aside id="sidebar" class="col-sm-3" *ngIf="patients">
+		<section>
+			<h2></h2>
+			<form>
+				<div class="form-group">
+					<label><span class="glyphicon glyphicon-fire"></span> Provider</label>
+					<select class="form-control" id="server_select" (change)="selectServerForUrl($event.target.value)">
+					<option *ngFor="let s of servers" [value]="s.url" [selected]="server && (s.url == server.url)">{{s.name}}</option>
+				</select>
+				</div>
+				<div class="form-group">
+					<label><span class="glyphicon glyphicon-user"></span> Patient</label>
+					<select class="form-control" id="patient_select" (change)="select($event.target.value)">
+					<option *ngFor="let p of patients" [value]="p.id" [selected]="patient && (p.id == patient.id)">
+						<span *ngIf="p.name && p.name[0].given">{{p.name[0].given[0]}}</span>
+						<span *ngIf="p.name && p.name[0].family">{{p.name[0].family[0]}}</span>
+					</option>
+				</select>
+					<p class="text-right text-sm" *ngIf="selected">
+						<small>
+						..a <b>{{-1 * (selected.birthDate | amDifference:today:'years':false)}}-year-old {{selected.gender}}</b> born {{selected.birthDate | amDateFormat:'LL'}}.
+					</small>
+					</p>
+				</div>
+			</form>
+
+
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#conditions" aria-controls="conditions" role="tab" data-toggle="tab">
+						<span class="glyphicon glyphicon-alert"></span> Conditions
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#identity" aria-controls="identity" role="tab" data-toggle="tab">
+						<span class="glyphicon glyphicon-credit-card"></span> Identity
+					</a>
+				</li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="conditions">
+					<conditions [patient]="selected"></conditions>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="identity">
+					<section *ngIf="selected">
+						<h4>ID</h4>
+						<div class="identifier" *ngFor="let id of selected.identifier">
+							<b *ngIf="id['type'] && id['type']['coding']">{{id['type']['coding'][0]['display']}}</b>
+							<i>({{id['value']}})</i>
+							<br/>
+							<small>{{id['system']}} {{id['use']}}</small>
+						</div>
+					</section>
+					<section *ngIf="selected">
+						<h4>Addresses</h4>
+						<address class="address" *ngFor="let a of selected.address">
+								<b *ngIf="a['line']">{{a['line'][0]}}</b>
+								<i>({{a['use']}})</i>
+								<br/>
+								<small>{{a['city']}}, {{a['country']}}, {{a['postalCode']}}</small>
+							</address>
+					</section>
+				</div>
+			</div>
+		</section>
+
+	</aside>
+
+	<observations class="col-sm-6" [patient]="selected"></observations>
+	<activities class="col-sm-3" [patient]="selected"></activities>
+</div>

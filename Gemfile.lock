@@ -38,10 +38,6 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    angular-rails-templates (1.0.2)
-      railties (>= 4.2, < 6)
-      sprockets (>= 3.0, < 5)
-      tilt
     arel (7.1.4)
     autoprefixer-rails (6.5.1.1)
       execjs
@@ -52,7 +48,6 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bower-rails (0.11.0)
     builder (3.2.2)
     bullet (5.4.2)
       activesupport (>= 3.0.0)
@@ -248,12 +243,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  angular-rails-templates
   autoprefixer-rails
   bencode
   binding_of_caller
   bootstrap-sass
-  bower-rails
   bullet
   byebug
   cancancan

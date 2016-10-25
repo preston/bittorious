@@ -1,0 +1,40 @@
+<!-- <section> -->
+	<!-- <h2>Conditions</h2> -->
+	<!-- <div class="checkbox-inline">
+		<label><input type="checkbox" [(ngModel)]="active">Active?</label>
+	</div>
+	<div class="checkbox-inline">
+		<label><input type="checkbox" [(ngModel)]="confirmed">Confirmed?</label>
+	</div> -->
+	<p class="text-default" *ngIf="conditions.length == 0">
+		<i>(none)</i>
+	</p>
+	<table class="table table-condensed table-striped" *ngIf="conditions.length > 0">
+		<colgroup>
+			<col style="width:60%">
+			<col style="width:15%">
+			<col style="width:25%">
+		</colgroup>
+		<thead>
+			<tr>
+				<th>
+					Description
+				</th>
+				<th>
+					Status
+				</th>
+				<th>
+					Onset
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let c of conditions">
+				<!-- <td>{{c.id}}</td> -->
+				<td>{{c.code['text']}}</td>
+				<td>{{c.clinicalStatus}}</td>
+				<td>{{c.onsetDateTime | amTimeAgo}}</td>
+			</tr>
+		</tbody>
+	</table>
+<!-- </section> -->

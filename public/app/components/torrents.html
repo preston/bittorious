@@ -1,0 +1,115 @@
+<!-- <div class="row" *ngIf="selectedFeed">
+	<div class="col-md-9">
+		<h1>{{selectedFeed.name}}</h1>
+		<p>{{selectedFeed.description}}</p><pre><h4><i class="icon icon-rss"></i> Data RSS Feed</h4><a href="{{$location.host}}/feeds/{{selectedFeed.id}}.rss?authentication_token=current_user.authentication_token">{{urlRoot}}/feeds/{{selectedFeed.id}}.rss?authentication_token=current_user.authentication_token</a></pre>
+		<p class="help-block">If you'd like to subscribe to this entire feed, jam this URL into your BitTorrent client! (Shhhh.. don't share it! This URL is specifically for YOU, and includes a secret token that should not be shared.)</p><i><span>Public volunteer archiving is <b>{{selectedFeed.enable_public_archiving ? 'enabled' : 'disabled'}}.</b></span><span ng-show="selectedFeed.enable_public_archiving">, with a target replication percentage of  <b ng-bind="selectedFeed.replication_percentage"></b>% per peer per torrent.</span><br /><span>The feed ID is: </span><b ng-bind="selectedFeed.id"></b></i></div>
+	<div class="col-md-3">
+		<div ng-show="selectedFeed.can_update">
+			<h1>&nbsp;</h1><button class="btn btn-primary" href="#create_torrent_dialog" ng-click="newTorrentDialog()" role="button"><span class="glyphicon glyphicon-upload"></span> Register a torrent.</button>
+			<p class="help-block"><small>To publish a new data .torrent to this feed, create the .torrent metadata file on your local machine, and then upload it via this dialog.</small></p>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h1 class="lead" ng-show="selectedFeed.torrents.length == 0">No torrents have been published to 	{{selectedFeed.name}}!</h1>
+		<table class="table table-condensed" id="feed_torrents" ng-show="selectedFeed.torrents.length &gt; 0">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Publisher</th>
+					<th>Seeders</th>
+					<th>Leechers</th>
+					<th>Size</th>
+					<th>Download</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="torrent in selectedFeed.torrents" ng-class="{selected: torrent.id === selectedTorrent.id}" (select)="selectTorrent(torrent)" class="torrent_link">
+					<td><b>{{torrent.name}}</b><small>{{torrent.description}}</small></td>
+					<td>{{torrent.user.name}}</td>
+					<td>{{torrent.seed_count}}</td>
+					<td>{{torrent.peer_count}}</td>
+					<td>{{torrent.size}}</td>
+					<td><a class="btn btn-primary" href="/feeds/{{selectedFeed.id}}/torrents/{{torrent.id}}.torrent">text_with_icon('Download', 'download')</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-6" *ngIf="selectedTorrent.active_peers.length == 0">
+		<h1>No peers for this torrent.</h1>
+		<div class="lead">Time to make some friends?</div>
+	</div>
+	<div class="col-lg-6" id="active_peers" *ngIf="selectedTorrent.active_peers.length > 0">
+		<h3> Authenticated Peers
+			<span class="badge">{{selectedTorrent.active_peer_count(true)}}</span></h3>
+		<div id="table_container">
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>IP Address</th>
+						<th>Location</th>
+						<th>Status</th>
+						<th>Needs</th>
+						<th>Uploaded</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let peer of selectedTorrent.active_peers" *ngIf="!peer.volunteer_enabled">
+						<td ng-bind="peer.user.name"></td>
+						<td><span ng-bind="peer.ip"></span>:<span ng-bind="peer.port"></span><br /><small id="latitude" ng-bind="peer.latitude" ng-show="peer.latitude"></small><small id="longitude" ng-bind="peer.longitude" ng-show="peer.longitude"></small></td>
+						<td><b id="latitude" ng-bind="peer.city_name" ng-show="peer.city_name"></b><br /><small id="longitude" ng-bind="peer.country_name" ng-show="peer.country_name"></small></td>
+						<td><span ng-show="peer.left &gt; 0">Leeching</span><span ng-show="peer.left == 0">Seeding</span></td>
+						<td ng-bind="peer.left | humanizeBytes"></td>
+						<td ng-bind="peer.uploaded | humanizeBytes"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<h3> Volunteer Peers<span class="badge" ng-bind="selectedTorrent.active_peer_count(false)"></span></h3>
+		<div id="table_container">
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th><a ng-click="reverse = !reverse; predicate = &#39;ip&#39;; ">IP Address</a></th>
+						<th><a ng-click="reverse = !reverse; predicate = &#39;city_name&#39;; ">Location</a></th>
+						<th><a ng-click="reverse = !reverse; predicate = &#39;active_peers.length&#39;; ">Status</a></th>
+						<th><a ng-click="reverse = !reverse; predicate = &#39;pieces&#39;; ">Affinity Offset</a></th>
+						<th><a ng-click="reverse = !reverse; predicate = &#39;volunteer_disk_used_bytes&#39;; ">Total Usage</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="peer in selectedTorrent.active_peers" ng-show="peer.volunteer_enabled">
+						<td ng-bind="peer.user.name"></td>
+						<td><span ng-bind="peer.ip"></span>:<span ng-bind="peer.port"></span><br /><small id="latitude" ng-bind="peer.latitude" ng-show="peer.latitude"></small><small id="longitude" ng-bind="peer.longitude" ng-show="peer.longitude"></small></td>
+						<td><b id="latitude" ng-bind="peer.city_name" ng-show="peer.city_name"></b><br /><small id="longitude" ng-bind="peer.country_name" ng-show="peer.country_name"></small></td>
+						<td><span ng-show="peer.left &gt; 0">Leeching</span><span ng-show="peer.left == 0">Seeding</span></td>
+						<td><span ng-bind="peer.volunteer_disk_used_bytes | humanizeBytes"></span>/<span ng-bind="peer.volunteer_disk_maximum_bytes | humanizeBytes"></span></td>
+						<td><span ng-bind="peer.volunteer_affinity_offset | humanizeBytes"></span> + <span ng-bind="peer.volunteer_affinity_length | humanizeBytes"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-lg-6" id="torrent_details" ng-show="selectedTorrent">
+		<h3 ng-bind="selectedTorrent.name"></h3><a class="btn btn-primary" ng-click="updateTorrent()" ng-show="selectedTorrent.can_update">text_with_icon('Save', 'floppy-disk')</a><a class="btn btn-danger pull-right" ng-click="deleteTorrent(selectedTorrent)" ng-confirm-click="Are you sure?" ng-show="selectedFeed.can_update">text_with_icon('Delete', 'trash')</a>
+		<form id="edit_torrent_form" ng-submit="updateTorrent()" role="form">
+			<div class="form-group"><label for="name">Name</label><input class="form-control" id="torrent_name" ng-model="selectedTorrent.name" ng-show="selectedFeed.can_update" type="text" /></div>
+		</form>
+		<dl class="dl-horizontal"><dt>Created</dt>
+			<dd ng-bind="selectedTorrent.created_at | relativeDate"></dd><dt>Updated</dt>
+			<dd ng-bind="selectedTorrent.updated_at | relativeDate"></dd><dt>Publisher</dt>
+			<dd ng-bind="selectedTorrent.user.name"></dd><dt>Created With</dt>
+			<dd ng-bind="selectedTorrent.file_created_by"></dd><dt>Pieces</dt>
+			<dd ng-bind="selectedTorrent.pieces"></dd><dt>Piece Size</dt>
+			<dd ng-bind="selectedTorrent.piece_length | humanizeBytes"></dd><dt>Feed</dt>
+			<dd ng-bind="selectedFeed.name"></dd><dt>Info Hash</dt>
+			<dd ng-bind="selectedTorrent.info_hash"></dd>
+		</dl>
+	</div>
+	<div class="col-md-12" ng-show="selectedTorrent.active_peers.length &gt; 0">
+		<h3>Peer Map</h3>
+		<div id="map_canvas"></div>
+	</div>
+</div> -->

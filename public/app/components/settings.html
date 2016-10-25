@@ -1,0 +1,65 @@
+<!-- <div class="row">
+	<div class="col-md-12" ng-show="selectedFeed.can_update">
+		<form id="update_feed_form" name="update_feed_form" role="form">
+			<div class="form-group"><label for="feed_name">Name</label><input class="form-control" id="feed_name" ng-model="selectedFeed.name" placeholder="My Awesome Data Feed" required="true" type="text" /></div>
+			<div class="form-group"><label for="feed_description">Description</label><textarea class="form-control" id="feed_description" ng-model="selectedFeed.description" placeholder="Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta acconsectetur ac, vestibulum at eros."
+								required="true" rows="4"></textarea></div>
+			<div class="checkbox"><label><input id="form_enable_public_archiving" name="form[enable_public_archiving]" ng-model="selectedFeed.enable_public_archiving" type="checkbox"><p><b>Enable Public Archiving</b><br />All feed data will replicate to anonymous volunteer peers, which is roughly equivalent to granting Permission::SUBSCRIBER_ROLE permissions to all anonymous users. <b>When changing these settings, users may have to reimport the torrent files into their client(s) to receive the new settings</b>, depending on if they're subscribed to the RSS feed and have their client configured to automatically apply torrent updates.</p></input></label></div>
+			<div class="form-group" ng-show="selectedFeed.enable_public_archiving"><label for="feed_replication_percentage">Target Replication Percentage</label><input class="form-control" id="feed_replication_percentage" max="100" min="1" ng-model="selectedFeed.replication_percentage" required="required" step="1" type="number" /></div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col-md-9"><button class="btn btn-primary btn-lg" ng-click="updateFeed()" ng-disabled="update_feed_form.$invalid" ng-show="selectedFeed.can_update" type="submit">text_with_icon('Save', 'floppy-disk')</button></div>
+		<div class="col-md-3"><button class="btn btn-lg btn-danger" ng-click="deleteFeed(selectedFeed)" ng-confirm-click="This will permanently delete the feed and all torrents from the system. Existing subscribers will no longer receive data. This cannot be undone. Are you completely 100% sure you want to delete this feed?"
+							ng-show="selectedFeed.can_delete">text_with_icon('Delete this feed forever!', 'trash')</button></div>
+		<hr />
+	</div>
+	<div class="col-md-6">
+		<div class="h2">Authorized Users</div>
+		<table class="table table-condensed table-striped" id="authorized-users">
+			<thead>
+				<tr>
+					<th><a ng-click="reverse = !reverse; predicate = &#39;user.name&#39;; ">Name</a></th>
+					<th><a ng-click="reverse = !reverse; predicate = &#39;role&#39;; ">Role</a></th>
+					<th ng-show="selectedFeed.can_update">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="p in selectedFeed.permissions | orderBy:predicate:reverse">
+					<td ng-bind="p.user.name"></td>
+					<td ng-bind="p.role"></td>
+					<td ng-show="selectedFeed.can_update"><button class="btn btn-default" ng-click="deletePermission(p)">text_with_icon('Revoke', 'trash')</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-6"><br />
+		<div class="well">
+			<h4>Authorize a user...</h4>
+			<form role="form">
+				<div class="form-group"><input class="form-control" id="userFilterFormInput" ng-model="userSearch.text" placeholder="John Smith" /></div>
+			</form>
+			<table class="table table-condensed table-striped" id="unauthorized-users" ng-show="userSearch.text.length &gt; 0">
+				<thead>
+					<tr>
+						<th><a ng-click="reverse = !reverse; predicate = &#39;name&#39;; ">Name</a></th>
+						<th>Grant</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="!u.admin" ng-repeat="u in users | filter:userFilterMatch | orderBy:predicate:reverse" ng-show="selectedFeed">
+						<td ng-bind="u.name"></td>
+						<td>
+							<div class="btn-group"><button class="btn btn-default" ng-click="createPermission(u,&#39;Permission::SUBSCRIBER_ROLE)">text_with_icon('Subscriber', 'download')</button><button class="btn btn-default" ng-click="createPermission(u,&#39;Permission::PUBLISHER_ROLE)">text_with_icon('Publisher', 'upload')</button></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<h4>Administrators</h4>
+			<p>The global portal administrators below always have access, so they won't show up in your search results. </p>
+			<ul>
+				<li ng-bind="u.name" ng-if="u.admin" ng-repeat="u in users"></li>
+			</ul>
+		</div>
+	</div>
+</div> -->
