@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '3.1.2'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '>= 6.0.0'
 gem 'rack-rewrite'# Needed to rewrite data in query string values due to retarded BitTorrent /announce and /scrape behavior.
 
 
@@ -9,7 +9,7 @@ gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'cancancan'
 
-gem 'therubyracer' # Google v8 JavaScript runtime.
+# gem 'therubyracer' # Google v8 JavaScript runtime.
 
 # AngularJS
 # http://www.intridea.com/blog/2014/9/25/how-to-set-up-angular-with-rails
@@ -34,6 +34,7 @@ gem 'geocoder'
 gem 'gravatar_image_tag'
 
 gem	'puma'			# Better web server.
+gem 'net-smtp'
 
 # Use SCSS for stylesheets
 gem 'sass-rails' #, '~> 4.0.5'
@@ -45,7 +46,7 @@ gem 'pg'
 group :test, :development do
   gem 'simplecov', require: false
   gem 'guard'
-  gem 'guard-minitest', '2.4.5'
+  gem 'guard-minitest', '>= 2.4.5'
 end
 
 
